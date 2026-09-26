@@ -10,6 +10,7 @@
   if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', t);
 })();
+
 </script>
 <style>
   :root{--bg:#f6f7f9;--panel:#fff;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--accent:#0369a1;--code:#16a34a;--docs:#7c3aed;--proc:#c2410c;color-scheme:light}
