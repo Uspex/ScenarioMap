@@ -1,0 +1,19 @@
+{
+  "name": "scenario-map-kit",
+  "version": "0.1.0",
+  "description": "Сценарные карты «вход → финиш с ветвлениями» из JSON: интерактивные HTML без сервера, сверка с кодом на любом языке, инструкции для людей и ИИ-агентов.",
+  "type": "module",
+  "private": true,
+  "engines": { "node": ">=18" },
+  "bin": {
+    "scenario-map-build": "./bin/build.mjs",
+    "scenario-map-scan": "./bin/scan.mjs",
+    "scenario-map-init": "./bin/init.mjs"
+  },
+  "scripts": {
+    "build:shop": "node bin/build.mjs --project=examples/shop",
+    "build:crm": "node bin/build.mjs --project=examples/crm",
+    "build:examples": "npm run build:shop && npm run build:crm",
+    "scan:shop": "node bin/scan.mjs --project=examples/shop"
+  }
+}

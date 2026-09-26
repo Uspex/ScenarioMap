@@ -1,0 +1,613 @@
+{
+  "$schema": "../../../schema/flow.schema.json",
+  "id": "checkout",
+  "order": 1,
+  "name": "Оформление заказа и оплата",
+  "group": "orders",
+  "tone": "ok",
+  "entry": "POST /api/checkout · POST /api/payments/webhook",
+  "what": "Покупатель нажимает «Оплатить»: проверяем корзину, склад и промокод, резервируем товар на 15 минут, создаём заказ и списываем деньги. Если банк просит подтверждение (3-D Secure), результат приходит позже webhook-ом платёжной системы.",
+  "root": "in.checkout",
+  "strict": true,
+  "stages": {
+    "check": "Проверки корзины",
+    "order": "Резерв и заказ",
+    "pay": "Оплата",
+    "confirm": "Подтверждение банка",
+    "result": "Итог"
+  },
+  "steps": {
+    "in.checkout": {
+      "kind": "entry",
+      "actor": "customer",
+      "stage": "check",
+      "title": "Покупатель нажимает «Оплатить»",
+      "code": "POST /api/checkout",
+      "file": "src/checkout/checkout.controller.js:9",
+      "what": "Вход в сценарий: сайт отправляет токен карты и, если есть, промокод. Корзина берётся из базы по покупателю, а не из запроса — подменить цены с клиента нельзя.",
+      "effects": [
+        "db.carts.findByCustomer(req.user.id)"
+      ],
+      "next": "br.cart",
+      "anchor": "src/checkout/checkout.controller.js::placeOrder",
+      "fingerprint": "bd552286878e"
+    },
+    "br.cart": {
+      "kind": "branch",
+      "actor": "api",
+      "stage": "check",
+      "title": "В корзине есть товары?",
+      "code": "placeOrder",
+      "file": "src/checkout/checkout.controller.js:10",
+      "what": "Пустая корзина — частый случай, когда покупатель открыл оплату во второй вкладке и уже оформил заказ в первой.",
+      "branches": [
+        {
+          "short": "да",
+          "hint": "корзина заполнена",
+          "cond": "cart && cart.items.length > 0",
+          "to": "br.stock",
+          "tone": "ok"
+        },
+        {
+          "short": "нет",
+          "hint": "корзина пуста",
+          "cond": "!cart || cart.items.length === 0",
+          "to": "fin.cartEmpty",
+          "tone": "bad"
+        }
+      ],
+      "anchor": "src/checkout/checkout.controller.js::placeOrder",
+      "fingerprint": "bd552286878e"
+    },
+    "br.stock": {
+      "kind": "branch",
+      "actor": "db",
+      "stage": "check",
+      "title": "Все товары есть на складе?",
+      "code": "db.stock.findMissing",
+      "file": "src/checkout/checkout.controller.js:15",
+      "what": "Сверяем каждую позицию с остатками. Отсутствующие позиции возвращаются списком, чтобы сайт подсветил их в корзине.",
+      "branches": [
+        {
+          "short": "да",
+          "hint": "всё в наличии",
+          "cond": "missing.length === 0",
+          "to": "br.promo",
+          "tone": "ok"
+        },
+        {
+          "short": "нет",
+          "hint": "что-то закончилось",
+          "cond": "missing.length > 0",
+          "to": "fin.outOfStock",
+          "tone": "bad"
+        }
+      ],
+      "anchor": "src/checkout/checkout.controller.js::placeOrder",
+      "fingerprint": "bd552286878e"
+    },
+    "br.promo": {
+      "kind": "branch",
+      "actor": "api",
+      "stage": "check",
+      "title": "Промокода нет или он действует?",
+      "code": "db.promos.findActive",
+      "file": "src/checkout/checkout.controller.js:22",
+      "what": "Промокод необязателен. Если он указан, ищем активный; скидка в процентах применяется ко всей сумме корзины.",
+      "branches": [
+        {
+          "short": "да",
+          "hint": "без кода или код активен",
+          "label": "Промокода нет — идём дальше; код найден — запоминаем скидку",
+          "cond": "!req.body.promoCode || promo",
+          "to": "st.reserve",
+          "tone": "ok"
+        },
+        {
+          "short": "нет",
+          "hint": "код не найден или истёк",
+          "cond": "req.body.promoCode && !promo",
+          "to": "fin.promoInvalid",
+          "tone": "bad"
+        }
+      ],
+      "anchor": "src/checkout/checkout.controller.js::placeOrder",
+      "fingerprint": "bd552286878e"
+    },
+    "st.reserve": {
+      "kind": "step",
+      "actor": "db",
+      "stage": "order",
+      "title": "Резервируем товар на 15 минут",
+      "code": "db.stock.reserve",
+      "file": "src/checkout/checkout.controller.js:28",
+      "what": "Товар списывается из свободного остатка, чтобы его не купил кто-то другой, пока идёт оплата. Одновременно ставим отложенную задачу, которая снимет резерв, если заказ так и не оплатят.",
+      "effects": [
+        "stock_reservations: новая запись на 15 минут",
+        "queue.dispatch('releaseReservation', …, { delayMinutes: 15 })"
+      ],
+      "spawns": [
+        "job.release"
+      ],
+      "next": "st.createOrder",
+      "anchor": "src/checkout/checkout.controller.js::placeOrder",
+      "fingerprint": "bd552286878e"
+    },
+    "st.createOrder": {
+      "kind": "step",
+      "actor": "db",
+      "stage": "order",
+      "title": "Создаём заказ «ждёт оплаты»",
+      "code": "db.orders.create",
+      "file": "src/checkout/checkout.controller.js:31",
+      "what": "Заказ появляется до обращения к платёжке: так у платежа есть orderId, и webhook сможет найти заказ.",
+      "effects": [
+        "orders.status = pending_payment",
+        "orders.total = сумма корзины со скидкой"
+      ],
+      "next": "st.charge",
+      "anchor": "src/checkout/checkout.controller.js::placeOrder",
+      "fingerprint": "bd552286878e"
+    },
+    "st.charge": {
+      "kind": "step",
+      "actor": "payment",
+      "stage": "pay",
+      "title": "Просим платёжку списать деньги",
+      "code": "payments.charge",
+      "file": "src/checkout/checkout.controller.js:39",
+      "what": "Синхронный запрос в платёжную систему. Ответ бывает трёх видов: списано, нужно подтверждение в банке, отказ.",
+      "next": "br.payResult",
+      "anchor": "src/checkout/checkout.controller.js::placeOrder",
+      "fingerprint": "bd552286878e"
+    },
+    "br.payResult": {
+      "kind": "branch",
+      "actor": "api",
+      "stage": "pay",
+      "title": "Деньги списались сразу?",
+      "code": "placeOrder",
+      "file": "src/checkout/checkout.controller.js:41",
+      "what": "Разбираем ответ платёжки. «Подтвердить» — банк требует 3-D Secure: покупатель уходит на страницу банка, а итог придёт webhook-ом.",
+      "branches": [
+        {
+          "short": "да",
+          "hint": "платёж succeeded",
+          "cond": "payment.status === 'succeeded'",
+          "to": "st.paid",
+          "tone": "ok"
+        },
+        {
+          "short": "подтвердить",
+          "hint": "банк просит 3-D Secure",
+          "cond": "payment.status === 'requires_action'",
+          "to": "wait.3ds",
+          "tone": "warn"
+        },
+        {
+          "short": "нет",
+          "hint": "банк отклонил",
+          "cond": "иначе (declined, error)",
+          "to": "st.cancel",
+          "tone": "bad"
+        }
+      ],
+      "anchor": "src/checkout/checkout.controller.js::placeOrder",
+      "fingerprint": "bd552286878e"
+    },
+    "wait.3ds": {
+      "kind": "wait",
+      "actor": "customer",
+      "stage": "confirm",
+      "title": "Ждём: покупатель подтверждает платёж в банке",
+      "code": "HTTP 202 + redirectUrl",
+      "file": "src/checkout/checkout.controller.js:46",
+      "what": "Сайт получил 202 и ссылку на страницу банка. Между этим ответом и webhook-ом может пройти от секунд до бесконечности — покупатель может просто закрыть вкладку.",
+      "effects": [
+        "res.status(202).json({ orderId, redirectUrl })"
+      ],
+      "branches": [
+        {
+          "short": "подтвердил",
+          "hint": "банк сообщит итог",
+          "cond": "платёжка шлёт webhook",
+          "to": "in.webhook",
+          "tone": "ok"
+        },
+        {
+          "short": "ушёл",
+          "hint": "вкладку закрыли",
+          "cond": "webhook не приходит",
+          "to": "fin.abandoned",
+          "tone": "warn"
+        }
+      ],
+      "anchor": "src/checkout/checkout.controller.js::placeOrder",
+      "fingerprint": "bd552286878e"
+    },
+    "in.webhook": {
+      "kind": "entry",
+      "actor": "payment",
+      "stage": "confirm",
+      "title": "Платёжка присылает итог платежа",
+      "code": "POST /api/payments/webhook",
+      "file": "src/payments/webhook.controller.js:6",
+      "what": "Второй вход сценария: сервер платёжной системы сообщает, чем закончилось подтверждение в банке.",
+      "attention": [
+        "Нет защиты от повторного webhook: платёжки повторяют доставку при таймауте, и заказ второй раз пройдёт markPaid — покупатель получит два письма, а резерв будет «закоммичен» дважды.",
+        "Заказ по event.orderId не проверяется на существование: для чужого или удалённого заказа обработчик упадёт с 500, и платёжка будет повторять webhook."
+      ],
+      "next": "br.signature",
+      "anchor": "src/payments/webhook.controller.js::handlePaymentWebhook",
+      "fingerprint": "16328b382fde"
+    },
+    "br.signature": {
+      "kind": "branch",
+      "actor": "api",
+      "stage": "confirm",
+      "title": "Подпись webhook верна?",
+      "code": "payments.verifySignature",
+      "file": "src/payments/webhook.controller.js:6",
+      "what": "Без проверки подписи любой мог бы прислать «payment.succeeded» и получить товар бесплатно.",
+      "branches": [
+        {
+          "short": "да",
+          "hint": "запрос от платёжки",
+          "cond": "verifySignature(rawBody, x-signature)",
+          "to": "br.webhookStatus",
+          "tone": "ok"
+        },
+        {
+          "short": "нет",
+          "hint": "подпись не совпала",
+          "cond": "иначе",
+          "to": "fin.badSignature",
+          "tone": "bad"
+        }
+      ],
+      "anchor": "src/payments/webhook.controller.js::handlePaymentWebhook",
+      "fingerprint": "16328b382fde"
+    },
+    "br.webhookStatus": {
+      "kind": "branch",
+      "actor": "api",
+      "stage": "confirm",
+      "title": "Банк подтвердил платёж?",
+      "code": "handlePaymentWebhook",
+      "file": "src/payments/webhook.controller.js:13",
+      "what": "Итог 3-D Secure: успех ведёт к тому же шагу, что и мгновенная оплата; отказ отменяет заказ.",
+      "branches": [
+        {
+          "short": "да",
+          "hint": "payment.succeeded",
+          "cond": "event.type === 'payment.succeeded'",
+          "to": "st.paid",
+          "tone": "ok"
+        },
+        {
+          "short": "нет",
+          "hint": "банк отказал",
+          "cond": "иначе",
+          "to": "st.cancelByWebhook",
+          "tone": "bad"
+        }
+      ],
+      "anchor": "src/payments/webhook.controller.js::handlePaymentWebhook",
+      "fingerprint": "16328b382fde"
+    },
+    "st.paid": {
+      "kind": "step",
+      "actor": "db",
+      "stage": "result",
+      "title": "Отмечаем заказ оплаченным",
+      "code": "markPaid",
+      "file": "src/checkout/checkout.controller.js:55",
+      "what": "Общий шаг для мгновенной оплаты и подтверждения через webhook: статус заказа, окончательное списание резерва и письмо покупателю.",
+      "effects": [
+        "orders.status = paid, paidAt = now",
+        "db.stock.commit(reservationId)",
+        "письмо order-confirmation"
+      ],
+      "next": "fin.paid",
+      "anchor": "src/checkout/checkout.controller.js::markPaid",
+      "fingerprint": "16dab1cefc2d"
+    },
+    "st.cancel": {
+      "kind": "step",
+      "actor": "db",
+      "stage": "result",
+      "title": "Отменяем заказ и снимаем резерв",
+      "code": "placeOrder",
+      "file": "src/checkout/checkout.controller.js:49",
+      "what": "Банк отказал сразу: заказ отменяется с кодом отказа, товар возвращается в свободный остаток.",
+      "effects": [
+        "orders.status = cancelled, reason = declineCode",
+        "db.stock.release(reservationId)"
+      ],
+      "next": "fin.declined",
+      "anchor": "src/checkout/checkout.controller.js::placeOrder",
+      "fingerprint": "bd552286878e"
+    },
+    "st.cancelByWebhook": {
+      "kind": "step",
+      "actor": "db",
+      "stage": "result",
+      "title": "Отменяем заказ после отказа банка",
+      "code": "handlePaymentWebhook",
+      "file": "src/payments/webhook.controller.js:18",
+      "what": "То же, что при мгновенном отказе, но покупатель уже не ждёт ответа — узнает о результате только на странице заказа.",
+      "effects": [
+        "orders.status = cancelled",
+        "db.stock.release(reservationId)",
+        "платёжке — 200 { ok: true }"
+      ],
+      "attention": [
+        "Покупатель не получает ни письма, ни уведомления об отказе банка — заказ молча становится «отменён»."
+      ],
+      "next": "fin.cancelledByBank",
+      "anchor": "src/payments/webhook.controller.js::handlePaymentWebhook",
+      "fingerprint": "16328b382fde"
+    },
+    "fin.cartEmpty": {
+      "kind": "terminal",
+      "actor": "api",
+      "stage": "check",
+      "outcome": "bad",
+      "title": "Отказ 422 — корзина пуста",
+      "file": "src/checkout/checkout.controller.js:11",
+      "what": "Сайт показывает пустую корзину; заказ не создан.",
+      "effects": [
+        "{ error: 'cart_empty' }"
+      ],
+      "anchor": "src/checkout/checkout.controller.js::placeOrder",
+      "fingerprint": "bd552286878e"
+    },
+    "fin.outOfStock": {
+      "kind": "terminal",
+      "actor": "api",
+      "stage": "check",
+      "outcome": "bad",
+      "title": "Отказ 409 — товар закончился",
+      "file": "src/checkout/checkout.controller.js:16",
+      "what": "В ответе список позиций, которых нет: сайт предлагает убрать их из корзины.",
+      "effects": [
+        "{ error: 'out_of_stock', items }"
+      ],
+      "anchor": "src/checkout/checkout.controller.js::placeOrder",
+      "fingerprint": "bd552286878e"
+    },
+    "fin.promoInvalid": {
+      "kind": "terminal",
+      "actor": "api",
+      "stage": "check",
+      "outcome": "bad",
+      "title": "Отказ 400 — промокод недействителен",
+      "file": "src/checkout/checkout.controller.js:23",
+      "what": "Код не найден среди активных. Резерв и заказ не создаются.",
+      "effects": [
+        "{ error: 'promo_invalid' }"
+      ],
+      "anchor": "src/checkout/checkout.controller.js::placeOrder",
+      "fingerprint": "bd552286878e"
+    },
+    "fin.paid": {
+      "kind": "terminal",
+      "actor": "api",
+      "stage": "result",
+      "outcome": "ok",
+      "title": "Финиш: заказ оплачен и передан на сборку",
+      "file": "src/checkout/checkout.controller.js:43",
+      "what": "Мгновенная оплата — 201 с orderId; после 3-D Secure — 200 платёжке, покупатель видит статус на странице заказа.",
+      "effects": [
+        "HTTP 201 { orderId, status: 'paid' }"
+      ],
+      "anchor": "src/checkout/checkout.controller.js::placeOrder",
+      "fingerprint": "bd552286878e"
+    },
+    "fin.declined": {
+      "kind": "terminal",
+      "actor": "api",
+      "stage": "result",
+      "outcome": "bad",
+      "title": "Отказ 402 — банк отклонил платёж",
+      "file": "src/checkout/checkout.controller.js:51",
+      "what": "Покупатель видит код отказа банка и может попробовать другую карту — корзина не тронута.",
+      "effects": [
+        "{ error: 'payment_declined', code }"
+      ],
+      "anchor": "src/checkout/checkout.controller.js::placeOrder",
+      "fingerprint": "bd552286878e"
+    },
+    "fin.cancelledByBank": {
+      "kind": "terminal",
+      "actor": "payment",
+      "stage": "result",
+      "outcome": "warn",
+      "title": "Финиш: заказ отменён после отказа банка",
+      "file": "src/payments/webhook.controller.js:20",
+      "what": "Платёжка получила 200, заказ отменён, товар вернулся на склад.",
+      "anchor": "src/payments/webhook.controller.js::handlePaymentWebhook",
+      "fingerprint": "16328b382fde"
+    },
+    "fin.badSignature": {
+      "kind": "terminal",
+      "actor": "api",
+      "stage": "confirm",
+      "outcome": "bad",
+      "title": "Отказ 401 — подпись webhook не совпала",
+      "file": "src/payments/webhook.controller.js:7",
+      "what": "Запрос не от платёжки или сменился секрет. Заказ остаётся «ждёт оплаты» до снятия резерва.",
+      "anchor": "src/payments/webhook.controller.js::handlePaymentWebhook",
+      "fingerprint": "16328b382fde"
+    },
+    "fin.abandoned": {
+      "kind": "terminal",
+      "actor": "customer",
+      "stage": "confirm",
+      "outcome": "warn",
+      "title": "Финиш: покупатель не подтвердил оплату",
+      "what": "Заказ висит в статусе «ждёт оплаты». Через 15 минут фоновая задача снимет резерв (см. параллельную линию)."
+    },
+    "job.release": {
+      "kind": "branch",
+      "actor": "queue",
+      "title": "Через 15 минут: заказ всё ещё не оплачен?",
+      "code": "releaseReservation (очередь, задержка 15 мин)",
+      "file": "src/jobs/releaseReservation.job.js:5",
+      "what": "Отложенная задача, поставленная при резерве. Если заказ оплачен — ничего не делает, иначе возвращает товар в свободный остаток.",
+      "attention": [
+        "Заказ не отменяется — снимается только резерв. Если webhook об оплате придёт позже 15 минут, заказ станет «оплачен», а товар уже свободен и может быть продан второй раз."
+      ],
+      "branches": [
+        {
+          "short": "да",
+          "hint": "оплаты так и нет",
+          "cond": "order.status === 'pending_payment'",
+          "to": "fin.released",
+          "tone": "warn"
+        },
+        {
+          "short": "нет",
+          "hint": "заказ уже оплачен",
+          "cond": "order.status !== 'pending_payment'",
+          "to": "fin.keep",
+          "tone": "ok"
+        }
+      ],
+      "anchor": "src/jobs/releaseReservation.job.js::releaseReservation",
+      "fingerprint": "518ffc16783e"
+    },
+    "fin.released": {
+      "kind": "terminal",
+      "actor": "queue",
+      "outcome": "info",
+      "title": "Финиш: резерв снят, товар снова в продаже",
+      "file": "src/jobs/releaseReservation.job.js:9",
+      "what": "db.stock.release(reservationId); заказ остаётся «ждёт оплаты».",
+      "anchor": "src/jobs/releaseReservation.job.js::releaseReservation",
+      "fingerprint": "518ffc16783e"
+    },
+    "fin.keep": {
+      "kind": "terminal",
+      "actor": "queue",
+      "outcome": "info",
+      "title": "Финиш: резерв не трогаем",
+      "file": "src/jobs/releaseReservation.job.js:6",
+      "what": "Заказ оплачен или отменён раньше — задача ничего не делает.",
+      "anchor": "src/jobs/releaseReservation.job.js::releaseReservation",
+      "fingerprint": "518ffc16783e"
+    }
+  },
+  "presets": [
+    {
+      "name": "Оплата прошла сразу",
+      "tone": "ok",
+      "note": "основной путь: карта без 3-D Secure",
+      "path": [
+        "in.checkout",
+        "br.cart",
+        "br.stock",
+        "br.promo",
+        "st.reserve",
+        "st.createOrder",
+        "st.charge",
+        "br.payResult",
+        "st.paid",
+        "fin.paid"
+      ],
+      "sub": [
+        "job.release",
+        "fin.keep"
+      ]
+    },
+    {
+      "name": "Оплата с подтверждением в банке",
+      "tone": "ok",
+      "note": "3-D Secure: ответ 202, итог приходит webhook-ом",
+      "path": [
+        "in.checkout",
+        "br.cart",
+        "br.stock",
+        "br.promo",
+        "st.reserve",
+        "st.createOrder",
+        "st.charge",
+        "br.payResult",
+        "wait.3ds",
+        "in.webhook",
+        "br.signature",
+        "br.webhookStatus",
+        "st.paid",
+        "fin.paid"
+      ]
+    },
+    {
+      "name": "Банк отклонил платёж (402)",
+      "tone": "bad",
+      "note": "недостаточно средств, карта заблокирована",
+      "path": [
+        "in.checkout",
+        "br.cart",
+        "br.stock",
+        "br.promo",
+        "st.reserve",
+        "st.createOrder",
+        "st.charge",
+        "br.payResult",
+        "st.cancel",
+        "fin.declined"
+      ]
+    },
+    {
+      "name": "Товар закончился (409)",
+      "tone": "bad",
+      "note": "пока покупатель думал, товар раскупили",
+      "path": [
+        "in.checkout",
+        "br.cart",
+        "br.stock",
+        "fin.outOfStock"
+      ]
+    },
+    {
+      "name": "Покупатель ушёл со страницы банка",
+      "tone": "warn",
+      "note": "webhook не пришёл — резерв снимет фоновая задача",
+      "path": [
+        "in.checkout",
+        "br.cart",
+        "br.stock",
+        "br.promo",
+        "st.reserve",
+        "st.createOrder",
+        "st.charge",
+        "br.payResult",
+        "wait.3ds",
+        "fin.abandoned"
+      ],
+      "sub": [
+        "job.release",
+        "fin.released"
+      ]
+    },
+    {
+      "name": "Поддельный webhook (401)",
+      "tone": "bad",
+      "note": "кто-то пытается подтвердить оплату за платёжку",
+      "path": [
+        "in.checkout",
+        "br.cart",
+        "br.stock",
+        "br.promo",
+        "st.reserve",
+        "st.createOrder",
+        "st.charge",
+        "br.payResult",
+        "wait.3ds",
+        "in.webhook",
+        "br.signature",
+        "fin.badSignature"
+      ]
+    }
+  ]
+}

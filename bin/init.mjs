@@ -1,0 +1,90 @@
+#!/usr/bin/env node
+/* Каркас проекта карт и новых флоу.
+
+   node bin/init.mjs <каталог> [--title="Мой проект"] [--code-root=..]   новый проект: конфиг + пример флоу
+   node bin/init.mjs <каталог> --flow=<id> [--name="Название"]           добавить в проект заготовку флоу
+
+   Заготовка флоу сразу проходит самопроверку сборщика: вход → развилка → успех / отказ, два сценария.
+   Дальше её переписывают по docs/RULES.md. */
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { CONFIG_NAME, DEFAULT_ACTORS, loadProject, parseArgs } from '../engine/config.mjs';
+
+const kitRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const { opts, positional } = parseArgs(process.argv.slice(2));
+const dir = path.resolve(positional[0] || '.');
+const schemaRel = (from, file) => path.relative(from, path.join(kitRoot, 'schema', file)).replace(/\\/g, '/');
+
+function flowTemplate(id, name, flowsDir) {
+  return {
+    $schema: schemaRel(flowsDir, 'flow.schema.json'),
+    id,
+    order: 1,
+    name,
+    group: 'main',
+    tone: 'ok',
+    entry: 'POST /api/example',
+    what: 'Два-три предложения: о чём флоу, где начинается и чем может закончиться.',
+    root: 'in.request',
+    strict: true,
+    stages: { start: 'Запрос', result: 'Итог' },
+    steps: {
+      'in.request': { kind: 'entry', actor: 'user', stage: 'start', title: 'Пользователь отправляет запрос', code: 'POST /api/example', what: 'Вход в сценарий: что делает человек или система и какие данные приходят.', next: 'br.valid' },
+      'br.valid': {
+        kind: 'branch', actor: 'api', stage: 'start', title: 'Данные запроса корректны?', code: 'ExampleController::handle',
+        what: 'Проверка входных данных. Условие каждой ветки — дословно из кода.',
+        branches: [
+          { short: 'да', hint: 'всё заполнено', cond: 'validate(input) === true', to: 'fin.ok', tone: 'ok' },
+          { short: 'нет', hint: 'ошибка валидации', cond: 'иначе', to: 'fin.invalid', tone: 'bad' },
+        ],
+      },
+      'fin.ok': { kind: 'terminal', actor: 'api', stage: 'result', outcome: 'ok', title: 'Финиш: запрос выполнен', what: 'Что получил пользователь и что изменилось в системе.', effects: ['HTTP 200'] },
+      'fin.invalid': { kind: 'terminal', actor: 'api', stage: 'result', outcome: 'bad', title: 'Отказ 422 — данные не прошли проверку', what: 'Какие поля проверяются и что видит пользователь.', effects: ['HTTP 422'] },
+    },
+    presets: [
+      { name: 'Успешный запрос', tone: 'ok', note: 'основной путь', path: ['in.request', 'br.valid', 'fin.ok'] },
+      { name: 'Ошибка в данных', tone: 'bad', note: 'пользователь ошибся в форме', path: ['in.request', 'br.valid', 'fin.invalid'] },
+    ],
+  };
+}
+
+const write = (file, data) => {
+  if (fs.existsSync(file)) { console.error(`уже есть, не перезаписываю: ${file}`); process.exitCode = 1; return false; }
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  fs.writeFileSync(file, JSON.stringify(data, null, 2) + '\n');
+  console.log(`создан ${path.relative(process.cwd(), file)}`);
+  return true;
+};
+
+if (opts.flow) {
+  const P = loadProject(dir);
+  const id = String(opts.flow);
+  if (!/^[a-z0-9][a-z0-9_-]*$/i.test(id)) { console.error('id флоу — латиница, цифры, - и _'); process.exit(1); }
+  const flow = flowTemplate(id, opts.name || id, P.flowsDir);
+  flow.group = (P.groups[0] && P.groups[0].id) || 'main';
+  /* у проекта свои актёры — подставляем первого, чтобы заготовка прошла самопроверку */
+  const actorIds = Object.keys(P.actors);
+  for (const s of Object.values(flow.steps)) if (!P.actors[s.actor]) s.actor = actorIds[0];
+  write(path.join(P.flowsDir, `${id}.json`), flow);
+} else {
+  const config = {
+    $schema: schemaRel(dir, 'config.schema.json'),
+    title: opts.title || 'Сценарные карты',
+    description: 'Что это за система и для кого эти карты.',
+    flows: 'flows',
+    out: 'maps',
+    codeRoot: opts['code-root'] || '..',
+    groups: [{ id: 'main', title: 'Основные сценарии', hint: 'коротко: что за область' }],
+    actors: DEFAULT_ACTORS,
+    rules: { requireFile: false },
+    scan: { outcomeCodePatterns: ['status\\((\\d{3})\\)'] },
+    entrypoints: [],
+  };
+  if (write(path.join(dir, CONFIG_NAME), config)) {
+    write(path.join(dir, 'flows', 'example.json'), flowTemplate('example', 'Пример флоу', path.join(dir, 'flows')));
+    const rel = (path.relative(process.cwd(), dir) || '.').replace(/\\/g, '/');
+    const kit = (path.relative(process.cwd(), kitRoot) || '.').replace(/\\/g, '/');
+    console.log(`\nДальше:\n  node ${kit}/bin/build.mjs --project=${rel}\n  открыть ${rel}/maps/index.html`);
+  }
+}

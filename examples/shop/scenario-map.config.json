@@ -1,0 +1,31 @@
+{
+  "$schema": "../../schema/config.schema.json",
+  "title": "Демо: интернет-магазин",
+  "description": "Пример карт с привязкой к коду: шаги ссылаются на src/*.js, сверка — node bin/scan.mjs --project=examples/shop.",
+  "flows": "flows",
+  "out": "maps",
+  "codeRoot": ".",
+  "repository": false,
+  "groups": [
+    { "id": "orders", "title": "Заказы и оплата", "hint": "корзина, резерв товара, платёж, подтверждение банка" },
+    { "id": "aftersale", "title": "После покупки", "hint": "возвраты, просмотр заказа" }
+  ],
+  "actors": {
+    "customer": { "name": "покупатель", "type": "frontend" },
+    "api": { "name": "API магазина", "type": "backend" },
+    "db": { "name": "база и склад", "type": "database" },
+    "payment": { "name": "платёжная система", "type": "security" },
+    "queue": { "name": "фоновая задача", "type": "messagebus" },
+    "warehouse": { "name": "сотрудник склада", "type": "cloud" }
+  },
+  "rules": { "requireFile": false },
+  "scan": { "outcomeCodePatterns": ["status\\(([45]\\d\\d)\\)"] },
+  "entrypoints": [
+    { "group": "orders", "kind": "POST", "name": "/api/checkout", "anchor": "src/checkout/checkout.controller.js::placeOrder" },
+    { "group": "orders", "kind": "POST", "name": "/api/payments/webhook", "anchor": "src/payments/webhook.controller.js::handlePaymentWebhook" },
+    { "group": "orders", "kind": "job", "name": "releaseReservation", "anchor": "src/jobs/releaseReservation.job.js::releaseReservation" },
+    { "group": "aftersale", "kind": "POST", "name": "/api/orders/:id/returns", "anchor": "src/returns/returns.controller.js::requestReturn" },
+    { "group": "aftersale", "kind": "POST", "name": "/api/returns/:id/inspect", "anchor": "src/returns/returns.controller.js::inspectReturn" },
+    { "group": "aftersale", "kind": "GET", "name": "/api/orders/:id", "anchor": "src/orders/orders.controller.js::getOrder" }
+  ]
+}

@@ -1,0 +1,585 @@
+    <style>
+      /* Детали шага сценарной карты внутри Semantic passport Archify */
+      .focus-chip.relationship-lens { max-width: min(540px, 92vw); }
+      .scenario-step { margin-top: .55rem; padding-top: .55rem; border-top: 1px solid var(--panel-border); max-height: 46vh; overflow: auto; scrollbar-width: thin; display: grid; gap: .55rem; font-size: .72rem; line-height: 1.55; color: var(--text-muted); }
+      .scenario-step[hidden] { display: none; }
+      .scenario-step p { margin: 0; color: var(--text); }
+      .scenario-step .ss-h { font-size: .58rem; letter-spacing: .12em; text-transform: uppercase; color: var(--text-faint); margin-bottom: .25rem; }
+      .scenario-step ul { margin: 0; padding: 0; list-style: none; display: grid; gap: .25rem; }
+      .scenario-step li { padding: .3rem .5rem .3rem 1.1rem; border: 1px solid var(--panel-border); border-radius: .45rem; position: relative; background: var(--panel); }
+      .scenario-step li::before { content: "▸"; position: absolute; left: .45rem; color: var(--text-dim); }
+      .scenario-step li.ss-br { border-left: 3px solid var(--backend-stroke); padding-left: .6rem; }
+      .scenario-step li.ss-br::before { content: none; }
+      .scenario-step .ss-br.bad { border-left-color: var(--security-stroke); } .scenario-step .ss-br.warn { border-left-color: var(--cloud-stroke); }
+      .scenario-step .ss-br.info { border-left-color: var(--frontend-stroke); } .scenario-step .ss-br.pause { border-left-color: var(--database-stroke); }
+      .scenario-step .ss-br b { text-transform: uppercase; font-size: .62rem; letter-spacing: .06em; }
+      .scenario-step .ss-br b.ok { color: var(--backend-stroke); } .scenario-step .ss-br b.bad { color: var(--security-stroke); } .scenario-step .ss-br b.warn { color: var(--cloud-stroke); } .scenario-step .ss-br b.info { color: var(--frontend-stroke); } .scenario-step .ss-br b.pause { color: var(--database-stroke); }
+      .scenario-step .ss-br code { display: block; font-size: .62rem; color: var(--text-faint); white-space: pre-wrap; word-break: break-word; margin-top: .15rem; }
+      .scenario-step a { color: var(--frontend-stroke); text-decoration: none; } .scenario-step a:hover { text-decoration: underline; }
+      .scenario-step .ss-paused { margin-left: .35rem; font-size: .58rem; color: var(--database-stroke); border: 1px solid var(--database-stroke); border-radius: .3rem; padding: 0 .3rem; }
+      .scenario-step .ss-note { padding: .4rem .55rem; border-radius: .45rem; border: 1px solid color-mix(in srgb, var(--database-stroke) 40%, transparent); background: color-mix(in srgb, var(--database-stroke) 10%, transparent); color: var(--text); }
+      .scenario-step .ss-attn { padding: .4rem .55rem; border-radius: .45rem; border: 1px solid color-mix(in srgb, var(--security-stroke) 45%, transparent); background: color-mix(in srgb, var(--security-stroke) 9%, transparent); color: var(--text); }
+      .scenario-step .ss-attn b { display: block; color: var(--security-stroke); font-size: .6rem; letter-spacing: .08em; margin-bottom: .2rem; }
+      .scenario-step .ss-file { font-size: .62rem; color: var(--text-faint); word-break: break-all; }
+      .scenario-step .ss-links { display: flex; flex-wrap: wrap; gap: .3rem; }
+      .scenario-step .ss-links a { font-size: .62rem; border: 1px solid var(--panel-border); border-radius: .35rem; padding: .15rem .4rem; color: var(--text-muted); }
+      /* Зум в правом верхнем углу, в стиле тулбара Archify */
+      .toolbar .scenario-zoom { display: inline-flex; align-items: center; gap: 0; }
+      .toolbar .scenario-zoom button { min-width: 2.1rem; justify-content: center; }
+      .toolbar .scenario-zoom .scenario-zoom-pct { min-width: 3.6rem; font-variant-numeric: tabular-nums; }
+      /* Кнопка «детали» на карточке */
+      .scenario-details { cursor: pointer; }
+      .scenario-details rect { fill: var(--mask); stroke: var(--lane-stroke); stroke-width: 1; transition: stroke .12s; }
+      .scenario-details text { fill: var(--text-muted); letter-spacing: .04em; }
+      .scenario-details:hover rect { stroke: var(--frontend-stroke); }
+      .scenario-details:hover text { fill: var(--text); }
+      /* Подсветка цепочки сценария: всё остальное гаснет, по рёбрам бежит поток, узлы вспыхивают по очереди */
+      svg[data-scenario-path] [data-node-id]:not([data-path-match]),
+      svg[data-scenario-path] [data-edge-from]:not([data-path-match]) { opacity: .12 !important; }
+      /* у каждого сценария своя раскладка: показываем нужный граф, остальные скрыты */
+      .diagram-container svg[data-graph][hidden] { display: none; }
+      svg[data-scenario-path] [data-path-match] { opacity: 1 !important; }
+      svg[data-scenario-path] [data-path-selected] > rect:nth-of-type(2) { stroke-width: 2.6; filter: drop-shadow(0 0 7px var(--arrow-emphasis)); }
+      svg[data-scenario-path] [data-path-match][data-node-id] > rect:nth-of-type(2) {
+        animation: scenario-pulse calc(var(--n) * .36s) linear infinite;
+        animation-delay: calc(var(--i) * .36s);
+      }
+      @keyframes scenario-pulse { 0%, 22%, 100% { stroke-width: 1.5; } 8% { stroke-width: 3.4; } }
+      .scenario-flow { fill: none; stroke: var(--arrow-emphasis); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 6 12; pointer-events: none; animation: scenario-dash .9s linear infinite; }
+      .scenario-flow.bad { stroke: var(--security-stroke); }
+      .scenario-flow.dash { stroke: var(--database-stroke); }
+      @keyframes scenario-dash { to { stroke-dashoffset: -18; } }
+      @media (prefers-reduced-motion: reduce) { .scenario-flow, svg[data-scenario-path] [data-path-match][data-node-id] > rect:nth-of-type(2) { animation: none; } }
+      .scenario-chain { position: absolute; left: 1rem; bottom: 1rem; z-index: 3; display: flex; gap: .5rem; align-items: center; padding: .45rem .7rem; border-radius: .7rem; border: 1px solid var(--toolbar-border); background: var(--toolbar-bg); color: var(--toolbar-text); font-size: .7rem; backdrop-filter: blur(10px); }
+      .scenario-chain[hidden] { display: none; }
+      .scenario-chain b { color: var(--arrow-emphasis); }
+      .scenario-chain button { font: inherit; color: var(--text-muted); background: none; border: 1px solid var(--toolbar-border); border-radius: .4rem; padding: .1rem .45rem; cursor: pointer; }
+      .scenario-chain button:hover { color: var(--text); }
+      /* Натуральный масштаб: SVG рисуется в фиксированных пикселях (pxPerUnit из CONFIG),
+         поэтому 100 % — уже читаемый размер, а не «вписать полотно в ширину экрана». */
+      .diagram-container svg[data-scenario-natural] { width: var(--scenario-w); height: var(--scenario-h); max-width: none; min-width: 0; display: block; margin: 0 auto; }
+      /* код — под кнопкой «code» в паспорте блока */
+      .scenario-side details.sd-code { margin: .5rem 0 0; }
+      .scenario-side details.sd-code summary { list-style: none; display: inline-flex; align-items: center; gap: .35rem; cursor: pointer; font: inherit; font-size: .72rem; letter-spacing: .06em; text-transform: lowercase; color: var(--text-muted); border: 1px solid var(--panel-border); border-radius: .45rem; padding: .2rem .6rem; }
+      .scenario-side details.sd-code summary::-webkit-details-marker { display: none; }
+      .scenario-side details.sd-code summary::before { content: '</>'; font-size: .66rem; color: var(--frontend-stroke); }
+      .scenario-side details.sd-code[open] summary { color: var(--text); border-color: var(--frontend-stroke); }
+      .scenario-side details.sd-code .sd-code-body { margin-top: .45rem; padding: .5rem .7rem; border-radius: .5rem; background: var(--panel-border); font-size: .78rem; line-height: 1.55; word-break: break-all; display: grid; gap: .3rem; }
+      .scenario-side details.sd-code .sd-code-body span { color: var(--text-faint); margin-right: .4rem; }
+      /* сетка — фоном всего окна схемы, а не только под SVG: клетка та же, что в SVG (40 единиц),
+         размер подстраивается под масштаб через --scenario-grid */
+      .diagram-container.scenario-scroll {
+        background-color: var(--panel);
+        background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+        background-size: var(--scenario-grid, 58px) var(--scenario-grid, 58px);
+      }
+      .diagram-container svg[data-scenario-natural] > rect[fill*="grid"] { display: none; }
+      /* полотно крупнее экрана — окно схемы прокручивается само, панорамирование камерой не нужно */
+      .diagram-container.scenario-scroll { overflow: auto !important; height: calc(100vh - 11rem) !important; max-height: none; min-height: 24rem; scrollbar-width: thin; }
+      /* полотно таскается мышью за пустое место (прокруткой окна); над блоками — обычный курсор */
+      .diagram-container.scenario-scroll { cursor: grab; }
+      .diagram-container.scenario-scroll.is-panning { cursor: grabbing; user-select: none; }
+      .diagram-container.scenario-scroll [data-node-id] { cursor: pointer; }
+      /* Схема и боковая панель рядом: панель всегда на экране, как в карте пути транзакции */
+      .scenario-shell { display: grid; grid-template-columns: minmax(0, 1fr) 23rem; gap: .75rem; align-items: stretch; }
+      .scenario-shell > .diagram-container { min-width: 0; }
+      .scenario-side { border: 1px solid var(--panel-border); border-radius: 1rem; background: var(--panel); padding: 1rem 1.1rem; overflow: auto; max-height: calc(100vh - 12rem); position: sticky; top: 1rem; font-size: .88rem; line-height: 1.6; color: var(--text-muted); scrollbar-width: thin; }
+      .scenario-side h4 { margin: 0 0 .15rem; font-size: 1.1rem; color: var(--text); line-height: 1.3; }
+      .scenario-side .sd-kicker { font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--text-faint); }
+      .scenario-side .sd-meta { margin: .5rem 0 .2rem; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .2rem .6rem; font-size: .8rem; }
+      .scenario-side .sd-meta dt { color: var(--text-faint); }
+      .scenario-side .sd-meta dd { margin: 0; color: var(--text); word-break: break-word; }
+      .scenario-side .sd-back { font: inherit; font-size: .78rem; color: var(--text-muted); background: none; border: 1px solid var(--panel-border); border-radius: .4rem; padding: .2rem .55rem; cursor: pointer; margin-bottom: .6rem; }
+      .scenario-side .sd-back:hover { color: var(--text); }
+      .scenario-side .sd-hint { margin-top: .7rem; font-size: .76rem; color: var(--text-faint); }
+      .scenario-side ol.sd-steps { margin: .5rem 0 0; padding: 0; list-style: none; counter-reset: sd; display: grid; gap: .2rem; }
+      .scenario-side ol.sd-steps li { counter-increment: sd; }
+      .scenario-side ol.sd-steps button { width: 100%; text-align: left; font: inherit; font-size: .84rem; color: var(--text-muted); background: none; border: 1px solid transparent; border-radius: .4rem; padding: .25rem .4rem .25rem 1.9rem; cursor: pointer; position: relative; }
+      .scenario-side ol.sd-steps button::before { content: counter(sd); position: absolute; left: .4rem; color: var(--text-faint); font-size: .72rem; }
+      .scenario-side ol.sd-steps button:hover { color: var(--text); border-color: var(--panel-border); }
+      .scenario-side ol.sd-steps button[data-cur] { color: var(--text); border-color: var(--arrow-emphasis); }
+      .scenario-side .scenario-step { border-top: 0; padding-top: 0; margin-top: .5rem; max-height: none; font-size: .86rem; line-height: 1.6; gap: .7rem; }
+      .scenario-side .scenario-step .ss-h { font-size: .7rem; }
+      .scenario-side .scenario-step li { padding: .4rem .6rem .4rem 1.2rem; }
+      .scenario-side .scenario-step .ss-br b { font-size: .74rem; }
+      .scenario-side .scenario-step .ss-br code,
+      .scenario-side .scenario-step .ss-file { font-size: .76rem; }
+      .scenario-side .scenario-step .ss-links a { font-size: .78rem; }
+      .scenario-side .scenario-step .ss-attn b { font-size: .74rem; }
+      /* Селектор сценариев — той же высоты и формы, что кнопки тулбара */
+      .toolbar .scenario-pick { font-family: inherit; font-size: .75rem; font-weight: 500; line-height: 1.2; color: var(--toolbar-text); background: var(--toolbar-bg); border: 1px solid var(--toolbar-border); border-radius: .625rem; padding: .5rem .875rem; max-width: 19rem; box-shadow: 0 4px 14px rgba(0, 0, 0, .08); cursor: pointer; }
+      /* Верхняя лента сценариев Archify заменена селектором в тулбаре */
+      .guided-views { display: none !important; }
+      /* Полноэкранный вид: шапка сверху, дальше две области со своими скроллами —
+         схема слева (общий скролл по обеим осям), панель шага справа. Рамок-«окон» нет. */
+      html, body { height: 100%; }
+      body { padding: 0 !important; overflow: hidden; }
+      .container { max-width: none !important; height: 100vh; display: flex; flex-direction: column; min-height: 0; }
+      .header { margin: 0 !important; padding: .7rem 1rem .55rem; padding-right: 34rem !important; flex: 0 0 auto; }
+      .header h1 { font-size: 1.05rem; }
+      .header .subtitle { margin: .2rem 0 0; font-size: .72rem; }
+      .scenario-shell { flex: 1 1 auto; min-height: 0; gap: 0; grid-template-columns: minmax(0, 1fr) 26rem; }
+      .diagram-container.scenario-scroll { height: auto !important; min-height: 0; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; padding: .5rem !important; }
+      .scenario-side { border: 0; border-left: 1px solid var(--panel-border); border-radius: 0; background: var(--panel); position: static; top: auto; max-height: none; height: 100%; min-height: 0; padding: .9rem 1.1rem 2rem; }
+      /* Нижний блок сводки убран со страницы — он открывается кнопкой в тулбаре */
+      .scenario-summary { position: fixed; inset: 0; z-index: 40; display: none; align-items: flex-start; justify-content: center; padding: 4.5rem 1rem 1rem; background: rgba(0, 0, 0, .45); backdrop-filter: blur(2px); }
+      .scenario-summary.open { display: flex; }
+      .scenario-summary__box { width: min(1100px, 100%); max-height: calc(100vh - 6rem); overflow: auto; background: var(--panel); border: 1px solid var(--panel-border); border-radius: 1rem; padding: 1.1rem 1.25rem; box-shadow: 0 30px 80px rgba(0, 0, 0, .35); scrollbar-width: thin; }
+      .scenario-summary__head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: .6rem; }
+      .scenario-summary__head strong { font-size: .95rem; color: var(--text); }
+      .scenario-summary__box .cards { display: grid !important; margin: 0; }
+      .scenario-summary__box .card { font-size: .82rem; }
+      @media (max-width: 1180px) {
+        body { overflow: auto; }
+        .container { height: auto; }
+        .scenario-shell { grid-template-columns: 1fr; }
+        .scenario-side { border-left: 0; border-top: 1px solid var(--panel-border); height: auto; max-height: 26rem; }
+        .diagram-container.scenario-scroll { height: 70vh !important; }
+        .header { padding-right: 1rem !important; }
+      }
+    </style>
+    <script id="scenario-step-data" type="application/json">/*__STEPS__*/{}</script>
+    <script id="scenario-chain-data" type="application/json">/*__CHAINS__*/[]</script>
+    <script id="scenario-stage-data" type="application/json">/*__STAGES__*/{}</script>
+    <script id="scenario-actor-data" type="application/json">/*__ACTORS__*/{}</script>
+    <script>
+    (function () {
+      var data = JSON.parse(document.getElementById('scenario-step-data').textContent);
+      var CHAINS = JSON.parse(document.getElementById('scenario-chain-data').textContent);
+      var STAGES = JSON.parse(document.getElementById('scenario-stage-data').textContent);
+      var ROOT = /*__ROOT__*/"";
+      var container = document.querySelector('.diagram-container');
+      var graphs = Array.prototype.slice.call(container.querySelectorAll('svg[data-graph]'));
+      var svg = container.querySelector('svg[data-graph]:not([hidden])') || container.querySelector('svg[data-graph]') || container.querySelector('svg');
+      /* Активный граф: у полного дерева и у каждого сценария своя раскладка,
+         поэтому переключаем не видимость блоков, а целый граф. */
+      function showGraph(key) {
+        var found = null;
+        /* у SVG свойство hidden не работает как у HTML-элементов — только атрибут */
+        graphs.forEach(function (g) {
+          var on = g.getAttribute('data-graph') === String(key);
+          if (on) { g.removeAttribute('hidden'); found = g; } else { g.setAttribute('hidden', ''); }
+        });
+        if (!found && graphs.length) { found = graphs[0]; found.removeAttribute('hidden'); }
+        if (found) {
+          svg = found;
+          applyNatural();
+          container.scrollTop = 0;
+          container.scrollLeft = 0;
+        }
+        return svg;
+      }
+      var copy = document.querySelector('#focus-chip .relationship-lens-copy');
+      if (!svg || !copy) return;
+      var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); };
+      var link = function (id, title) { return '<a href="#focus=' + encodeURIComponent(id) + '">' + esc(title) + '</a>'; };
+
+      /* ---- натуральный масштаб полотна: 100 % = читаемый размер ---- */
+      var PX_PER_UNIT = /*__PX_PER_UNIT__*/0;
+      var ZOOM = /*__START_ZOOM__*/1.25;
+      function applyNatural() {
+        if (!(PX_PER_UNIT > 0) || !svg) return;
+        var vb = (svg.getAttribute('viewBox') || '').split(/\s+/).map(Number);
+        if (vb.length !== 4) return;
+        svg.style.setProperty('--scenario-w', Math.round(vb[2] * PX_PER_UNIT * ZOOM) + 'px');
+        svg.style.setProperty('--scenario-h', Math.round(vb[3] * PX_PER_UNIT * ZOOM) + 'px');
+        svg.setAttribute('data-scenario-natural', '1');
+        container.style.setProperty('--scenario-grid', (40 * PX_PER_UNIT * ZOOM) + 'px');
+      }
+      if (PX_PER_UNIT > 0) {
+        var vb = (svg.getAttribute('viewBox') || '').split(/\s+/).map(Number);
+        if (vb.length === 4) {
+          applyNatural();
+          container.classList.add('scenario-scroll');
+          /* runtime Archify резервирует снизу место под свою панель навигации и тянет контейнер
+             во всю высоту полотна — нам нужно окно фиксированной высоты со своей прокруткой */
+          container.style.setProperty('--archify-nav-reserve', '0px');
+          container.style.setProperty('height', 'auto', 'important');
+          container.style.setProperty('padding-bottom', '.5rem', 'important');
+          container.style.setProperty('overflow', 'auto', 'important');
+        }
+      }
+      var NATURAL = svg.hasAttribute('data-scenario-natural');
+      /* при натуральном масштабе к шагу ведёт прокрутка окна схемы, иначе — камера Archify */
+      function goTo(id) {
+        var el = svg.querySelector('[data-node-id="' + id + '"]');
+        if (el) el.scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
+      }
+
+      /* ---- боковая панель: шаг и сценарий всегда на экране ---- */
+      var shell = document.createElement('div'); shell.className = 'scenario-shell';
+      container.parentNode.insertBefore(shell, container);
+      shell.appendChild(container);
+      var side = document.createElement('aside'); side.className = 'scenario-side'; shell.appendChild(side);
+
+      /* ---- детали шага в паспорте Archify (открываются кнопкой «детали») ---- */
+      var box = document.createElement('div'); box.className = 'scenario-step'; box.hidden = true; copy.appendChild(box);
+      var current = null;
+      function stepHtml(d, opts) {
+        var h = '<p>' + esc(d.what) + '</p>';
+        if (d.file && !(opts && opts.hideCode)) h += '<div class="ss-file">' + esc(d.file) + (d.anchor ? '<br>' + esc(d.anchor) : '') + '</div>';
+        if (d.effects.length) h += '<div><div class="ss-h">Что происходит</div><ul>' + d.effects.map(function (e) { return '<li>' + esc(e) + '</li>'; }).join('') + '</ul></div>';
+        if (d.branches.length) h += '<div><div class="ss-h">Условия ветвления</div><ul>' + d.branches.map(function (b) {
+          return '<li class="ss-br ' + esc(b.tone) + '">' + (b.short ? '<b class="' + esc(b.tone) + '">' + esc(b.short) + '</b> — ' : '') + esc(b.label) + (b.paused ? '<span class="ss-paused">на паузе</span>' : '') +
+            '<div>→ ' + link(b.to, b.toTitle) + '</div>' + (b.cond ? '<code>' + esc(b.cond) + '</code>' : '') + '</li>';
+        }).join('') + '</ul></div>';
+        if (d.next.length) h += '<div><div class="ss-h">Дальше</div><div class="ss-links">' + d.next.map(function (n) { return link(n.to, '→ ' + n.toTitle); }).join('') + '</div></div>';
+        if (d.spawns.length) h += '<div><div class="ss-h">Параллельно запускает</div><div class="ss-links">' + d.spawns.map(function (n) { return link(n.to, '⇉ ' + n.toTitle); }).join('') + '</div></div>';
+        if (d.incoming.length) h += '<div><div class="ss-h">Сюда приходят</div><div class="ss-links">' + d.incoming.map(function (n) { return link(n.from, (n.spawn ? '⇉ ' : '← ') + n.fromTitle); }).join('') + '</div></div>';
+        if (d.note) h += '<div class="ss-note">⏸ ' + esc(d.note) + '</div>';
+        if (d.attention.length) h += '<div class="ss-attn"><b>⚠ ОБРАТИТЬ ВНИМАНИЕ</b>' + d.attention.map(function (a) { return '<div>' + esc(a) + '</div>'; }).join('') + '</div>';
+        return h;
+      }
+      function render(id) {
+        var d = data[id];
+        if (!d) { box.hidden = true; box.innerHTML = ''; current = null; return; }
+        if (current === id) return; current = id;
+        box.innerHTML = stepHtml(d); box.hidden = false;
+      }
+      function syncPassport() {
+        var active = svg.getAttribute('data-focus-active');
+        var ids = active ? active.split(/\s+/).filter(Boolean) : [];
+        render(ids.length === 1 ? ids[0] : null);
+      }
+      new MutationObserver(syncPassport).observe(svg, { attributes: true, attributeFilter: ['data-focus-active'] });
+      syncPassport();
+
+      /* ---- цепочка сценария по клику на карточку ---- */
+      var outsOf = function (id) {
+        var d = data[id]; if (!d) return [];
+        var list = [];
+        d.branches.forEach(function (b) { list.push({ to: b.to, tone: b.tone, paused: b.paused }); });
+        d.next.forEach(function (n) { list.push({ to: n.to, tone: 'ok' }); });
+        return list;
+      };
+      /* Путь от входа до выбранного шага — как сюда пришли; дальнейшие шаги не подсвечиваются.
+         Если шаг лежит на дорожке пресета — берём её префикс (осмысленный маршрут сценария),
+         иначе — кратчайший путь от входа по рёбрам. */
+      function chainFor(id) {
+        for (var i = 0; i < CHAINS.length; i += 1) {
+          var c = CHAINS[i];
+          var k = c.path.indexOf(id);
+          if (k !== -1) return { name: c.name, tracks: [c.path.slice(0, k + 1)] };
+        }
+        var prev = {}, seen = {}; seen[ROOT] = true; var q = [ROOT], found = false;
+        while (q.length) {
+          var u = q.shift(); if (u === id) { found = true; break; }
+          outsOf(u).forEach(function (e) { if (!seen[e.to]) { seen[e.to] = true; prev[e.to] = u; q.push(e.to); } });
+        }
+        var path = [id];
+        if (found) { var c2 = id; while (prev[c2] !== undefined) { c2 = prev[c2]; path.unshift(c2); } }
+        return { name: null, tracks: [path] };
+      }
+      var badge = document.createElement('div'); badge.className = 'scenario-chain'; badge.hidden = true; container.appendChild(badge);
+      function clearChain() {
+        svg.removeAttribute('data-scenario-path');
+        Array.prototype.forEach.call(svg.querySelectorAll('[data-path-match]'), function (el) { el.removeAttribute('data-path-match'); el.style.removeProperty('--i'); el.style.removeProperty('--n'); });
+        Array.prototype.forEach.call(svg.querySelectorAll('[data-path-selected]'), function (el) { el.removeAttribute('data-path-selected'); });
+        Array.prototype.forEach.call(svg.querySelectorAll('.scenario-flow'), function (el) { el.remove(); });
+        badge.hidden = true;
+      }
+      function showChain(id) {
+        clearChain();
+        var chain = chainFor(id);
+        var nodes = [], edges = 0;
+        chain.tracks.forEach(function (track) {
+          track.forEach(function (n, i) {
+            var el = svg.querySelector('[data-node-id="' + n + '"]');
+            if (el) { el.setAttribute('data-path-match', ''); el.style.setProperty('--i', String(nodes.length)); nodes.push(n); }
+            if (i === 0) return;
+            var sel = '[data-edge-from="' + track[i - 1] + '"][data-edge-to="' + n + '"]';
+            Array.prototype.forEach.call(svg.querySelectorAll(sel), function (e) {
+              e.setAttribute('data-path-match', '');
+              if (e.tagName.toLowerCase() === 'path') {
+                var clone = e.cloneNode(false);
+                Array.prototype.slice.call(clone.attributes).forEach(function (a) { if (a.name !== 'd') clone.removeAttribute(a.name); });
+                clone.setAttribute('class', 'scenario-flow' + (/a-security/.test(e.getAttribute('class') || '') ? ' bad' : /a-dashed/.test(e.getAttribute('class') || '') ? ' dash' : ''));
+                svg.appendChild(clone); edges += 1;
+              }
+            });
+          });
+        });
+        Array.prototype.forEach.call(svg.querySelectorAll('[data-path-match][data-node-id]'), function (el) { el.style.setProperty('--n', String(Math.max(nodes.length, 3))); });
+        var selected = svg.querySelector('[data-node-id="' + id + '"]');
+        if (selected) selected.setAttribute('data-path-selected', '');
+        svg.setAttribute('data-scenario-path', '1');
+        badge.setAttribute('data-step', id);
+      }
+      badge.addEventListener('click', function (e) {
+        var b = e.target.closest('[data-chain]'); if (!b) return;
+        if (b.getAttribute('data-chain') === 'clear') clearChain();
+        else if (window.Archify && Archify.focus) Archify.focus.set(badge.getAttribute('data-step'), { toggle: false });
+      });
+      /* ---- боковая панель: сценарий целиком или паспорт выбранного шага ---- */
+      var KIND_NAME = { entry: 'вход', step: 'шаг', branch: 'ветвление', wait: 'ожидание', terminal: 'финиш' };
+      var TONE_NAME = { ok: 'успех', bad: 'сбой', warn: 'предупреждение', info: 'справка' };
+      var scenarioIdx = 0;
+      var sideStep = null;
+
+      function sideAll() {
+        sideStep = null;
+        var stageKeys = Object.keys(STAGES);
+        var byStage = {};
+        Object.keys(data).forEach(function (id) { var st = data[id].stage || '__none'; (byStage[st] = byStage[st] || []).push(id); });
+        var h = '<div class="sd-kicker">все сценарии</div><h4>Дерево флоу целиком</h4>';
+        h += '<p style="margin:.35rem 0 0">Видны все ветвления и исходы сразу. Чтобы пройти один путь, выберите сценарий в списке сверху — тогда на карте останутся только его блоки.</p>';
+        h += '<dl class="sd-meta"><dt>Блоков</dt><dd>' + Object.keys(data).length + '</dd><dt>Сценариев</dt><dd>' + CHAINS.length + '</dd></dl>';
+        stageKeys.concat(byStage.__none ? ['__none'] : []).forEach(function (key) {
+          var ids = byStage[key] || [];
+          if (!ids.length) return;
+          h += '<div class="sd-kicker" style="margin-top:.7rem">' + esc(key === '__none' ? 'без этапа' : STAGES[key]) + ' · ' + ids.length + '</div>';
+          h += '<ol class="sd-steps">' + ids.map(function (id) {
+            return '<li><button type="button" data-step-id="' + esc(id) + '">' + esc(data[id].title || id) + '</button></li>';
+          }).join('') + '</ol>';
+        });
+        side.innerHTML = h;
+      }
+      function sideScenario() {
+        sideStep = null;
+        if (scenarioIdx === -1) return sideAll();
+        var c = CHAINS[scenarioIdx];
+        if (!c) { side.innerHTML = '<div class="sd-kicker">сценарий</div><h4>Все шаги</h4>'; return; }
+        var h = '<div class="sd-kicker">сценарий ' + (scenarioIdx + 1) + ' из ' + CHAINS.length + '</div>';
+        h += '<h4>' + esc(c.name) + '</h4>';
+        if (c.note) h += '<p style="margin:.35rem 0 0">' + esc(c.note) + '</p>';
+        h += '<dl class="sd-meta"><dt>Шагов</dt><dd>' + c.path.length + '</dd>' +
+          '<dt>Начало</dt><dd>' + esc((data[c.path[0]] && data[c.path[0]].title) || c.path[0]) + '</dd>' +
+          '<dt>Финиш</dt><dd>' + esc((data[c.path[c.path.length - 1]] && data[c.path[c.path.length - 1]].title) || '') + '</dd></dl>';
+        h += '<ol class="sd-steps">' + c.path.map(function (id) {
+          var d = data[id] || {};
+          return '<li><button type="button" data-step-id="' + esc(id) + '">' + esc(d.title || id) + '</button></li>';
+        }).join('') + '</ol>';
+        h += '<div class="sd-hint">Шаг в списке или карточка на схеме открывают его паспорт: что происходит, условия веток, файл в коде и замечания.</div>';
+        side.innerHTML = h;
+      }
+
+      var ACTOR_NAME = JSON.parse(document.getElementById('scenario-actor-data').textContent);
+      function sideStepView(id) {
+        var d = data[id];
+        if (!d) return sideScenario();
+        sideStep = id;
+        var h = '<button type="button" class="sd-back">← к сценарию</button>';
+        h += '<div class="sd-kicker">' + esc(KIND_NAME[d.kind] || 'шаг') + (d.outcome ? ' · ' + esc(TONE_NAME[d.outcome] || d.outcome) : '') + '</div>';
+        h += '<h4>' + esc(d.title || id) + '</h4>';
+        h += '<dl class="sd-meta"><dt>Где</dt><dd>' + esc(ACTOR_NAME[d.actor] || d.actor || '—') + '</dd></dl>';
+        if (d.code || d.file || d.anchor) {
+          h += '<details class="sd-code"><summary>code</summary><div class="sd-code-body">' +
+            (d.code ? '<div><span>метод</span>' + esc(d.code) + '</div>' : '') +
+            (d.file ? '<div><span>файл</span>' + esc(d.file) + '</div>' : '') +
+            (d.anchor ? '<div><span>anchor</span>' + esc(d.anchor) + '</div>' : '') +
+            '</div></details>';
+        }
+        h += '<div class="scenario-step">' + stepHtml(d, { hideCode: true }) + '</div>';
+        side.innerHTML = h;
+        side.scrollTop = 0;
+      }
+
+      side.addEventListener('click', function (e) {
+        var back = e.target.closest('.sd-back');
+        if (back) { sideScenario(); markSideCurrent(); return; }
+        var b = e.target.closest('[data-step-id]');
+        if (b) {
+          var id = b.getAttribute('data-step-id');
+          sideStepView(id);
+          goTo(id);
+          if (svg.querySelector('[data-node-id="' + id + '"]')) { clearChain(); showChain(id); }
+        }
+      });
+
+      function markSideCurrent() {
+        Array.prototype.forEach.call(side.querySelectorAll('[data-step-id]'), function (b) {
+          if (sideStep && b.getAttribute('data-step-id') === sideStep) b.setAttribute('data-cur', ''); else b.removeAttribute('data-cur');
+        });
+      }
+
+      /* Подсветка всей дорожки сценария (селектор), а не пути до шага (клик по карточке) */
+      function showTrack(track) {
+        clearChain();
+        var nodes = [];
+        /* фоновые задачи блоков сценария — часть сценария: помечаем их и рёбра к ним */
+        track.forEach(function (n) {
+          ((data[n] && data[n].spawns) || []).forEach(function (sp) {
+            var el = svg.querySelector('[data-node-id="' + sp.to + '"]');
+            if (el) el.setAttribute('data-path-match', '');
+            Array.prototype.forEach.call(svg.querySelectorAll('[data-edge-from="' + n + '"][data-edge-to="' + sp.to + '"]'), function (e) { e.setAttribute('data-path-match', ''); });
+          });
+        });
+        track.forEach(function (n, i) {
+          var el = svg.querySelector('[data-node-id="' + n + '"]');
+          if (el) { el.setAttribute('data-path-match', ''); el.style.setProperty('--i', String(nodes.length)); nodes.push(n); }
+          if (i === 0) return;
+          Array.prototype.forEach.call(svg.querySelectorAll('[data-edge-from="' + track[i - 1] + '"][data-edge-to="' + n + '"]'), function (e) {
+            e.setAttribute('data-path-match', '');
+            if (e.tagName.toLowerCase() === 'path') {
+              var clone = e.cloneNode(false);
+              Array.prototype.slice.call(clone.attributes).forEach(function (a) { if (a.name !== 'd') clone.removeAttribute(a.name); });
+              clone.setAttribute('class', 'scenario-flow' + (/a-security/.test(e.getAttribute('class') || '') ? ' bad' : /a-dashed/.test(e.getAttribute('class') || '') ? ' dash' : ''));
+              svg.appendChild(clone);
+            }
+          });
+        });
+        Array.prototype.forEach.call(svg.querySelectorAll('[data-path-match][data-node-id]'), function (el) { el.style.setProperty('--n', String(Math.max(nodes.length, 3))); });
+        svg.setAttribute('data-scenario-path', '1');
+      }
+
+      var pickEl = null;
+      function selectScenario(i, moveCamera) {
+        scenarioIdx = i;
+        if (pickEl && String(pickEl.value) !== String(i)) pickEl.value = String(i);
+        showGraph(i === -1 ? 'all' : i);
+        clearChain();
+        sideScenario();
+        if (i !== -1 && moveCamera !== false) {
+          var c = CHAINS[i];
+          if (c && c.path && c.path.length) goTo(c.path[0]);
+        }
+      }
+
+      var routeProbe = document.getElementById('route-probe');
+      /* Слушаем контейнер, а не конкретный SVG: графов несколько и активный меняется. */
+      container.addEventListener('click', function (e) {
+        if (routeProbe && !routeProbe.hidden) return;                         /* режим маршрута Archify — не мешаем */
+        if (container.getAttribute('data-just-panned') === 'true') return;
+        var node = e.target.closest('[data-node-id]');
+        if (node) {
+          e.stopPropagation(); e.preventDefault();
+          var id = node.getAttribute('data-node-id');
+          /* повторный клик по выбранному блоку снимает подсветку и возвращает сценарий;
+             иначе — путь до блока (остальное гаснет, по рёбрам бежит поток) и его паспорт */
+          if (node.hasAttribute('data-path-selected')) { clearChain(); sideScenario(); return; }
+          showChain(id);
+          sideStepView(id);
+          return;
+        }
+        clearChain();
+        sideScenario();
+      }, true);
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { clearChain(); sideScenario(); } });
+
+      /* ---- зум: кнопки в правом верхнем углу, ctrl/⌘+колесо к точке под курсором ----
+         Стартовый масштаб задаёт сборщик (CONFIG.startZoom флоу): чем шире раскладка,
+         тем мельче узлы при одном и том же зуме, поэтому у широких карт старт выше. */
+      var startScale = /*__START_ZOOM__*/1.25;
+      var startPct = Math.round(startScale * 100) + '%';
+      var toolbar = document.querySelector('.toolbar');
+      var view = window.Archify && Archify.view;
+      if (toolbar && view) {
+        var wrap = document.createElement('div'); wrap.className = 'scenario-zoom';
+        wrap.innerHTML = '<button type="button" data-zoom="out" title="Уменьшить (−), до 30 %">−</button>' +
+          '<button type="button" class="scenario-zoom-pct" data-zoom="reset" title="Вернуть ' + startPct + '">' + startPct + '</button>' +
+          '<button type="button" data-zoom="in" title="Увеличить (+)">+</button>';
+        toolbar.insertBefore(wrap, toolbar.firstChild);
+        var pct = wrap.querySelector('.scenario-zoom-pct');
+        /* Свой зум: камера Archify живёт только в первом графе, а у нас их несколько,
+           поэтому масштаб задаём размерами активного SVG, а двигаемся прокруткой окна. */
+        function setZoom(next, keepCenter) {
+          next = Math.max(0.3, Math.min(4, Math.round(next * 20) / 20));
+          if (next === ZOOM) return;
+          var cx = (container.scrollLeft + container.clientWidth / 2) / Math.max(svg.clientWidth, 1);
+          var cy = (container.scrollTop + container.clientHeight / 2) / Math.max(svg.clientHeight, 1);
+          ZOOM = next;
+          applyNatural();
+          pct.textContent = Math.round(ZOOM * 100) + '%';
+          if (keepCenter !== false) {
+            container.scrollLeft = cx * svg.clientWidth - container.clientWidth / 2;
+            container.scrollTop = cy * svg.clientHeight - container.clientHeight / 2;
+          }
+        }
+        var startZoom = function () {
+          /* вид на первый блок активного графа */
+          var r0 = svg.querySelector('[data-node-id="' + ROOT + '"]') || svg.querySelector('[data-node-id]');
+          if (!r0) return;
+          var rb = r0.getBoundingClientRect(), cb = container.getBoundingClientRect();
+          container.scrollLeft += rb.left - cb.left - (cb.width - rb.width) / 2;
+          container.scrollTop = 0;
+        };
+        wrap.addEventListener('click', function (e) {
+          var b = e.target.closest('[data-zoom]'); if (!b) return;
+          var a = b.getAttribute('data-zoom');
+          if (a === 'in') setZoom(ZOOM + 0.05); else if (a === 'out') setZoom(ZOOM - 0.05); else setZoom(startScale);
+        });
+        container.addEventListener('wheel', function (e) {
+          if (!(e.ctrlKey || e.metaKey)) return;
+          e.preventDefault();
+          setZoom(ZOOM * (e.deltaY < 0 ? 1.05 : 1 / 1.05));
+        }, { passive: false });
+        /* Перетаскивание полотна за пустое место: двигаем прокрутку окна схемы. Панорамирование
+           Archify тут не работает — оно двигает камеру и включается только при масштабе камеры
+           больше 100 %, а у нас масштаб задаётся размером SVG и камера стоит на месте.
+           Клик по блоку не трогаем; после сдвига ставим data-just-panned, чтобы отпускание мыши
+           не считалось кликом по пустому месту (он снимает подсветку пути). */
+        var pan = null;
+        container.addEventListener('pointerdown', function (e) {
+          if (!NATURAL || e.button !== 0) return;
+          if (e.target.closest('[data-node-id], [data-relationship-hit-key], .diagram-nav, .focus-chip, .node-finder, .diagram-guide, .overview-map, .route-probe, .semantic-lens, a, button')) return;
+          pan = { x: e.clientX, y: e.clientY, left: container.scrollLeft, top: container.scrollTop, moved: false };
+          container.classList.add('is-panning');
+          try { container.setPointerCapture(e.pointerId); } catch (_) {}
+        }, true);
+        container.addEventListener('pointermove', function (e) {
+          if (!pan) return;
+          var dx = e.clientX - pan.x, dy = e.clientY - pan.y;
+          if (Math.abs(dx) + Math.abs(dy) > 3) pan.moved = true;
+          container.scrollLeft = pan.left - dx;
+          container.scrollTop = pan.top - dy;
+        }, true);
+        function panEnd(e) {
+          if (!pan) return;
+          var moved = pan.moved;
+          pan = null;
+          container.classList.remove('is-panning');
+          try { container.releasePointerCapture(e.pointerId); } catch (_) {}
+          if (moved) {
+            container.setAttribute('data-just-panned', 'true');
+            setTimeout(function () { container.removeAttribute('data-just-panned'); }, 80);
+          }
+        }
+        container.addEventListener('pointerup', panEnd, true);
+        container.addEventListener('pointercancel', panEnd, true);
+        requestAnimationFrame(function () { requestAnimationFrame(startZoom); });
+
+        /* Нижний блок сводки (входы, исходы, замечания) — во всплывающее окно по кнопке */
+        var cards = document.querySelector('.container .cards');
+        if (cards) {
+          var modal = document.createElement('div'); modal.className = 'scenario-summary';
+          var boxEl = document.createElement('div'); boxEl.className = 'scenario-summary__box';
+          boxEl.innerHTML = '<div class="scenario-summary__head"><strong>Сводка по флоу</strong>' +
+            '<button type="button" class="sd-back" data-summary="close">закрыть ✕</button></div>';
+          boxEl.appendChild(cards);
+          modal.appendChild(boxEl);
+          document.body.appendChild(modal);
+          var sumBtn = document.createElement('button');
+          sumBtn.type = 'button'; sumBtn.textContent = 'Сводка'; sumBtn.title = 'Входы, исходы и замечания по флоу';
+          toolbar.insertBefore(sumBtn, toolbar.firstChild);
+          sumBtn.addEventListener('click', function () { modal.classList.add('open'); });
+          modal.addEventListener('click', function (e) {
+            if (e.target === modal || e.target.closest('[data-summary="close"]')) modal.classList.remove('open');
+          });
+          document.addEventListener('keydown', function (e) { if (e.key === 'Escape') modal.classList.remove('open'); });
+        }
+
+        /* Оформление, презентация и экспорт Archify тут не нужны */
+        ['.preset-wrap', '#btn-present', '.export-wrap'].forEach(function (sel) {
+          var el = document.querySelector(sel);
+          if (el) el.style.display = 'none';
+        });
+
+        /* Сценарии: вместо верхней ленты Archify — селектор рядом с зумом */
+        if (CHAINS.length) {
+          var pickWrap = document.createElement('label');
+          pickWrap.style.display = 'inline-flex';
+          pickWrap.innerHTML = '<select class="scenario-pick" title="Сценарий"></select>';
+          var pick = pickWrap.firstChild;
+          pickEl = pick;
+          pick.innerHTML = '<option value="-1">Все сценарии · дерево целиком</option>' +
+            CHAINS.map(function (c, i) { return '<option value="' + i + '">' + esc((i + 1) + ' · ' + c.name) + '</option>'; }).join('');
+          toolbar.insertBefore(pickWrap, toolbar.firstChild);
+          pick.addEventListener('change', function () { selectScenario(Number(pick.value), true); });
+          selectScenario(0, false);
+          requestAnimationFrame(function () { requestAnimationFrame(function () { selectScenario(0, false); }); });
+        } else {
+          sideScenario();
+        }
+      }
+    })();
+    </script>

@@ -1,0 +1,22 @@
+{
+  "$schema": "../../schema/config.schema.json",
+  "title": "Демо: CRM отдела продаж и поддержки",
+  "description": "Пример карт бизнес-процессов без привязки к коду: шаги описывают регламент и автоматизации CRM, условия веток — правила из регламента.",
+  "flows": "flows",
+  "out": "maps",
+  "repository": false,
+  "groups": [
+    { "id": "sales", "title": "Продажи", "hint": "от заявки до оплаченной сделки" },
+    { "id": "service", "title": "Сервис и поддержка", "hint": "обращения клиентов, SLA, закрытие тикетов" }
+  ],
+  "actors": {
+    "client": { "name": "клиент", "type": "frontend" },
+    "manager": { "name": "менеджер", "type": "backend" },
+    "support": { "name": "поддержка", "type": "backend" },
+    "crm": { "name": "CRM", "type": "database" },
+    "robot": { "name": "автоматизация CRM", "type": "messagebus" },
+    "lead": { "name": "руководитель", "type": "cloud" },
+    "finance": { "name": "бухгалтерия", "type": "security" }
+  },
+  "rules": { "requireFile": false }
+}

@@ -1,0 +1,350 @@
+{
+  "$schema": "../../../schema/flow.schema.json",
+  "id": "returns",
+  "order": 1,
+  "name": "Возврат товара",
+  "group": "aftersale",
+  "tone": "warn",
+  "entry": "POST /api/orders/:id/returns · POST /api/returns/:id/inspect",
+  "what": "Покупатель оформляет возврат доставленного заказа в течение 14 дней, отправляет посылку, склад осматривает товар. Целый товар — деньги возвращаются через платёжку; если платёжка не смогла — возврат уходит бухгалтерии вручную.",
+  "root": "in.request",
+  "strict": true,
+  "stages": {
+    "request": "Заявка на возврат",
+    "parcel": "Посылка",
+    "inspect": "Осмотр на складе",
+    "refund": "Возврат денег"
+  },
+  "steps": {
+    "in.request": {
+      "kind": "entry",
+      "actor": "customer",
+      "stage": "request",
+      "title": "Покупатель оформляет возврат",
+      "code": "POST /api/orders/:id/returns",
+      "file": "src/returns/returns.controller.js:8",
+      "what": "В личном кабинете покупатель выбирает позиции заказа, которые хочет вернуть.",
+      "attention": [
+        "Нет проверки, что по заказу уже открыт возврат: две заявки на один заказ дадут два возврата денег на полную сумму."
+      ],
+      "next": "br.delivered",
+      "anchor": "src/returns/returns.controller.js::requestReturn",
+      "fingerprint": "16340e757f8c"
+    },
+    "br.delivered": {
+      "kind": "branch",
+      "actor": "api",
+      "stage": "request",
+      "title": "Заказ уже доставлен?",
+      "code": "requestReturn",
+      "file": "src/returns/returns.controller.js:9",
+      "what": "Возврат возможен только для доставленного заказа. Для заказа в пути покупателю нужна отмена, а не возврат.",
+      "branches": [
+        {
+          "short": "да",
+          "hint": "статус delivered",
+          "cond": "order.status === 'delivered'",
+          "to": "br.period",
+          "tone": "ok"
+        },
+        {
+          "short": "нет",
+          "hint": "ещё в пути или отменён",
+          "cond": "order.status !== 'delivered'",
+          "to": "fin.notDelivered",
+          "tone": "bad"
+        }
+      ],
+      "anchor": "src/returns/returns.controller.js::requestReturn",
+      "fingerprint": "16340e757f8c"
+    },
+    "br.period": {
+      "kind": "branch",
+      "actor": "api",
+      "stage": "request",
+      "title": "С доставки прошло не больше 14 дней?",
+      "code": "requestReturn · RETURN_DAYS = 14",
+      "file": "src/returns/returns.controller.js:14",
+      "what": "Срок считается от deliveredAt в календарных днях, включая выходные.",
+      "branches": [
+        {
+          "short": "да",
+          "hint": "срок не истёк",
+          "cond": "days <= RETURN_DAYS",
+          "to": "st.create",
+          "tone": "ok"
+        },
+        {
+          "short": "нет",
+          "hint": "больше 14 дней",
+          "cond": "days > RETURN_DAYS",
+          "to": "fin.expired",
+          "tone": "bad"
+        }
+      ],
+      "anchor": "src/returns/returns.controller.js::requestReturn",
+      "fingerprint": "16340e757f8c"
+    },
+    "st.create": {
+      "kind": "step",
+      "actor": "db",
+      "stage": "request",
+      "title": "Создаём заявку и шлём этикетку для посылки",
+      "code": "db.returns.create",
+      "file": "src/returns/returns.controller.js:18",
+      "what": "Заявка ждёт посылку; покупатель получает письмо с этикеткой службы доставки.",
+      "effects": [
+        "returns.status = awaiting_parcel",
+        "письмо return-label",
+        "HTTP 201 { returnId }"
+      ],
+      "next": "wait.parcel",
+      "anchor": "src/returns/returns.controller.js::requestReturn",
+      "fingerprint": "16340e757f8c"
+    },
+    "wait.parcel": {
+      "kind": "wait",
+      "actor": "customer",
+      "stage": "parcel",
+      "title": "Ждём: покупатель отправляет посылку",
+      "what": "Вне нашего кода: покупатель несёт посылку в пункт выдачи, служба доставки везёт её на склад. Срок ожидания в системе никак не ограничен.",
+      "note": "Автоматического закрытия заявки без посылки нет — такие заявки висят в awaiting_parcel бессрочно.",
+      "next": "in.inspect"
+    },
+    "in.inspect": {
+      "kind": "entry",
+      "actor": "warehouse",
+      "stage": "inspect",
+      "title": "Склад вскрывает посылку и отмечает результат",
+      "code": "POST /api/returns/:id/inspect",
+      "file": "src/returns/returns.controller.js:24",
+      "what": "Сотрудник склада в своём интерфейсе отмечает, в целости ли товар, и при необходимости пишет комментарий.",
+      "next": "br.intact",
+      "anchor": "src/returns/returns.controller.js::inspectReturn",
+      "fingerprint": "43058f858461"
+    },
+    "br.intact": {
+      "kind": "branch",
+      "actor": "warehouse",
+      "stage": "inspect",
+      "title": "Товар в целости?",
+      "code": "inspectReturn",
+      "file": "src/returns/returns.controller.js:27",
+      "what": "Решение принимает человек: следы использования, комплектность, упаковка.",
+      "branches": [
+        {
+          "short": "да",
+          "hint": "можно вернуть деньги",
+          "cond": "req.body.intact === true",
+          "to": "st.refund",
+          "tone": "ok"
+        },
+        {
+          "short": "нет",
+          "hint": "повреждён или неполный",
+          "cond": "!req.body.intact",
+          "to": "st.reject",
+          "tone": "bad"
+        }
+      ],
+      "anchor": "src/returns/returns.controller.js::inspectReturn",
+      "fingerprint": "43058f858461"
+    },
+    "st.reject": {
+      "kind": "step",
+      "actor": "db",
+      "stage": "inspect",
+      "title": "Отказываем в возврате и сообщаем покупателю",
+      "code": "inspectReturn",
+      "file": "src/returns/returns.controller.js:28",
+      "what": "Заявка закрывается отказом с комментарием склада, покупатель получает письмо.",
+      "effects": [
+        "returns.status = rejected, reason = comment",
+        "письмо return-rejected"
+      ],
+      "next": "fin.rejected",
+      "anchor": "src/returns/returns.controller.js::inspectReturn",
+      "fingerprint": "43058f858461"
+    },
+    "st.refund": {
+      "kind": "step",
+      "actor": "payment",
+      "stage": "refund",
+      "title": "Просим платёжку вернуть деньги",
+      "code": "payments.refund",
+      "file": "src/returns/returns.controller.js:33",
+      "what": "Возврат на ту же карту, которой платили.",
+      "attention": [
+        "Сумма берётся из order.total — всего заказа, а не возвращаемых позиций: при частичном возврате покупатель получит деньги и за оставленные товары."
+      ],
+      "next": "br.refunded",
+      "anchor": "src/returns/returns.controller.js::inspectReturn",
+      "fingerprint": "43058f858461"
+    },
+    "br.refunded": {
+      "kind": "branch",
+      "actor": "api",
+      "stage": "refund",
+      "title": "Платёжка вернула деньги?",
+      "code": "inspectReturn",
+      "file": "src/returns/returns.controller.js:34",
+      "what": "Платёжка может отказать: карта перевыпущена, прошло слишком много времени с платежа.",
+      "branches": [
+        {
+          "short": "да",
+          "hint": "refund succeeded",
+          "cond": "refund.status === 'succeeded'",
+          "to": "st.restock",
+          "tone": "ok"
+        },
+        {
+          "short": "нет",
+          "hint": "платёжка отказала",
+          "cond": "refund.status !== 'succeeded'",
+          "to": "fin.manual",
+          "tone": "warn"
+        }
+      ],
+      "anchor": "src/returns/returns.controller.js::inspectReturn",
+      "fingerprint": "43058f858461"
+    },
+    "st.restock": {
+      "kind": "step",
+      "actor": "db",
+      "stage": "refund",
+      "title": "Возвращаем товар в продажу",
+      "code": "db.stock.restock",
+      "file": "src/returns/returns.controller.js:39",
+      "what": "Заявка закрывается как выполненная, позиции снова доступны на складе.",
+      "effects": [
+        "returns.status = refunded, refundId",
+        "db.stock.restock(items)"
+      ],
+      "next": "fin.refunded",
+      "anchor": "src/returns/returns.controller.js::inspectReturn",
+      "fingerprint": "43058f858461"
+    },
+    "fin.notDelivered": {
+      "kind": "terminal",
+      "actor": "api",
+      "stage": "request",
+      "outcome": "bad",
+      "title": "Отказ 409 — заказ ещё не доставлен",
+      "file": "src/returns/returns.controller.js:10",
+      "what": "Сайт предлагает дождаться доставки или отменить заказ.",
+      "anchor": "src/returns/returns.controller.js::requestReturn",
+      "fingerprint": "16340e757f8c"
+    },
+    "fin.expired": {
+      "kind": "terminal",
+      "actor": "api",
+      "stage": "request",
+      "outcome": "bad",
+      "title": "Отказ 422 — срок возврата истёк",
+      "file": "src/returns/returns.controller.js:15",
+      "what": "Прошло больше 14 дней с доставки.",
+      "anchor": "src/returns/returns.controller.js::requestReturn",
+      "fingerprint": "16340e757f8c"
+    },
+    "fin.rejected": {
+      "kind": "terminal",
+      "actor": "warehouse",
+      "stage": "inspect",
+      "outcome": "warn",
+      "title": "Финиш: в возврате отказано",
+      "file": "src/returns/returns.controller.js:30",
+      "what": "Деньги не возвращаются; что делать с посылкой, решает поддержка вне системы.",
+      "anchor": "src/returns/returns.controller.js::inspectReturn",
+      "fingerprint": "43058f858461"
+    },
+    "fin.manual": {
+      "kind": "terminal",
+      "actor": "api",
+      "stage": "refund",
+      "outcome": "warn",
+      "title": "Финиш: возврат передан бухгалтерии",
+      "file": "src/returns/returns.controller.js:36",
+      "what": "returns.status = manual_refund. Бухгалтерия возвращает деньги переводом.",
+      "attention": [
+        "Товар при этом не возвращается на склад — restock вызывается только при успешном возврате через платёжку."
+      ],
+      "anchor": "src/returns/returns.controller.js::inspectReturn",
+      "fingerprint": "43058f858461"
+    },
+    "fin.refunded": {
+      "kind": "terminal",
+      "actor": "api",
+      "stage": "refund",
+      "outcome": "ok",
+      "title": "Финиш: деньги возвращены покупателю",
+      "file": "src/returns/returns.controller.js:41",
+      "what": "Деньги ушли на карту (зачисление 1–5 дней на стороне банка), товар снова в продаже.",
+      "anchor": "src/returns/returns.controller.js::inspectReturn",
+      "fingerprint": "43058f858461"
+    }
+  },
+  "presets": [
+    {
+      "name": "Возврат оформлен и деньги вернулись",
+      "tone": "ok",
+      "note": "основной путь",
+      "path": [
+        "in.request",
+        "br.delivered",
+        "br.period",
+        "st.create",
+        "wait.parcel",
+        "in.inspect",
+        "br.intact",
+        "st.refund",
+        "br.refunded",
+        "st.restock",
+        "fin.refunded"
+      ]
+    },
+    {
+      "name": "Склад нашёл повреждения",
+      "tone": "warn",
+      "note": "решение сотрудника склада",
+      "path": [
+        "in.request",
+        "br.delivered",
+        "br.period",
+        "st.create",
+        "wait.parcel",
+        "in.inspect",
+        "br.intact",
+        "st.reject",
+        "fin.rejected"
+      ]
+    },
+    {
+      "name": "Платёжка не смогла вернуть деньги",
+      "tone": "warn",
+      "note": "ручной возврат бухгалтерией",
+      "path": [
+        "in.request",
+        "br.delivered",
+        "br.period",
+        "st.create",
+        "wait.parcel",
+        "in.inspect",
+        "br.intact",
+        "st.refund",
+        "br.refunded",
+        "fin.manual"
+      ]
+    },
+    {
+      "name": "Опоздал с возвратом (422)",
+      "tone": "bad",
+      "note": "прошло больше 14 дней",
+      "path": [
+        "in.request",
+        "br.delivered",
+        "br.period",
+        "fin.expired"
+      ]
+    }
+  ]
+}

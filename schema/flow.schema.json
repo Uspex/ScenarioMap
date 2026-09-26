@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://scenario-map-kit/schema/flow.schema.json",
+  "title": "Scenario map flow",
+  "description": "Один флоу = один бизнес-сценарий от входа до всех финишей. Правила формулировок — docs/RULES.md, нарезка блоков — docs/FLOW_TREE_RULES.md.",
+  "type": "object",
+  "required": ["id", "name", "group", "root", "steps", "presets"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$", "description": "Совпадает с именем файла flows/<id>.json" },
+    "order": { "type": "number", "description": "Порядок карточки в разделе главной" },
+    "name": { "type": "string", "description": "Название на языке пользователя сценария" },
+    "group": { "type": "string", "description": "id раздела главной из groups конфига" },
+    "tone": { "enum": ["ok", "bad", "warn", "info", "pause"] },
+    "entry": { "type": "string", "description": "Коротко: адрес или событие входа (POST /api/checkout, «Лид из формы сайта»)" },
+    "what": { "type": "string", "description": "2–3 предложения для карточки на главной" },
+    "root": { "type": "string", "description": "id шага-входа" },
+    "strict": { "type": "boolean", "description": "Включить строгие правила подписей (вопросы, short/hint/cond, шаблон финиша)" },
+    "stages": { "type": "object", "additionalProperties": { "type": "string" }, "description": "Этапы: ключ → подпись. Шаги ссылаются полем stage" },
+    "layout": { "$ref": "#/$defs/layout" },
+    "steps": { "type": "object", "additionalProperties": { "$ref": "#/$defs/step" }, "minProperties": 1 },
+    "presets": { "type": "array", "items": { "$ref": "#/$defs/preset" }, "minItems": 1 },
+    "custom_name": { "type": "string" },
+    "custom_entry": { "type": "string" },
+    "custom_what": { "type": "string" }
+  },
+  "$defs": {
+    "step": {
+      "type": "object",
+      "required": ["kind", "actor", "title", "what"],
+      "properties": {
+        "kind": { "enum": ["entry", "step", "branch", "wait", "terminal"] },
+        "actor": { "type": "string", "description": "id актёра из actors конфига — определяет цвет блока" },
+        "stage": { "type": "string" },
+        "title": { "type": "string", "description": "Смысл человеческим языком. У branch — вопрос, «да» ведёт по основному пути. У terminal — «Финиш: …» / «Отказ <код> — причина»" },
+        "code": { "type": "string", "description": "Техническая привязка мелким моно: маршрут, Класс::метод, имя джобы" },
+        "file": { "type": "string", "description": "путь:строка относительно codeRoot — место, где принимается решение" },
+        "anchor": { "type": "string", "description": "Ставит bin/scan.mjs --anchors: путь::символ" },
+        "fingerprint": { "type": "string", "description": "Ставит bin/scan.mjs --anchors" },
+        "what": { "type": "string", "description": "1–3 предложения: что здесь решается и почему это важно" },
+        "effects": { "type": "array", "items": { "type": "string" }, "description": "Наблюдаемые следствия: записи в БД, события, письма, ответы" },
+        "note": { "type": "string", "description": "⏸ Особый режим: отключено, на паузе, устарело" },
+        "attention": { "type": "array", "items": { "type": "string" }, "description": "⚠ Найденные проблемы: что не так и к чему это приводит" },
+        "outcome": { "enum": ["ok", "bad", "warn", "info"], "description": "Только у terminal" },
+        "next": { "type": "string" },
+        "branches": { "type": "array", "items": { "$ref": "#/$defs/branch" }, "minItems": 1 },
+        "spawns": { "type": "array", "items": { "type": "string" }, "description": "Параллельные линии (фоновые задачи): корни, недостижимые обычными переходами" },
+        "todo": { "type": "string" },
+        "custom_title": { "type": "string" },
+        "custom_code": { "type": "string" },
+        "custom_what": { "type": "string" },
+        "custom_note": { "type": "string" },
+        "custom_effects": { "type": "array", "items": { "type": "string" } },
+        "custom_attention": { "type": "array", "items": { "type": "string" } }
+      },
+      "allOf": [
+        { "if": { "properties": { "kind": { "const": "terminal" } } }, "then": { "required": ["outcome"], "not": { "anyOf": [{ "required": ["next"] }, { "required": ["branches"] }] } } },
+        { "if": { "properties": { "kind": { "const": "branch" } } }, "then": { "required": ["branches"] } },
+        { "if": { "properties": { "kind": { "enum": ["entry", "step", "wait"] } } }, "then": { "anyOf": [{ "required": ["next"] }, { "required": ["branches"] }] } }
+      ]
+    },
+    "branch": {
+      "type": "object",
+      "required": ["to"],
+      "properties": {
+        "short": { "type": "string", "maxLength": 14, "description": "Ответ: да / нет / ноль / ретрай" },
+        "hint": { "type": "string", "maxLength": 34, "description": "Почему: «долга нет», «товара нет на складе»" },
+        "label": { "type": "string", "description": "Полная формулировка для паспорта" },
+        "cond": { "type": "string", "description": "Условие дословно из кода (или из регламента для бизнес-процесса)" },
+        "to": { "type": "string" },
+        "tone": { "enum": ["ok", "bad", "warn", "info", "pause"] },
+        "paused": { "type": "boolean", "description": "Ветка отключена в коде / настройках" },
+        "custom_short": { "type": "string" },
+        "custom_hint": { "type": "string" },
+        "custom_label": { "type": "string" }
+      }
+    },
+    "preset": {
+      "type": "object",
+      "required": ["name", "path"],
+      "properties": {
+        "name": { "type": "string", "description": "На языке менеджера, о результате" },
+        "tone": { "enum": ["ok", "bad", "warn", "info", "pause"] },
+        "note": { "type": "string", "description": "Одна строка: зачем смотреть этот сценарий" },
+        "path": { "type": "array", "items": { "type": "string" }, "minItems": 2, "description": "От root до terminal по объявленным переходам" },
+        "sub": { "type": "array", "items": { "type": "string" }, "description": "Параллельная линия: от корня spawns до terminal" },
+        "custom_name": { "type": "string" },
+        "custom_note": { "type": "string" }
+      }
+    },
+    "layout": {
+      "type": "object",
+      "properties": {
+        "pxPerUnit": { "type": "number" },
+        "startZoom": { "type": "number" },
+        "rowGap": { "type": "number" },
+        "colGap": { "type": "number" },
+        "maxVerticalWidth": { "type": "number" },
+        "phaseStyle": { "enum": ["divider", "rail"] },
+        "legend": { "type": "object", "additionalProperties": { "type": "string" } }
+      }
+    }
+  }
+}

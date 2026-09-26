@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://scenario-map-kit/schema/config.schema.json",
+  "title": "Scenario map project config",
+  "description": "scenario-map.config.json — настройки проекта карт. Все пути относительно этого файла.",
+  "type": "object",
+  "properties": {
+    "$schema": { "type": "string" },
+    "title": { "type": "string", "description": "Заголовок главной страницы" },
+    "description": { "type": "string" },
+    "flows": { "type": "string", "default": "flows", "description": "Каталог с flows/*.json" },
+    "out": { "type": "string", "default": "maps", "description": "Куда собирать HTML" },
+    "codeRoot": { "type": "string", "default": ".", "description": "Корень кода: относительно него пишутся file у шагов" },
+    "repository": {
+      "type": ["object", "boolean"],
+      "description": "Ссылки из паспорта на GitHub/GitLab. Без блока берётся git remote origin из codeRoot; false — ссылок не строить",
+      "properties": {
+        "url": { "type": "string" },
+        "revision": { "type": "string", "description": "Ветка или коммит" },
+        "path": { "type": "string", "description": "Путь codeRoot внутри репозитория" },
+        "host": { "enum": ["github", "gitlab"] }
+      }
+    },
+    "groups": {
+      "description": "Разделы главной (массив или путь к JSON-файлу с массивом)",
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array", "items": { "type": "object", "required": ["id", "title"], "properties": { "id": { "type": "string" }, "title": { "type": "string" }, "hint": { "type": "string" } } } }
+      ]
+    },
+    "actors": {
+      "type": "object",
+      "description": "Кто действует на шаге: id → подпись и цвет. Если задан — заменяет список по умолчанию целиком",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["name", "type"],
+        "properties": {
+          "name": { "type": "string" },
+          "type": { "enum": ["frontend", "backend", "database", "cloud", "security", "messagebus", "external"] }
+        }
+      }
+    },
+    "rules": {
+      "type": "object",
+      "properties": {
+        "terminalTitle": { "type": "string", "description": "RegExp заголовка финиша у strict-флоу" },
+        "branchTitle": { "type": "string", "description": "RegExp заголовка развилки у strict-флоу" },
+        "shortMax": { "type": "number" },
+        "hintMax": { "type": "number" },
+        "requireFile": { "type": "boolean", "description": "Каждый шаг обязан ссылаться на код" }
+      }
+    },
+    "layout": { "type": "object", "description": "Раскладка по умолчанию для всех флоу (см. flow.schema.json#/$defs/layout)" },
+    "scan": {
+      "type": "object",
+      "properties": {
+        "outcomeCodePatterns": { "type": "array", "items": { "type": "string" }, "description": "RegExp с группой 1 = код ответа; scan.mjs ищет такие коды в коде шага и сверяет с заголовками финишей" }
+      }
+    },
+    "entrypoints": {
+      "description": "Входные точки проекта для панели покрытия (массив или путь к JSON). Описана = у какого-то шага такой же anchor",
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array", "items": { "type": "object", "required": ["anchor"], "properties": { "group": { "type": "string" }, "name": { "type": "string" }, "kind": { "type": "string" }, "anchor": { "type": "string" } } } }
+      ]
+    }
+  }
+}

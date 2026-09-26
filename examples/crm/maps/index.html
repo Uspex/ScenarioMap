@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Демо: CRM отдела продаж и поддержки</title>
+<style>
+  :root{--bg:#f6f7f9;--panel:#fff;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--accent:#0369a1;--warn:#b91c1c;--ok:#16a34a}
+  @media (prefers-color-scheme:dark){:root{--bg:#0b1220;--panel:#111a2b;--ink:#e6edf7;--muted:#8b99b3;--line:#1f2b40;--accent:#38bdf8;--warn:#f87171;--ok:#4ade80}}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace}
+  body{padding:28px 32px 48px}
+  @media (max-width:640px){body{padding:20px 16px 40px}}
+  h1{margin:0 0 6px;font-size:1.3rem}
+  .sub{color:var(--muted);font-size:.8rem;margin-bottom:18px;line-height:1.5}
+  em{font-style:normal;color:var(--warn)}
+  .muted{color:var(--muted)}
+  .sum{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:14px 16px;margin-bottom:28px;font-size:.8rem;display:flex;flex-direction:column;gap:6px}
+  .sum .row b{font-size:1.1rem}
+  .bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden;min-width:120px}
+  .bar i{display:block;height:100%;background:var(--ok)}
+  section{margin:0 0 30px}
+  h2{font-size:.95rem;margin:0 0 12px;display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  h2 small{color:var(--muted);font-size:.72rem;font-weight:400;margin-left:12px}
+  h2 .nums{font-size:.74rem;font-weight:400;display:flex;align-items:center;gap:8px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr));gap:12px}
+  .card{display:flex;flex-direction:column;gap:6px;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:inherit;text-decoration:none;transition:border-color .15s,transform .15s}
+  .card:hover{border-color:var(--accent);transform:translateY(-1px)}
+  .card b{font-size:.92rem;line-height:1.3}
+  .card .entry{font-size:.68rem;color:var(--accent);word-break:break-all}
+  .card p{margin:0;font-size:.74rem;line-height:1.5;color:var(--muted);display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+  .card .meta{font-size:.68rem;color:var(--muted);margin-top:auto;padding-top:4px}
+  .empty{font-size:.76rem;color:var(--muted);margin:0}
+  details{margin-top:10px;font-size:.74rem}
+  summary{cursor:pointer;color:var(--accent)}
+  .points{list-style:none;margin:8px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(360px,100%),1fr));gap:4px 16px}
+  .points li{display:flex;gap:8px;align-items:baseline;padding:2px 0;border-bottom:1px dashed var(--line)}
+  .points code{color:var(--muted);min-width:44px}
+  .points small{margin-left:auto;color:var(--muted);font-size:.66rem;text-align:right;word-break:break-all}
+  footer{margin-top:40px;font-size:.68rem;color:var(--muted)}
+</style></head><body>
+<h1>Демо: CRM отдела продаж и поддержки</h1>
+<div class="sub">Пример карт бизнес-процессов без привязки к коду: шаги описывают регламент и автоматизации CRM, условия веток — правила из регламента.<br>2 карты · 42 блока · 10 сценариев.
+Каждая карта: селектор сценариев (первый пункт — всё дерево), клик по блоку — путь до него и паспорт справа, кнопка «Сводка».</div>
+<div class="sum">
+      
+      <div class="row"><em>⚠ 4 замечания «обратить внимание»</em> <span class="muted">— возможные ошибки и слабые места; ищите ⚠ на картах</span></div>
+    </div>
+
+    <section>
+      <h2><span>Продажи<small>от заявки до оплаченной сделки</small></span><span class="nums"></span></h2>
+      <div class="cards">
+        <a class="card" href="lead-to-deal.full.html">
+          <b>Заявка → оплаченная сделка</b>
+          <span class="entry">Заявка с сайта, звонок или письмо</span>
+          <p>Путь входящей заявки: CRM создаёт лид и ищет дубликаты, распределяет менеджера и включает таймер SLA. Менеджер дозванивается, квалифицирует, готовит коммерческое предложение и выставляет счёт. Сделка выиграна, когда пришла оплата.</p>
+          <span class="meta">25 блоков · 5 сценариев · 28 переходов · <em>⚠ 2</em></span>
+        </a>
+      </div>
+      
+    </section>
+    <section>
+      <h2><span>Сервис и поддержка<small>обращения клиентов, SLA, закрытие тикетов</small></span><span class="nums"></span></h2>
+      <div class="cards">
+        <a class="card" href="support-ticket.full.html">
+          <b>Обращение клиента в поддержку</b>
+          <span class="entry">Чат на сайте, письмо на support@, мессенджер</span>
+          <p>Клиент пишет в поддержку: CRM создаёт тикет и пробует ответить статьёй базы знаний. Если не помогло — тикет идёт первой линии, при необходимости второй. Тикет закрывается подтверждением клиента или автоматически через три дня тишины.</p>
+          <span class="meta">17 блоков · 5 сценариев · 19 переходов · <em>⚠ 2</em></span>
+        </a>
+      </div>
+      
+    </section>
+<footer>Собрано scenario-map-kit</footer>
+</body></html>
