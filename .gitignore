@@ -1,0 +1,9 @@
+node_modules/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.log
+
+# сборка каталогов карт в примерах по умолчанию; демо собирается в demo/ и коммитится
+examples/*/maps/

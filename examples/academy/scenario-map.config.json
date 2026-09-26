@@ -1,0 +1,36 @@
+{
+  "$schema": "../../schema/config.schema.json",
+  "title": "Демо: онлайн-школа «Академия»",
+  "description": "Пример карт по документации: кода нет, шаги ссылаются на разделы docs/*.md, условия веток — цитаты из документации, ⚠ — противоречия и пробелы в ней. Сверка — node bin/scan.mjs --project=examples/academy.",
+  "mode": "docs",
+  "flows": "flows",
+  "out": "../../demo/academy",
+  "codeRoot": ".",
+  "repository": false,
+  "back": { "href": "../../index.html", "label": "Все демо" },
+  "groups": [
+    { "id": "access", "title": "Доступ и оплата", "hint": "регистрация, пробный период, подписка" },
+    { "id": "learning", "title": "Обучение", "hint": "итоговый тест, проект, сертификат" }
+  ],
+  "actors": {
+    "student": { "name": "студент", "type": "frontend" },
+    "platform": { "name": "платформа", "type": "backend" },
+    "payment": { "name": "платёжный сервис", "type": "external" },
+    "curator": { "name": "куратор", "type": "cloud" },
+    "support": { "name": "поддержка", "type": "messagebus" }
+  },
+  "rules": { "requireFile": true },
+  "entrypoints": [
+    { "group": "access", "kind": "doc", "name": "Регистрация", "anchor": "docs/onboarding.md::Регистрация" },
+    { "group": "access", "kind": "doc", "name": "Пробный период", "anchor": "docs/onboarding.md::Пробный период" },
+    { "group": "access", "kind": "doc", "name": "Окончание пробного периода", "anchor": "docs/onboarding.md::Окончание пробного периода" },
+    { "group": "access", "kind": "doc", "name": "Тарифы", "anchor": "docs/billing.md::Тарифы" },
+    { "group": "access", "kind": "doc", "name": "Привязка карты", "anchor": "docs/billing.md::Привязка карты" },
+    { "group": "access", "kind": "doc", "name": "Списание", "anchor": "docs/billing.md::Списание" },
+    { "group": "access", "kind": "doc", "name": "Отмена подписки", "anchor": "docs/billing.md::Отмена подписки" },
+    { "group": "learning", "kind": "doc", "name": "Условия выдачи", "anchor": "docs/certificates.md::Условия выдачи" },
+    { "group": "learning", "kind": "doc", "name": "Итоговый тест", "anchor": "docs/certificates.md::Итоговый тест" },
+    { "group": "learning", "kind": "doc", "name": "Проверка проекта", "anchor": "docs/certificates.md::Проверка проекта" },
+    { "group": "learning", "kind": "doc", "name": "Выдача", "anchor": "docs/certificates.md::Выдача" }
+  ]
+}

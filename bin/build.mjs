@@ -21,6 +21,7 @@ import { esc, renderDefinitions, renderSemanticSigil, renderCards, applyTemplate
 import { svgRootAttrs, svgAccessibleText, focusNodeAttrs, focusNodeTitle, focusEdgeAttrs } from '../vendor/archify/renderers/shared/cli.mjs';
 import { fittedNodeFontSize } from '../vendor/archify/renderers/shared/text-fit.mjs';
 import { loadProject, listFlows, parseArgs } from '../engine/config.mjs';
+import { THEME_HEAD, CHROME_CSS, CHROME_SCRIPT, chromeHeader } from '../engine/page-chrome.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const kitRoot = path.resolve(here, '..');
@@ -684,13 +685,15 @@ function build(flowId, force) {
   if (repo) {
     for (const id of IDS) {
       const s = S[id]; const refs = [];
-      for (const m of String(s.file || '').matchAll(/([\w./-]+\.[A-Za-z0-9]+)(?::(\d+)(?:-(\d+))?)?/g)) {
+      for (const m of String(s.file || '').matchAll(/([^\s:,;]+\.[\p{L}\p{N}]+)(?::(\d+)(?:-(\d+))?)?/gu)) {
         const p = m[1].replace(/\\/g, '/');
         if (!fs.existsSync(path.join(codeRoot, p))) continue;
         const line = m[2] ? Number(m[2]) : undefined, endLine = m[3] ? Number(m[3]) : undefined;
-        const frag = line ? `#L${line}${endLine && endLine !== line ? `-${endLine}` : ''}` : '';
+        /* у документов (.md и т.п.) GitHub/GitLab показывают строки только в «сыром» виде */
+        const plain = line && /\.(md|markdown|mdx|rst|adoc|asciidoc)$/i.test(p) ? '?plain=1' : '';
+        const frag = line ? `${plain}#L${line}${endLine && endLine !== line ? `-${endLine}` : ''}` : '';
         const href = repo.host === 'gitlab' ? `${repo.url}/-/blob/${repo.revision}/${repo.prefix}${p}${frag}` : `${repo.url}/blob/${repo.revision}/${repo.prefix}${p}${frag.replace('-', '-L')}`;
-        refs.push({ path: p, line, endLine, href, label: s.anchor ? s.anchor.split('::').pop() : p.split('/').pop() });
+        refs.push({ path: p, line, endLine, href, label: s.anchor ? s.anchor.slice(s.anchor.indexOf('::') + 2) : p.split('/').pop() });
       }
       if (refs.length) evidenceNodes[id] = refs;
     }
@@ -732,11 +735,20 @@ function build(flowId, force) {
     .replace('/*__STAGES__*/{}', () => safe(FLOW.stages || {}))
     .replace('/*__ACTORS__*/{}', () => safe(ACTOR_NAME));
   html = html.replace(/<\/body>/, () => `${inject}\n  </body>`);
+  /* «назад» — к главной проекта карт: в левом верхнем углу, перед заголовком флоу */
+  html = html.replace('<div class="pulse-dot"></div>', () => `<a class="sm-back" href="index.html" title="Все карты проекта">← Все карты</a>\n        <div class="pulse-dot"></div>`)
+    .replace('</head>', () => `<style>
+    .sm-back { flex: none; display: inline-flex; align-items: center; min-height: 2.25rem; padding: .375rem .75rem; border-radius: .625rem;
+      border: 1px solid var(--toolbar-border); background: var(--toolbar-bg); color: var(--toolbar-text); font-size: .75rem; font-weight: 500;
+      text-decoration: none; white-space: nowrap; box-shadow: 0 4px 14px rgba(0, 0, 0, .08); }
+    .sm-back:hover { background: var(--toolbar-hover); }
+  </style>
+</head>`);
   const outPath = path.join(outDir, `${flowId}.full.html`);
   fs.writeFileSync(outPath, html);
   buildSummary.push({ id: flowId, name: pick(FLOW, 'name'), group: FLOW.group || 'other', order: FLOW.order ?? 999, what: pick(FLOW, 'what') || '', entry: pick(FLOW, 'entry') || '', steps: IDS.length, edges: EDGES.length, scenarios: views.length, attention: attn.length, file: `${flowId}.full.html`, anchors: IDS.map((id) => S[id].anchor).filter(Boolean) });
   console.log(`${path.relative(process.cwd(), outPath)}
-  ${plural(IDS.length, 'блок', 'блока', 'блоков')} · ${plural(EDGES.length, 'переход', 'перехода', 'переходов')} · ${plural(views.length, 'сценарий', 'сценария', 'сценариев')} · граф ${fullGraph.w}×${fullGraph.h} · ссылки на код: ${Object.keys(evidenceNodes).length} · ${(html.length / 1024).toFixed(0)} KB`);
+  ${plural(IDS.length, 'блок', 'блока', 'блоков')} · ${plural(EDGES.length, 'переход', 'перехода', 'переходов')} · ${plural(views.length, 'сценарий', 'сценария', 'сценариев')} · граф ${fullGraph.w}×${fullGraph.h} · ссылки на источник: ${Object.keys(evidenceNodes).length} · ${(html.length / 1024).toFixed(0)} KB`);
 }
 
 /* Репозиторий для ссылок «открыть в GitLab/GitHub» из паспорта: repository из конфига, иначе git в codeRoot. */
@@ -797,10 +809,13 @@ if (!ids.length && buildSummary.length) {
 
   const attnTotal = buildSummary.reduce((a, f) => a + f.attention, 0);
   const covTotal = EP.length ? { total: EP.length, covered: EP.filter(epCovered).length } : null;
+  /* подписи главной зависят от того, что описывают карты: код (входные точки) или документацию (разделы) */
+  const DOCS = PROJECT.mode === 'docs';
+  const epWord = DOCS ? ['раздела документации', 'разделов документации'] : ['входной точки', 'входных точек'];
   const totals = (covTotal || attnTotal) ? `<div class="sum">
-      ${covTotal ? `<div class="row"><b>${covTotal.covered}</b> из ${covTotal.total} входных точек описано${covTotal.total - covTotal.covered ? ` <em>· ${covTotal.total - covTotal.covered} не покрыто</em>` : ''}</div>
+      ${covTotal ? `<div class="row"><b>${covTotal.covered}</b> из ${covTotal.total} ${covTotal.total % 10 === 1 && covTotal.total % 100 !== 11 ? epWord[0] : epWord[1]} описано${covTotal.total - covTotal.covered ? ` <em>· ${covTotal.total - covTotal.covered} не покрыто</em>` : ''}</div>
       ${bar(covTotal.covered, covTotal.total)}
-      <div class="row muted">покрытие считается по привязке шагов к коду (anchor) против списка entrypoints проекта</div>` : ''}
+      <div class="row muted">покрытие считается по привязке шагов (anchor) против списка entrypoints проекта: ${DOCS ? 'какие разделы документации уже объяснены картами' : 'какие входы в код уже описаны картами'}</div>` : ''}
       ${attnTotal ? `<div class="row"><em>⚠ ${plural(attnTotal, 'замечание', 'замечания', 'замечаний')} «обратить внимание»</em> <span class="muted">— возможные ошибки и слабые места; ищите ⚠ на картах</span></div>` : ''}
     </div>` : '';
 
@@ -820,7 +835,7 @@ if (!ids.length && buildSummary.length) {
           <span class="meta">${plural(f.steps, 'блок', 'блока', 'блоков')} · ${plural(f.scenarios, 'сценарий', 'сценария', 'сценариев')} · ${plural(f.edges, 'переход', 'перехода', 'переходов')}${f.attention ? ` · <em>⚠ ${f.attention}</em>` : ''}</span>
         </a>`).join('')}
       </div>` : `<p class="empty">${empty}</p>`}
-      ${details('Непокрытые входные точки', EP.filter((e) => (e.group || 'other') === g.id && !epCovered(e)))}
+      ${details(DOCS ? 'Необъяснённые разделы документации' : 'Непокрытые входные точки', EP.filter((e) => (e.group || 'other') === g.id && !epCovered(e)))}
     </section>`;
   }).join('');
 
@@ -828,16 +843,18 @@ if (!ids.length && buildSummary.length) {
   const index = `<!doctype html>
 <html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(PROJECT.title)}</title>
+${THEME_HEAD}
 <style>
-  :root{--bg:#f6f7f9;--panel:#fff;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--accent:#0369a1;--warn:#b91c1c;--ok:#16a34a}
-  @media (prefers-color-scheme:dark){:root{--bg:#0b1220;--panel:#111a2b;--ink:#e6edf7;--muted:#8b99b3;--line:#1f2b40;--accent:#38bdf8;--warn:#f87171;--ok:#4ade80}}
+  :root{--bg:#f6f7f9;--panel:#fff;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--accent:#0369a1;--warn:#b91c1c;--ok:#16a34a;color-scheme:light}
+  :root[data-theme=dark]{--bg:#0b1220;--panel:#111a2b;--ink:#e6edf7;--muted:#8b99b3;--line:#1f2b40;--accent:#38bdf8;--warn:#f87171;--ok:#4ade80;color-scheme:dark}${CHROME_CSS}
   html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace}
-  body{padding:28px 32px 48px}
-  @media (max-width:640px){body{padding:20px 16px 40px}}
+  body{padding:0 32px 48px}
+  @media (max-width:640px){body{padding:0 16px 40px}}
   h1{margin:0 0 6px;font-size:1.3rem}
   .sub{color:var(--muted);font-size:.8rem;margin-bottom:18px;line-height:1.5}
   em{font-style:normal;color:var(--warn)}
   .muted{color:var(--muted)}
+  .mode{display:inline-block;margin-right:8px;padding:1px 8px;border:1px solid var(--line);border-radius:999px;color:var(--accent);font-size:.7rem}
   .sum{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:14px 16px;margin-bottom:28px;font-size:.8rem;display:flex;flex-direction:column;gap:6px}
   .sum .row b{font-size:1.1rem}
   .bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden;min-width:120px}
@@ -862,15 +879,17 @@ if (!ids.length && buildSummary.length) {
   .points small{margin-left:auto;color:var(--muted);font-size:.66rem;text-align:right;word-break:break-all}
   footer{margin-top:40px;font-size:.68rem;color:var(--muted)}
 </style></head><body>
+${chromeHeader({ back: PROJECT.back, brand: 'сценарные карты' })}
 <h1>${esc(PROJECT.title)}</h1>
-<div class="sub">${PROJECT.description ? esc(PROJECT.description) + '<br>' : ''}${plural(buildSummary.length, 'карта', 'карты', 'карт')} · ${plural(total.steps, 'блок', 'блока', 'блоков')} · ${plural(total.scenarios, 'сценарий', 'сценария', 'сценариев')}.
+<div class="sub"><span class="mode">${DOCS ? 'карта по документации' : 'карта кода'}</span>${PROJECT.description ? esc(PROJECT.description) + '<br>' : ''}${plural(buildSummary.length, 'карта', 'карты', 'карт')} · ${plural(total.steps, 'блок', 'блока', 'блоков')} · ${plural(total.scenarios, 'сценарий', 'сценария', 'сценариев')}.
 Каждая карта: селектор сценариев (первый пункт — всё дерево), клик по блоку — путь до него и паспорт справа, кнопка «Сводка».</div>
 ${totals}
 ${sections}
 <footer>Собрано scenario-map-kit</footer>
+${CHROME_SCRIPT}
 </body></html>`;
   fs.writeFileSync(path.join(outDir, 'index.html'), index);
-  console.log(`${path.relative(process.cwd(), path.join(outDir, 'index.html'))}\n  главная: ${plural(buildSummary.length, 'карта', 'карты', 'карт')}${EP.length ? `, покрытие ${covTotal.covered}/${covTotal.total} входных точек` : ''}`);
+  console.log(`${path.relative(process.cwd(), path.join(outDir, 'index.html'))}\n  главная: ${plural(buildSummary.length, 'карта', 'карты', 'карт')}${EP.length ? `, покрытие ${covTotal.covered}/${covTotal.total} ${epWord[1]}` : ''}`);
 }
 
 /* ---- итог самопроверки данных ---- */

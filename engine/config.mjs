@@ -7,8 +7,15 @@ import path from 'node:path';
 
 export const CONFIG_NAME = 'scenario-map.config.json';
 
+/* Откуда берётся правда о системе:
+     code — репозиторий: шаги ссылаются на функции и методы, scan следит за правками кода;
+     docs — документация (README, вики, регламенты в .md / .rst / .adoc): шаги ссылаются на разделы,
+            scan следит за правками текста. В одном проекте file может указывать и туда, и туда. */
+export const MODES = ['code', 'docs'];
+
 /* Актёры по умолчанию: id → подпись и цвет Archify (frontend | backend | database | cloud | security | messagebus | external).
-   Проект, который объявил свои actors, получает ровно их — без слияния с этим списком. */
+   Проект, который объявил свои actors, получает ровно их — без слияния с этим списком.
+   DOCS_ACTORS — заготовка init --mode=docs: для объясняющих карт важнее люди и роли, чем слои кода. */
 export const DEFAULT_ACTORS = {
   user: { name: 'пользователь', type: 'frontend' },
   app: { name: 'приложение / интерфейс', type: 'frontend' },
@@ -18,6 +25,15 @@ export const DEFAULT_ACTORS = {
   queue: { name: 'очередь / фоновая задача', type: 'messagebus' },
   external: { name: 'внешняя система', type: 'cloud' },
   payment: { name: 'платёжная система', type: 'security' },
+};
+
+export const DOCS_ACTORS = {
+  user: { name: 'пользователь', type: 'frontend' },
+  team: { name: 'команда / сотрудник', type: 'cloud' },
+  system: { name: 'система', type: 'backend' },
+  data: { name: 'данные / хранилище', type: 'database' },
+  process: { name: 'автоматика / фоновый процесс', type: 'messagebus' },
+  external: { name: 'внешний сервис', type: 'external' },
 };
 
 export const DEFAULT_RULES = {
@@ -63,16 +79,21 @@ export function loadProject(projectArg) {
   if (typeof groups === 'string') groups = JSON.parse(fs.readFileSync(rel(groups), 'utf8'));
   let entrypoints = config.entrypoints ?? [];
   if (typeof entrypoints === 'string') entrypoints = fs.existsSync(rel(entrypoints)) ? JSON.parse(fs.readFileSync(rel(entrypoints), 'utf8')) : [];
+  const mode = config.mode ?? 'code';
+  if (!MODES.includes(mode)) throw new Error(`${file}: mode="${mode}" — допустимо ${MODES.join(' | ')}`);
   return {
     file,
     dir,
     config,
+    mode,
     title: config.title || 'Сценарные карты',
     description: config.description || '',
     flowsDir: rel(config.flows, 'flows'),
     outDir: rel(config.out, 'maps'),
     codeRoot: rel(config.codeRoot, '.'),
     repository: config.repository ?? null,
+    /* кнопка «назад» на главной проекта: { href, label }; без неё — возврат по истории браузера */
+    back: config.back ?? null,
     groups,
     entrypoints,
     actors: config.actors || DEFAULT_ACTORS,

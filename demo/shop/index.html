@@ -1,16 +1,34 @@
 <!doctype html>
 <html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Демо: интернет-магазин</title>
+<script>
+(function () {
+  var t = null;
+  try { var p = new URLSearchParams(location.search).get('theme'); if (p === 'light' || p === 'dark') t = p; } catch (_) {}
+  if (!t) { try { t = localStorage.getItem('archify-theme'); } catch (_) {} }
+  if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+})();
+</script>
 <style>
-  :root{--bg:#f6f7f9;--panel:#fff;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--accent:#0369a1;--warn:#b91c1c;--ok:#16a34a}
-  @media (prefers-color-scheme:dark){:root{--bg:#0b1220;--panel:#111a2b;--ink:#e6edf7;--muted:#8b99b3;--line:#1f2b40;--accent:#38bdf8;--warn:#f87171;--ok:#4ade80}}
+  :root{--bg:#f6f7f9;--panel:#fff;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--accent:#0369a1;--warn:#b91c1c;--ok:#16a34a;color-scheme:light}
+  :root[data-theme=dark]{--bg:#0b1220;--panel:#111a2b;--ink:#e6edf7;--muted:#8b99b3;--line:#1f2b40;--accent:#38bdf8;--warn:#f87171;--ok:#4ade80;color-scheme:dark}
+  .top{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 -32px 24px;padding:12px 32px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  @media (max-width:640px){.top{margin:0 -16px 20px;padding:10px 16px}}
+  .top-l,.top-r{display:flex;align-items:center;gap:8px;min-width:0}
+  .top .brand{font-size:.74rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .btn{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font:inherit;font-size:.74rem;text-decoration:none;cursor:pointer;white-space:nowrap}
+  .btn:hover{border-color:var(--accent);color:var(--accent)}
+  .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .btn[hidden]{display:none}
   html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace}
-  body{padding:28px 32px 48px}
-  @media (max-width:640px){body{padding:20px 16px 40px}}
+  body{padding:0 32px 48px}
+  @media (max-width:640px){body{padding:0 16px 40px}}
   h1{margin:0 0 6px;font-size:1.3rem}
   .sub{color:var(--muted);font-size:.8rem;margin-bottom:18px;line-height:1.5}
   em{font-style:normal;color:var(--warn)}
   .muted{color:var(--muted)}
+  .mode{display:inline-block;margin-right:8px;padding:1px 8px;border:1px solid var(--line);border-radius:999px;color:var(--accent);font-size:.7rem}
   .sum{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:14px 16px;margin-bottom:28px;font-size:.8rem;display:flex;flex-direction:column;gap:6px}
   .sum .row b{font-size:1.1rem}
   .bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden;min-width:120px}
@@ -35,13 +53,17 @@
   .points small{margin-left:auto;color:var(--muted);font-size:.66rem;text-align:right;word-break:break-all}
   footer{margin-top:40px;font-size:.68rem;color:var(--muted)}
 </style></head><body>
+<header class="top">
+  <div class="top-l"><a class="btn" href="../../index.html">← Все демо</a><span class="brand">сценарные карты</span></div>
+  <div class="top-r"><button class="btn" type="button" id="sm-theme" aria-label="Сменить тему">◐ <span id="sm-theme-label">Тема</span></button></div>
+</header>
 <h1>Демо: интернет-магазин</h1>
-<div class="sub">Пример карт с привязкой к коду: шаги ссылаются на src/*.js, сверка — node bin/scan.mjs --project=examples/shop.<br>2 карты · 42 блока · 10 сценариев.
+<div class="sub"><span class="mode">карта кода</span>Пример карт с привязкой к коду: шаги ссылаются на src/*.js, сверка — node bin/scan.mjs --project=examples/shop.<br>2 карты · 42 блока · 10 сценариев.
 Каждая карта: селектор сценариев (первый пункт — всё дерево), клик по блоку — путь до него и паспорт справа, кнопка «Сводка».</div>
 <div class="sum">
       <div class="row"><b>5</b> из 6 входных точек описано <em>· 1 не покрыто</em></div>
       <div class="bar"><i style="width:83%"></i></div>
-      <div class="row muted">покрытие считается по привязке шагов к коду (anchor) против списка entrypoints проекта</div>
+      <div class="row muted">покрытие считается по привязке шагов (anchor) против списка entrypoints проекта: какие входы в код уже описаны картами</div>
       <div class="row"><em>⚠ 6 замечаний «обратить внимание»</em> <span class="muted">— возможные ошибки и слабые места; ищите ⚠ на картах</span></div>
     </div>
 
@@ -70,4 +92,19 @@
       <details><summary>Непокрытые входные точки (1)</summary><ul class="points"><li><code>GET</code> /api/orders/:id<small>src/orders/orders.controller.js::getOrder</small></li></ul></details>
     </section>
 <footer>Собрано scenario-map-kit</footer>
+<script>
+(function () {
+  var html = document.documentElement, btn = document.getElementById('sm-theme'), label = document.getElementById('sm-theme-label');
+  function show() { var dark = html.getAttribute('data-theme') === 'dark'; label.textContent = dark ? 'Тёмная' : 'Светлая'; btn.setAttribute('aria-pressed', dark ? 'false' : 'true'); }
+  btn.addEventListener('click', function () {
+    var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    try { localStorage.setItem('archify-theme', next); } catch (_) {}
+    show();
+  });
+  show();
+  var back = document.getElementById('sm-back');
+  if (back && (history.length > 1 || document.referrer)) { back.hidden = false; back.addEventListener('click', function () { history.back(); }); }
+})();
+</script>
 </body></html>

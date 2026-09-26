@@ -278,9 +278,9 @@
         Array.prototype.forEach.call(svg.querySelectorAll('.scenario-flow'), function (el) { el.remove(); });
         badge.hidden = true;
       }
-      function showChain(id) {
+      function showChain(id, track) {
         clearChain();
-        var chain = chainFor(id);
+        var chain = track ? { name: null, tracks: [track] } : chainFor(id);
         var nodes = [], edges = 0;
         chain.tracks.forEach(function (track) {
           track.forEach(function (n, i) {
@@ -423,10 +423,21 @@
       }
 
       var pickEl = null;
+      /* Граф шире окна — прокручиваем так, чтобы вход (верх дерева) стоял по центру;
+         узкий граф и так по центру (margin: auto). */
+      function centerView() {
+        container.scrollTop = 0;
+        if (svg.clientWidth <= container.clientWidth) { container.scrollLeft = 0; return; }
+        var r0 = svg.querySelector('[data-node-id="' + ROOT + '"]') || svg.querySelector('[data-node-id]');
+        if (!r0) return;
+        var rb = r0.getBoundingClientRect(), cb = container.getBoundingClientRect();
+        container.scrollLeft += rb.left + rb.width / 2 - (cb.left + container.clientWidth / 2);
+      }
       function selectScenario(i, moveCamera) {
         scenarioIdx = i;
         if (pickEl && String(pickEl.value) !== String(i)) pickEl.value = String(i);
         showGraph(i === -1 ? 'all' : i);
+        centerView();
         clearChain();
         sideScenario();
         if (i !== -1 && moveCamera !== false) {
@@ -440,6 +451,17 @@
       container.addEventListener('click', function (e) {
         if (routeProbe && !routeProbe.hidden) return;                         /* режим маршрута Archify — не мешаем */
         if (container.getAttribute('data-just-panned') === 'true') return;
+        /* стрелка: путь до её начала + сама стрелка и блок, куда она ведёт; паспорт этого блока —
+           в боковой панели. Паспорт и камеру Archify для связей не пускаем. */
+        var edge = e.target.closest('[data-relationship-from][data-relationship-to]');
+        if (edge) {
+          e.stopPropagation(); e.preventDefault();
+          var from = edge.getAttribute('data-relationship-from'), to = edge.getAttribute('data-relationship-to');
+          var track = chainFor(from).tracks[0].concat([to]);
+          showChain(to, track);
+          sideStepView(to);
+          return;
+        }
         var node = e.target.closest('[data-node-id]');
         if (node) {
           e.stopPropagation(); e.preventDefault();
@@ -485,14 +507,7 @@
             container.scrollTop = cy * svg.clientHeight - container.clientHeight / 2;
           }
         }
-        var startZoom = function () {
-          /* вид на первый блок активного графа */
-          var r0 = svg.querySelector('[data-node-id="' + ROOT + '"]') || svg.querySelector('[data-node-id]');
-          if (!r0) return;
-          var rb = r0.getBoundingClientRect(), cb = container.getBoundingClientRect();
-          container.scrollLeft += rb.left - cb.left - (cb.width - rb.width) / 2;
-          container.scrollTop = 0;
-        };
+        var startZoom = centerView;
         wrap.addEventListener('click', function (e) {
           var b = e.target.closest('[data-zoom]'); if (!b) return;
           var a = b.getAttribute('data-zoom');
@@ -575,8 +590,9 @@
             CHAINS.map(function (c, i) { return '<option value="' + i + '">' + esc((i + 1) + ' · ' + c.name) + '</option>'; }).join('');
           toolbar.insertBefore(pickWrap, toolbar.firstChild);
           pick.addEventListener('change', function () { selectScenario(Number(pick.value), true); });
-          selectScenario(0, false);
-          requestAnimationFrame(function () { requestAnimationFrame(function () { selectScenario(0, false); }); });
+          /* по умолчанию — дерево всех сценариев; конкретный сценарий выбирается в селекторе */
+          selectScenario(-1, false);
+          requestAnimationFrame(function () { requestAnimationFrame(function () { selectScenario(-1, false); }); });
         } else {
           sideScenario();
         }

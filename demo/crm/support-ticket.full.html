@@ -4847,6 +4847,12 @@
       svg [data-node-id], svg [data-edge-from], svg [data-detail], svg [data-detail-anchor], svg [data-legend-hit], svg { transition: none !important; }
     }
   </style>
+<style>
+    .sm-back { flex: none; display: inline-flex; align-items: center; min-height: 2.25rem; padding: .375rem .75rem; border-radius: .625rem;
+      border: 1px solid var(--toolbar-border); background: var(--toolbar-bg); color: var(--toolbar-text); font-size: .75rem; font-weight: 500;
+      text-decoration: none; white-space: nowrap; box-shadow: 0 4px 14px rgba(0, 0, 0, .08); }
+    .sm-back:hover { background: var(--toolbar-hover); }
+  </style>
 </head>
 <body>
   <!-- Toolbar: theme, live visual style, trace motion, presentation stage, and export.
@@ -4954,6 +4960,7 @@
            data-preset-badge-signal-flow="SIGNAL FLOW"
            data-preset-badge-blueprint="BLUEPRINT / REV 01"
            data-preset-badge-editorial="EDITORIAL / FIELD NOTE">
+        <a class="sm-back" href="index.html" title="Все карты проекта">← Все карты</a>
         <div class="pulse-dot"></div>
         <h1>Обращение клиента в поддержку</h1>
       </div>
@@ -16190,9 +16197,9 @@
         Array.prototype.forEach.call(svg.querySelectorAll('.scenario-flow'), function (el) { el.remove(); });
         badge.hidden = true;
       }
-      function showChain(id) {
+      function showChain(id, track) {
         clearChain();
-        var chain = chainFor(id);
+        var chain = track ? { name: null, tracks: [track] } : chainFor(id);
         var nodes = [], edges = 0;
         chain.tracks.forEach(function (track) {
           track.forEach(function (n, i) {
@@ -16335,10 +16342,21 @@
       }
 
       var pickEl = null;
+      /* Граф шире окна — прокручиваем так, чтобы вход (верх дерева) стоял по центру;
+         узкий граф и так по центру (margin: auto). */
+      function centerView() {
+        container.scrollTop = 0;
+        if (svg.clientWidth <= container.clientWidth) { container.scrollLeft = 0; return; }
+        var r0 = svg.querySelector('[data-node-id="' + ROOT + '"]') || svg.querySelector('[data-node-id]');
+        if (!r0) return;
+        var rb = r0.getBoundingClientRect(), cb = container.getBoundingClientRect();
+        container.scrollLeft += rb.left + rb.width / 2 - (cb.left + container.clientWidth / 2);
+      }
       function selectScenario(i, moveCamera) {
         scenarioIdx = i;
         if (pickEl && String(pickEl.value) !== String(i)) pickEl.value = String(i);
         showGraph(i === -1 ? 'all' : i);
+        centerView();
         clearChain();
         sideScenario();
         if (i !== -1 && moveCamera !== false) {
@@ -16352,6 +16370,17 @@
       container.addEventListener('click', function (e) {
         if (routeProbe && !routeProbe.hidden) return;                         /* режим маршрута Archify — не мешаем */
         if (container.getAttribute('data-just-panned') === 'true') return;
+        /* стрелка: путь до её начала + сама стрелка и блок, куда она ведёт; паспорт этого блока —
+           в боковой панели. Паспорт и камеру Archify для связей не пускаем. */
+        var edge = e.target.closest('[data-relationship-from][data-relationship-to]');
+        if (edge) {
+          e.stopPropagation(); e.preventDefault();
+          var from = edge.getAttribute('data-relationship-from'), to = edge.getAttribute('data-relationship-to');
+          var track = chainFor(from).tracks[0].concat([to]);
+          showChain(to, track);
+          sideStepView(to);
+          return;
+        }
         var node = e.target.closest('[data-node-id]');
         if (node) {
           e.stopPropagation(); e.preventDefault();
@@ -16397,14 +16426,7 @@
             container.scrollTop = cy * svg.clientHeight - container.clientHeight / 2;
           }
         }
-        var startZoom = function () {
-          /* вид на первый блок активного графа */
-          var r0 = svg.querySelector('[data-node-id="' + ROOT + '"]') || svg.querySelector('[data-node-id]');
-          if (!r0) return;
-          var rb = r0.getBoundingClientRect(), cb = container.getBoundingClientRect();
-          container.scrollLeft += rb.left - cb.left - (cb.width - rb.width) / 2;
-          container.scrollTop = 0;
-        };
+        var startZoom = centerView;
         wrap.addEventListener('click', function (e) {
           var b = e.target.closest('[data-zoom]'); if (!b) return;
           var a = b.getAttribute('data-zoom');
@@ -16487,8 +16509,9 @@
             CHAINS.map(function (c, i) { return '<option value="' + i + '">' + esc((i + 1) + ' · ' + c.name) + '</option>'; }).join('');
           toolbar.insertBefore(pickWrap, toolbar.firstChild);
           pick.addEventListener('change', function () { selectScenario(Number(pick.value), true); });
-          selectScenario(0, false);
-          requestAnimationFrame(function () { requestAnimationFrame(function () { selectScenario(0, false); }); });
+          /* по умолчанию — дерево всех сценариев; конкретный сценарий выбирается в селекторе */
+          selectScenario(-1, false);
+          requestAnimationFrame(function () { requestAnimationFrame(function () { selectScenario(-1, false); }); });
         } else {
           sideScenario();
         }

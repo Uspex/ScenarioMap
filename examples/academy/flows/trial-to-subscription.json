@@ -1,0 +1,503 @@
+{
+  "$schema": "../../../schema/flow.schema.json",
+  "id": "trial-to-subscription",
+  "order": 1,
+  "name": "Регистрация → пробный период → подписка",
+  "group": "access",
+  "tone": "ok",
+  "entry": "Форма регистрации на сайте",
+  "what": "Путь нового студента от формы регистрации до оплаченной подписки: подтверждение почты, пробный доступ, привязка карты и списание с повторами. Собран по docs/onboarding.md и docs/billing.md — в них расходятся сроки пробного периода.",
+  "root": "in.signup",
+  "strict": true,
+  "stages": {
+    "reg": "Регистрация",
+    "trial": "Пробный период",
+    "pay": "Оплата",
+    "result": "Итог"
+  },
+  "steps": {
+    "in.signup": {
+      "kind": "entry",
+      "actor": "student",
+      "stage": "reg",
+      "title": "Студент регистрируется по почте",
+      "code": "onboarding.md → Регистрация",
+      "file": "docs/onboarding.md:5",
+      "what": "Вход в сценарий: человек заполняет форму регистрации адресом электронной почты.",
+      "next": "st.mail",
+      "anchor": "docs/onboarding.md::Регистрация",
+      "fingerprint": "d040ba1a9631"
+    },
+    "st.mail": {
+      "kind": "step",
+      "actor": "platform",
+      "stage": "reg",
+      "title": "Отправляем письмо со ссылкой подтверждения",
+      "code": "onboarding.md → Регистрация",
+      "file": "docs/onboarding.md:6",
+      "what": "Платформа высылает письмо со ссылкой. Ссылка живёт 24 часа — от этого зависит, успеет ли студент подтвердить почту.",
+      "effects": [
+        "письмо со ссылкой подтверждения",
+        "ссылка действует 24 часа"
+      ],
+      "next": "wait.confirm",
+      "anchor": "docs/onboarding.md::Регистрация",
+      "fingerprint": "d040ba1a9631"
+    },
+    "wait.confirm": {
+      "kind": "wait",
+      "actor": "student",
+      "stage": "reg",
+      "title": "Ждём: студент переходит по ссылке из письма",
+      "code": "onboarding.md → Регистрация",
+      "file": "docs/onboarding.md:6",
+      "what": "Между регистрацией и подтверждением проходит время. Пока почта не подтверждена, в кабинет войти можно, но курсы закрыты.",
+      "branches": [
+        {
+          "short": "перешёл",
+          "hint": "в течение 24 часов",
+          "cond": "«Ссылка действует 24 часа»",
+          "to": "br.trial-used",
+          "tone": "ok"
+        },
+        {
+          "short": "не успел",
+          "hint": "ссылка истекла",
+          "cond": "прошло больше 24 часов",
+          "to": "br.resend",
+          "tone": "warn"
+        }
+      ],
+      "anchor": "docs/onboarding.md::Регистрация",
+      "fingerprint": "d040ba1a9631"
+    },
+    "br.resend": {
+      "kind": "branch",
+      "actor": "student",
+      "stage": "reg",
+      "title": "Студент запросил новое письмо?",
+      "code": "onboarding.md → Регистрация",
+      "file": "docs/onboarding.md:7",
+      "what": "Истёкшую ссылку можно заменить новой со страницы входа — сценарий возвращается к отправке письма.",
+      "branches": [
+        {
+          "short": "да",
+          "hint": "со страницы входа",
+          "cond": "«может запросить новое письмо со страницы входа»",
+          "to": "st.mail",
+          "tone": "ok"
+        },
+        {
+          "short": "нет",
+          "hint": "почта не подтверждена",
+          "cond": "иначе",
+          "to": "fin.unconfirmed",
+          "tone": "warn"
+        }
+      ],
+      "anchor": "docs/onboarding.md::Регистрация",
+      "fingerprint": "d040ba1a9631"
+    },
+    "fin.unconfirmed": {
+      "kind": "terminal",
+      "actor": "platform",
+      "stage": "result",
+      "outcome": "warn",
+      "title": "Тупик: почта не подтверждена — курсы закрыты",
+      "code": "onboarding.md → Регистрация",
+      "file": "docs/onboarding.md:9",
+      "what": "Студент может войти в кабинет, но ни один курс ему не открыт, и пробный период не начинается.",
+      "anchor": "docs/onboarding.md::Регистрация",
+      "fingerprint": "d040ba1a9631"
+    },
+    "br.trial-used": {
+      "kind": "branch",
+      "actor": "platform",
+      "stage": "trial",
+      "title": "Почта ещё не получала пробный период?",
+      "code": "onboarding.md → Пробный период",
+      "file": "docs/onboarding.md:14",
+      "what": "Пробный период выдаётся один раз на адрес почты и один раз на карту. Повторная регистрация ведёт сразу к оплате.",
+      "attention": [
+        "Проверка «один раз на банковскую карту» в момент регистрации невозможна: карту привязывают позже (billing.md, «Привязка карты»). Документация не говорит, что будет, если уже использованную карту привяжут во время пробного периода, — студент может получить второй пробный период."
+      ],
+      "branches": [
+        {
+          "short": "да",
+          "hint": "первый пробный период",
+          "cond": "«выдаётся один раз на адрес почты»",
+          "to": "st.trial",
+          "tone": "ok"
+        },
+        {
+          "short": "нет",
+          "hint": "почта уже была",
+          "cond": "«адрес почты … уже использовались для пробного периода»",
+          "to": "st.offer",
+          "tone": "info"
+        }
+      ],
+      "anchor": "docs/onboarding.md::Пробный период",
+      "fingerprint": "5c66784e496d"
+    },
+    "st.trial": {
+      "kind": "step",
+      "actor": "platform",
+      "stage": "trial",
+      "title": "Открываем пробный доступ",
+      "code": "onboarding.md → Пробный период",
+      "file": "docs/onboarding.md:13",
+      "what": "Сразу после подтверждения почты открываются первые два модуля любого курса.",
+      "effects": [
+        "открыты модули 1–2 всех курсов",
+        "старт отсчёта пробного периода"
+      ],
+      "attention": [
+        "Документация противоречит сама себе: onboarding.md — «пробный доступ на 14 дней» с подтверждения почты, billing.md («Привязка карты») — «7 дней с момента привязки карты». От того, какой срок верен, зависит дата первого списания и письмо-напоминание."
+      ],
+      "next": "wait.trial",
+      "anchor": "docs/onboarding.md::Пробный период",
+      "fingerprint": "5c66784e496d"
+    },
+    "wait.trial": {
+      "kind": "wait",
+      "actor": "student",
+      "stage": "trial",
+      "title": "Ждём: студент учится в пробный период",
+      "code": "onboarding.md → Окончание пробного периода",
+      "file": "docs/onboarding.md:21",
+      "what": "Студент проходит открытые модули и может в любой момент привязать карту. За три дня до конца ему приходит напоминание.",
+      "effects": [
+        "письмо-напоминание за 3 дня до конца",
+        "проверка карты: списание и возврат 1 рубля (billing.md)"
+      ],
+      "next": "br.card",
+      "anchor": "docs/onboarding.md::Окончание пробного периода",
+      "fingerprint": "59622cb9dde7"
+    },
+    "br.card": {
+      "kind": "branch",
+      "actor": "platform",
+      "stage": "trial",
+      "title": "К концу пробного периода карта привязана?",
+      "code": "onboarding.md → Окончание пробного периода",
+      "file": "docs/onboarding.md:22",
+      "what": "В последний день пробного периода платформа сама оформляет подписку — но только если есть карта.",
+      "branches": [
+        {
+          "short": "да",
+          "hint": "оформляем автоматически",
+          "cond": "«если студент привязал карту»",
+          "to": "st.charge",
+          "tone": "ok"
+        },
+        {
+          "short": "нет",
+          "hint": "карты нет",
+          "cond": "«Если карта не привязана»",
+          "to": "fin.closed",
+          "tone": "warn"
+        }
+      ],
+      "anchor": "docs/onboarding.md::Окончание пробного периода",
+      "fingerprint": "59622cb9dde7"
+    },
+    "fin.closed": {
+      "kind": "terminal",
+      "actor": "platform",
+      "stage": "result",
+      "outcome": "warn",
+      "title": "Тупик: пробный период кончился без карты",
+      "code": "onboarding.md → Окончание пробного периода",
+      "file": "docs/onboarding.md:23",
+      "what": "Доступ к курсам закрывается. Прогресс сохраняется 90 дней — если студент оформит подписку в этот срок, продолжит с того же места.",
+      "effects": [
+        "курсы закрыты",
+        "прогресс хранится 90 дней"
+      ],
+      "anchor": "docs/onboarding.md::Окончание пробного периода",
+      "fingerprint": "59622cb9dde7"
+    },
+    "st.offer": {
+      "kind": "step",
+      "actor": "platform",
+      "stage": "trial",
+      "title": "Предлагаем сразу оформить подписку",
+      "code": "onboarding.md → Пробный период",
+      "file": "docs/onboarding.md:16",
+      "what": "Второго пробного периода нет — платформа ведёт студента прямо к оплате.",
+      "next": "in.card",
+      "anchor": "docs/onboarding.md::Пробный период",
+      "fingerprint": "5c66784e496d"
+    },
+    "in.card": {
+      "kind": "entry",
+      "actor": "student",
+      "stage": "pay",
+      "title": "Студент привязывает карту и выбирает тариф",
+      "code": "billing.md → Привязка карты",
+      "file": "docs/billing.md:10",
+      "what": "Второй вход в сценарий: студент сам приходит в кабинет оплатить подписку на месяц или на год.",
+      "effects": [
+        "проверка карты: списание и возврат 1 рубля"
+      ],
+      "next": "st.charge",
+      "anchor": "docs/billing.md::Привязка карты",
+      "fingerprint": "0ed4d9527f90"
+    },
+    "st.charge": {
+      "kind": "step",
+      "actor": "payment",
+      "stage": "pay",
+      "title": "Списываем оплату подписки",
+      "code": "billing.md → Списание",
+      "file": "docs/billing.md:15",
+      "what": "Платёжный сервис списывает деньги в день начала подписки. Дальше всё зависит от ответа банка.",
+      "next": "br.bank",
+      "anchor": "docs/billing.md::Списание",
+      "fingerprint": "0bda30847618"
+    },
+    "br.bank": {
+      "kind": "branch",
+      "actor": "payment",
+      "stage": "pay",
+      "title": "Банк провёл платёж без подтверждения?",
+      "code": "billing.md → Списание",
+      "file": "docs/billing.md:19",
+      "what": "Три исхода: деньги списаны, банк просит 3-D Secure или списание не прошло.",
+      "branches": [
+        {
+          "short": "да",
+          "hint": "деньги списаны",
+          "cond": "списание прошло",
+          "to": "fin.paid",
+          "tone": "ok"
+        },
+        {
+          "short": "3-D Secure",
+          "hint": "банк просит подтверждение",
+          "cond": "«банк требует подтверждения платежа (3-D Secure)»",
+          "to": "wait.3ds",
+          "tone": "info"
+        },
+        {
+          "short": "нет",
+          "hint": "списание не прошло",
+          "cond": "«Если списание не прошло»",
+          "to": "br.retry",
+          "tone": "bad"
+        }
+      ],
+      "anchor": "docs/billing.md::Списание",
+      "fingerprint": "0bda30847618"
+    },
+    "wait.3ds": {
+      "kind": "wait",
+      "actor": "student",
+      "stage": "pay",
+      "title": "Ждём: студент подтверждает платёж в банке",
+      "code": "billing.md → Списание",
+      "file": "docs/billing.md:20",
+      "what": "Студент получает ссылку на подтверждение. На это есть час — потом попытка считается неудачной.",
+      "branches": [
+        {
+          "short": "подтвердил",
+          "hint": "в течение часа",
+          "cond": "платёж подтверждён",
+          "to": "fin.paid",
+          "tone": "ok"
+        },
+        {
+          "short": "молчит",
+          "hint": "час прошёл",
+          "cond": "«Неподтверждённый в течение часа платёж»",
+          "to": "br.retry",
+          "tone": "bad"
+        }
+      ],
+      "anchor": "docs/billing.md::Списание",
+      "fingerprint": "0bda30847618"
+    },
+    "br.retry": {
+      "kind": "branch",
+      "actor": "platform",
+      "stage": "pay",
+      "title": "Неудачных попыток меньше трёх?",
+      "code": "billing.md → Списание",
+      "file": "docs/billing.md:16",
+      "what": "Неудачное списание повторяется ежедневно три дня подряд. Третья неудача закрывает доступ.",
+      "branches": [
+        {
+          "short": "да",
+          "hint": "повторим завтра",
+          "cond": "«повторяет попытку ежедневно в течение трёх дней»",
+          "to": "st.retry",
+          "tone": "warn"
+        },
+        {
+          "short": "нет",
+          "hint": "третья неудача",
+          "cond": "«После третьей неудачной попытки»",
+          "to": "fin.failed",
+          "tone": "bad"
+        }
+      ],
+      "anchor": "docs/billing.md::Списание",
+      "fingerprint": "0bda30847618"
+    },
+    "st.retry": {
+      "kind": "step",
+      "actor": "platform",
+      "stage": "pay",
+      "title": "Пишем студенту и ждём следующего дня",
+      "code": "billing.md → Списание",
+      "file": "docs/billing.md:16",
+      "what": "После каждой неудачи студент получает письмо, на следующий день списание повторяется.",
+      "effects": [
+        "письмо о неудачном списании"
+      ],
+      "next": "st.charge",
+      "anchor": "docs/billing.md::Списание",
+      "fingerprint": "0bda30847618"
+    },
+    "fin.paid": {
+      "kind": "terminal",
+      "actor": "platform",
+      "stage": "result",
+      "outcome": "ok",
+      "title": "Финиш: подписка оформлена",
+      "code": "billing.md → Списание",
+      "file": "docs/billing.md:15",
+      "what": "Деньги списаны, подписка действует месяц или год и открывает все модули всех курсов.",
+      "effects": [
+        "открыты все модули всех курсов"
+      ],
+      "anchor": "docs/billing.md::Списание",
+      "fingerprint": "0bda30847618"
+    },
+    "fin.failed": {
+      "kind": "terminal",
+      "actor": "platform",
+      "stage": "result",
+      "outcome": "bad",
+      "title": "Отказ — три попытки списания не прошли",
+      "code": "billing.md → Списание",
+      "file": "docs/billing.md:17",
+      "what": "Подписка не оформлена, доступ к курсам закрыт.",
+      "effects": [
+        "курсы закрыты"
+      ],
+      "attention": [
+        "Для этого исхода документация не говорит, сохраняется ли прогресс, — а для исхода «пробный период кончился без карты» обещает хранить его 90 дней. Поддержка не сможет ответить студенту одинаково."
+      ],
+      "anchor": "docs/billing.md::Списание",
+      "fingerprint": "0bda30847618"
+    }
+  },
+  "presets": [
+    {
+      "name": "Пробный период → подписка оформлена",
+      "tone": "ok",
+      "note": "основной путь нового студента",
+      "path": [
+        "in.signup",
+        "st.mail",
+        "wait.confirm",
+        "br.trial-used",
+        "st.trial",
+        "wait.trial",
+        "br.card",
+        "st.charge",
+        "br.bank",
+        "fin.paid"
+      ]
+    },
+    {
+      "name": "Банк попросил 3-D Secure",
+      "tone": "info",
+      "note": "подтверждение платежа в течение часа",
+      "path": [
+        "in.signup",
+        "st.mail",
+        "wait.confirm",
+        "br.trial-used",
+        "st.trial",
+        "wait.trial",
+        "br.card",
+        "st.charge",
+        "br.bank",
+        "wait.3ds",
+        "fin.paid"
+      ]
+    },
+    {
+      "name": "Пробный период кончился без карты",
+      "tone": "warn",
+      "note": "курсы закрыты, прогресс хранится 90 дней",
+      "path": [
+        "in.signup",
+        "st.mail",
+        "wait.confirm",
+        "br.trial-used",
+        "st.trial",
+        "wait.trial",
+        "br.card",
+        "fin.closed"
+      ]
+    },
+    {
+      "name": "Три списания подряд не прошли",
+      "tone": "bad",
+      "note": "повторы три дня, затем отказ",
+      "path": [
+        "in.signup",
+        "st.mail",
+        "wait.confirm",
+        "br.trial-used",
+        "st.trial",
+        "wait.trial",
+        "br.card",
+        "st.charge",
+        "br.bank",
+        "br.retry",
+        "st.retry",
+        "st.charge",
+        "br.bank",
+        "br.retry",
+        "st.retry",
+        "st.charge",
+        "br.bank",
+        "br.retry",
+        "fin.failed"
+      ]
+    },
+    {
+      "name": "Повторная регистрация — сразу к оплате",
+      "tone": "info",
+      "note": "почта уже получала пробный период",
+      "path": [
+        "in.signup",
+        "st.mail",
+        "wait.confirm",
+        "br.trial-used",
+        "st.offer",
+        "in.card",
+        "st.charge",
+        "br.bank",
+        "fin.paid"
+      ]
+    },
+    {
+      "name": "Почта так и не подтверждена",
+      "tone": "warn",
+      "note": "ссылка истекла, новое письмо не запросили",
+      "path": [
+        "in.signup",
+        "st.mail",
+        "wait.confirm",
+        "br.resend",
+        "fin.unconfirmed"
+      ]
+    }
+  ]
+}

@@ -1,9 +1,11 @@
 {
   "name": "scenario-map-kit",
-  "version": "0.1.0",
-  "description": "Сценарные карты «вход → финиш с ветвлениями» из JSON: интерактивные HTML без сервера, сверка с кодом на любом языке, инструкции для людей и ИИ-агентов.",
+  "version": "0.2.0",
+  "description": "Сценарные карты «вход → финиш с ветвлениями» по коду репозитория или по документации: интерактивные HTML без сервера, сверка с источником, инструкции для людей и ИИ-агентов.",
   "type": "module",
   "private": true,
+  "license": "MIT",
+  "keywords": ["documentation", "scenario", "flow", "diagram", "docs-as-code", "ai-agents", "claude-code"],
   "engines": { "node": ">=18" },
   "bin": {
     "scenario-map-build": "./bin/build.mjs",
@@ -13,7 +15,11 @@
   "scripts": {
     "build:shop": "node bin/build.mjs --project=examples/shop",
     "build:crm": "node bin/build.mjs --project=examples/crm",
-    "build:examples": "npm run build:shop && npm run build:crm",
-    "scan:shop": "node bin/scan.mjs --project=examples/shop"
+    "build:academy": "node bin/build.mjs --project=examples/academy",
+    "build:demo": "npm run build:shop && npm run build:academy && npm run build:crm",
+    "scan:shop": "node bin/scan.mjs --project=examples/shop",
+    "scan:academy": "node bin/scan.mjs --project=examples/academy",
+    "scan:demo": "npm run scan:shop && npm run scan:academy",
+    "check": "npm run scan:demo && npm run build:demo"
   }
 }

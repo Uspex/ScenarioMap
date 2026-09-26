@@ -10,7 +10,8 @@
     "description": { "type": "string" },
     "flows": { "type": "string", "default": "flows", "description": "Каталог с flows/*.json" },
     "out": { "type": "string", "default": "maps", "description": "Куда собирать HTML" },
-    "codeRoot": { "type": "string", "default": ".", "description": "Корень кода: относительно него пишутся file у шагов" },
+    "mode": { "enum": ["code", "docs"], "default": "code", "description": "Источник карт: code — репозиторий (шаги → функции), docs — документация (шаги → разделы .md/.rst/.adoc)" },
+    "codeRoot": { "type": "string", "default": ".", "description": "Корень источника — кода или документации: относительно него пишутся file у шагов" },
     "repository": {
       "type": ["object", "boolean"],
       "description": "Ссылки из паспорта на GitHub/GitLab. Без блока берётся git remote origin из codeRoot; false — ссылок не строить",
@@ -20,6 +21,12 @@
         "path": { "type": "string", "description": "Путь codeRoot внутри репозитория" },
         "host": { "enum": ["github", "gitlab"] }
       }
+    },
+    "back": {
+      "type": "object",
+      "description": "Кнопка «назад» в шапке главной проекта: адрес относительно главной и подпись. Без неё кнопка возвращает по истории браузера",
+      "required": ["href"],
+      "properties": { "href": { "type": "string" }, "label": { "type": "string" } }
     },
     "groups": {
       "description": "Разделы главной (массив или путь к JSON-файлу с массивом)",

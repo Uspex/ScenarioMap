@@ -1,0 +1,493 @@
+{
+  "$schema": "../../../schema/flow.schema.json",
+  "id": "certificate",
+  "order": 1,
+  "name": "Как получить сертификат о прохождении курса",
+  "group": "learning",
+  "tone": "ok",
+  "entry": "Кабинет студента → курс",
+  "what": "Три условия сертификата — модули, итоговый тест и зачёт проекта — в том порядке, в каком их проходит студент: пересдачи теста, блокировка и помощь поддержки, доработки проекта, пауза при закончившейся подписке. Собран по docs/certificates.md.",
+  "root": "in.study",
+  "strict": true,
+  "stages": {
+    "study": "Обучение",
+    "test": "Итоговый тест",
+    "project": "Проект",
+    "result": "Выдача"
+  },
+  "steps": {
+    "in.study": {
+      "kind": "entry",
+      "actor": "student",
+      "stage": "study",
+      "title": "Студент проходит модули курса",
+      "code": "certificates.md → Условия выдачи",
+      "file": "docs/certificates.md:5",
+      "what": "Сертификат выдаётся за курс целиком, поэтому путь начинается с прохождения модулей.",
+      "next": "br.modules",
+      "anchor": "docs/certificates.md::Условия выдачи",
+      "fingerprint": "100dc0d3b093"
+    },
+    "br.modules": {
+      "kind": "branch",
+      "actor": "platform",
+      "stage": "study",
+      "title": "Все модули курса отмечены «пройден»?",
+      "code": "certificates.md → Условия выдачи, п. 1",
+      "file": "docs/certificates.md:7",
+      "what": "Первое условие. Без него итоговый тест не открывает путь к сертификату.",
+      "branches": [
+        {
+          "short": "да",
+          "hint": "все модули пройдены",
+          "cond": "«каждый модуль отмечен в кабинете как «пройден»»",
+          "to": "in.test",
+          "tone": "ok"
+        },
+        {
+          "short": "нет",
+          "hint": "есть непройденные",
+          "cond": "иначе",
+          "to": "fin.modules",
+          "tone": "info"
+        }
+      ],
+      "anchor": "docs/certificates.md::Условия выдачи",
+      "fingerprint": "100dc0d3b093"
+    },
+    "fin.modules": {
+      "kind": "terminal",
+      "actor": "platform",
+      "stage": "result",
+      "outcome": "info",
+      "title": "Тупик: не все модули пройдены — кнопки нет",
+      "code": "certificates.md → Условия выдачи",
+      "file": "docs/certificates.md:11",
+      "what": "Кнопка «Получить сертификат» не появляется, пока не выполнены первые два условия. Студенту нужно вернуться к модулям.",
+      "anchor": "docs/certificates.md::Условия выдачи",
+      "fingerprint": "100dc0d3b093"
+    },
+    "in.test": {
+      "kind": "entry",
+      "actor": "student",
+      "stage": "test",
+      "title": "Студент сдаёт итоговый тест",
+      "code": "certificates.md → Итоговый тест",
+      "file": "docs/certificates.md:15",
+      "what": "Каждая попытка — новый вход: между попытками проходят сутки или решение поддержки.",
+      "next": "br.score",
+      "anchor": "docs/certificates.md::Итоговый тест",
+      "fingerprint": "6e7ae5e0bdeb"
+    },
+    "br.score": {
+      "kind": "branch",
+      "actor": "platform",
+      "stage": "test",
+      "title": "Тест сдан на 70 баллов и выше?",
+      "code": "certificates.md → Условия выдачи, п. 2",
+      "file": "docs/certificates.md:8",
+      "what": "Второе условие сертификата.",
+      "branches": [
+        {
+          "short": "да",
+          "hint": "70 из 100 и выше",
+          "cond": "«не ниже чем на 70 баллов из 100»",
+          "to": "st.button",
+          "tone": "ok"
+        },
+        {
+          "short": "нет",
+          "hint": "меньше 70 баллов",
+          "cond": "баллы < 70",
+          "to": "br.attempts",
+          "tone": "bad"
+        }
+      ],
+      "anchor": "docs/certificates.md::Условия выдачи",
+      "fingerprint": "100dc0d3b093"
+    },
+    "br.attempts": {
+      "kind": "branch",
+      "actor": "platform",
+      "stage": "test",
+      "title": "Неудачных попыток меньше трёх?",
+      "code": "certificates.md → Итоговый тест",
+      "file": "docs/certificates.md:15",
+      "what": "Тест можно пересдать не больше трёх раз, между попытками — не меньше суток.",
+      "branches": [
+        {
+          "short": "да",
+          "hint": "можно пересдать",
+          "cond": "«пересдать не больше трёх раз»",
+          "to": "wait.retest",
+          "tone": "warn"
+        },
+        {
+          "short": "нет",
+          "hint": "третья неудача",
+          "cond": "«После третьей неудачной попытки»",
+          "to": "st.blocked",
+          "tone": "bad"
+        }
+      ],
+      "anchor": "docs/certificates.md::Итоговый тест",
+      "fingerprint": "6e7ae5e0bdeb"
+    },
+    "wait.retest": {
+      "kind": "wait",
+      "actor": "student",
+      "stage": "test",
+      "title": "Ждём: сутки до следующей попытки",
+      "code": "certificates.md → Итоговый тест",
+      "file": "docs/certificates.md:15",
+      "what": "Пересдать сразу нельзя — между попытками должно пройти не меньше суток.",
+      "next": "in.test",
+      "anchor": "docs/certificates.md::Итоговый тест",
+      "fingerprint": "6e7ae5e0bdeb"
+    },
+    "st.blocked": {
+      "kind": "step",
+      "actor": "platform",
+      "stage": "test",
+      "title": "Блокируем тест",
+      "code": "certificates.md → Итоговый тест",
+      "file": "docs/certificates.md:16",
+      "what": "После третьей неудачи новые попытки сами не появятся — только через поддержку.",
+      "effects": [
+        "тест заблокирован для студента"
+      ],
+      "next": "in.support",
+      "anchor": "docs/certificates.md::Итоговый тест",
+      "fingerprint": "6e7ae5e0bdeb"
+    },
+    "in.support": {
+      "kind": "entry",
+      "actor": "student",
+      "stage": "test",
+      "title": "Студент пишет в поддержку",
+      "code": "certificates.md → Итоговый тест",
+      "file": "docs/certificates.md:16",
+      "what": "Новый вход в сценарий: студент сам обращается в поддержку за ещё одной попыткой.",
+      "next": "br.support",
+      "anchor": "docs/certificates.md::Итоговый тест",
+      "fingerprint": "6e7ae5e0bdeb"
+    },
+    "br.support": {
+      "kind": "branch",
+      "actor": "support",
+      "stage": "test",
+      "title": "Студент заново прошёл последний модуль?",
+      "code": "certificates.md → Итоговый тест",
+      "file": "docs/certificates.md:17",
+      "what": "Поддержка разблокирует одну попытку, если студент повторил последний модуль.",
+      "attention": [
+        "Не сказано, сколько раз поддержка может разблокировать попытку: по тексту цикл «заблокировали → повторил модуль → ещё попытка» бесконечен. Разные сотрудники поддержки будут решать это по-разному."
+      ],
+      "branches": [
+        {
+          "short": "да",
+          "hint": "ещё одна попытка",
+          "cond": "«если студент заново прошёл последний модуль»",
+          "to": "in.test",
+          "tone": "ok"
+        },
+        {
+          "short": "нет",
+          "hint": "модуль не пройден",
+          "cond": "иначе",
+          "to": "fin.blocked",
+          "tone": "bad"
+        }
+      ],
+      "anchor": "docs/certificates.md::Итоговый тест",
+      "fingerprint": "6e7ae5e0bdeb"
+    },
+    "fin.blocked": {
+      "kind": "terminal",
+      "actor": "support",
+      "stage": "result",
+      "outcome": "bad",
+      "title": "Тупик: тест заблокирован",
+      "code": "certificates.md → Итоговый тест",
+      "file": "docs/certificates.md:17",
+      "what": "Попыток нет, поддержка не разблокирует тест, пока студент не пройдёт последний модуль заново.",
+      "anchor": "docs/certificates.md::Итоговый тест",
+      "fingerprint": "6e7ae5e0bdeb"
+    },
+    "st.button": {
+      "kind": "step",
+      "actor": "platform",
+      "stage": "project",
+      "title": "Показываем кнопку «Получить сертификат»",
+      "code": "certificates.md → Условия выдачи",
+      "file": "docs/certificates.md:11",
+      "what": "Первые два условия выполнены. Остаётся третье — зачёт куратора за итоговый проект.",
+      "attention": [
+        "Кнопка появляется до зачёта проекта, но документация не говорит, что происходит при нажатии, пока зачёта нет. Студент будет ждать сертификат, которого не будет."
+      ],
+      "next": "in.project",
+      "anchor": "docs/certificates.md::Условия выдачи",
+      "fingerprint": "100dc0d3b093"
+    },
+    "in.project": {
+      "kind": "entry",
+      "actor": "student",
+      "stage": "project",
+      "title": "Студент загружает итоговый проект",
+      "code": "certificates.md → Проверка проекта",
+      "file": "docs/certificates.md:21",
+      "what": "Проект загружается в кабинет. После доработки — загружается снова, это тот же вход.",
+      "next": "br.subscription",
+      "anchor": "docs/certificates.md::Проверка проекта",
+      "fingerprint": "85848d063cdb"
+    },
+    "br.subscription": {
+      "kind": "branch",
+      "actor": "platform",
+      "stage": "project",
+      "title": "Подписка ещё действует?",
+      "code": "certificates.md → Выдача",
+      "file": "docs/certificates.md:30",
+      "what": "Если подписка закончилась до зачёта, проверка проекта встаёт на паузу.",
+      "branches": [
+        {
+          "short": "да",
+          "hint": "проверка идёт",
+          "cond": "подписка активна",
+          "to": "wait.review",
+          "tone": "ok"
+        },
+        {
+          "short": "нет",
+          "hint": "подписка кончилась",
+          "cond": "«подписка закончилась до зачёта проекта»",
+          "to": "wait.renew",
+          "tone": "warn"
+        }
+      ],
+      "anchor": "docs/certificates.md::Выдача",
+      "fingerprint": "66007e877934"
+    },
+    "wait.renew": {
+      "kind": "wait",
+      "actor": "student",
+      "stage": "project",
+      "title": "Ждём: студент продлевает подписку",
+      "code": "certificates.md → Выдача",
+      "file": "docs/certificates.md:30",
+      "what": "Проверка приостановлена до продления подписки. Оплата — отдельный сценарий «Регистрация → пробный период → подписка».",
+      "next": "wait.review",
+      "anchor": "docs/certificates.md::Выдача",
+      "fingerprint": "66007e877934"
+    },
+    "wait.review": {
+      "kind": "wait",
+      "actor": "curator",
+      "stage": "project",
+      "title": "Ждём: куратор проверяет проект",
+      "code": "certificates.md → Проверка проекта",
+      "file": "docs/certificates.md:21",
+      "what": "Куратор проверяет проект в течение пяти рабочих дней.",
+      "attention": [
+        "Срок «пять рабочих дней» есть, а что делать, если куратор его пропустил, — нет: студенту некуда обратиться, и в поддержке нет правила для таких обращений."
+      ],
+      "next": "br.review",
+      "anchor": "docs/certificates.md::Проверка проекта",
+      "fingerprint": "85848d063cdb"
+    },
+    "br.review": {
+      "kind": "branch",
+      "actor": "curator",
+      "stage": "project",
+      "title": "Куратор поставил «зачёт»?",
+      "code": "certificates.md → Проверка проекта",
+      "file": "docs/certificates.md:22",
+      "what": "Два решения куратора: зачёт или доработка с комментариями.",
+      "branches": [
+        {
+          "short": "зачёт",
+          "hint": "проект принят",
+          "cond": "«зачёт»",
+          "to": "st.issue",
+          "tone": "ok"
+        },
+        {
+          "short": "доработка",
+          "hint": "есть комментарии",
+          "cond": "«на доработку» с комментариями",
+          "to": "st.rework",
+          "tone": "warn"
+        }
+      ],
+      "anchor": "docs/certificates.md::Проверка проекта",
+      "fingerprint": "85848d063cdb"
+    },
+    "st.rework": {
+      "kind": "step",
+      "actor": "student",
+      "stage": "project",
+      "title": "Студент исправляет проект по комментариям",
+      "code": "certificates.md → Проверка проекта",
+      "file": "docs/certificates.md:23",
+      "what": "Количество доработок не ограничено — сценарий возвращается к загрузке проекта.",
+      "next": "in.project",
+      "anchor": "docs/certificates.md::Проверка проекта",
+      "fingerprint": "85848d063cdb"
+    },
+    "st.issue": {
+      "kind": "step",
+      "actor": "platform",
+      "stage": "result",
+      "title": "Формируем сертификат с уникальным номером",
+      "code": "certificates.md → Выдача",
+      "file": "docs/certificates.md:27",
+      "what": "После зачёта платформа сама выпускает сертификат и отправляет его студенту.",
+      "effects": [
+        "сертификат с уникальным номером",
+        "письмо с сертификатом",
+        "номер доступен на странице проверки сертификатов"
+      ],
+      "next": "fin.issued",
+      "anchor": "docs/certificates.md::Выдача",
+      "fingerprint": "66007e877934"
+    },
+    "fin.issued": {
+      "kind": "terminal",
+      "actor": "platform",
+      "stage": "result",
+      "outcome": "ok",
+      "title": "Финиш: сертификат выдан",
+      "code": "certificates.md → Выдача",
+      "file": "docs/certificates.md:28",
+      "what": "Студент получил сертификат на почту; любой может проверить его подлинность по номеру.",
+      "anchor": "docs/certificates.md::Выдача",
+      "fingerprint": "66007e877934"
+    }
+  },
+  "presets": [
+    {
+      "name": "Всё сдано с первого раза",
+      "tone": "ok",
+      "note": "основной путь к сертификату",
+      "path": [
+        "in.study",
+        "br.modules",
+        "in.test",
+        "br.score",
+        "st.button",
+        "in.project",
+        "br.subscription",
+        "wait.review",
+        "br.review",
+        "st.issue",
+        "fin.issued"
+      ]
+    },
+    {
+      "name": "Тест сдан со второй попытки",
+      "tone": "warn",
+      "note": "пересдача через сутки",
+      "path": [
+        "in.study",
+        "br.modules",
+        "in.test",
+        "br.score",
+        "br.attempts",
+        "wait.retest",
+        "in.test",
+        "br.score",
+        "st.button",
+        "in.project",
+        "br.subscription",
+        "wait.review",
+        "br.review",
+        "st.issue",
+        "fin.issued"
+      ]
+    },
+    {
+      "name": "Тест заблокирован, поддержка дала попытку",
+      "tone": "info",
+      "note": "три неудачи, повтор модуля, ещё одна попытка",
+      "path": [
+        "in.study",
+        "br.modules",
+        "in.test",
+        "br.score",
+        "br.attempts",
+        "wait.retest",
+        "in.test",
+        "br.score",
+        "br.attempts",
+        "wait.retest",
+        "in.test",
+        "br.score",
+        "br.attempts",
+        "st.blocked",
+        "in.support",
+        "br.support",
+        "in.test",
+        "br.score",
+        "st.button",
+        "in.project",
+        "br.subscription",
+        "wait.review",
+        "br.review",
+        "st.issue",
+        "fin.issued"
+      ]
+    },
+    {
+      "name": "Проект отправлен на доработку",
+      "tone": "warn",
+      "note": "исправление и повторная проверка",
+      "path": [
+        "in.study",
+        "br.modules",
+        "in.test",
+        "br.score",
+        "st.button",
+        "in.project",
+        "br.subscription",
+        "wait.review",
+        "br.review",
+        "st.rework",
+        "in.project",
+        "br.subscription",
+        "wait.review",
+        "br.review",
+        "st.issue",
+        "fin.issued"
+      ]
+    },
+    {
+      "name": "Подписка кончилась до зачёта",
+      "tone": "warn",
+      "note": "проверка на паузе до продления",
+      "path": [
+        "in.study",
+        "br.modules",
+        "in.test",
+        "br.score",
+        "st.button",
+        "in.project",
+        "br.subscription",
+        "wait.renew",
+        "wait.review",
+        "br.review",
+        "st.issue",
+        "fin.issued"
+      ]
+    },
+    {
+      "name": "Не все модули пройдены",
+      "tone": "info",
+      "note": "кнопки сертификата нет",
+      "path": [
+        "in.study",
+        "br.modules",
+        "fin.modules"
+      ]
+    }
+  ]
+}

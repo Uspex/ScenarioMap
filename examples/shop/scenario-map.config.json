@@ -3,9 +3,10 @@
   "title": "Демо: интернет-магазин",
   "description": "Пример карт с привязкой к коду: шаги ссылаются на src/*.js, сверка — node bin/scan.mjs --project=examples/shop.",
   "flows": "flows",
-  "out": "maps",
+  "out": "../../demo/shop",
   "codeRoot": ".",
   "repository": false,
+  "back": { "href": "../../index.html", "label": "Все демо" },
   "groups": [
     { "id": "orders", "title": "Заказы и оплата", "hint": "корзина, резерв товара, платёж, подтверждение банка" },
     { "id": "aftersale", "title": "После покупки", "hint": "возвраты, просмотр заказа" }

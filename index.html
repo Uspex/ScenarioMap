@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>scenario-map-kit — демо</title>
+<meta name="description" content="Сценарные карты «вход → финиш с ветвлениями» по коду и по документации: интерактивные HTML без сервера.">
+<script>
+(function () {
+  var t = null;
+  try { var p = new URLSearchParams(location.search).get('theme'); if (p === 'light' || p === 'dark') t = p; } catch (_) {}
+  if (!t) { try { t = localStorage.getItem('archify-theme'); } catch (_) {} }
+  if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+})();
+</script>
+<style>
+  :root{--bg:#f6f7f9;--panel:#fff;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--accent:#0369a1;--code:#16a34a;--docs:#7c3aed;--proc:#c2410c;color-scheme:light}
+  :root[data-theme=dark]{--bg:#0b1220;--panel:#111a2b;--ink:#e6edf7;--muted:#8b99b3;--line:#1f2b40;--accent:#38bdf8;--code:#4ade80;--docs:#a78bfa;--proc:#fb923c;color-scheme:dark}
+  .top{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 -32px 24px;padding:12px 32px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  @media (max-width:640px){.top{margin:0 -16px 20px;padding:10px 16px}}
+  .top-l,.top-r{display:flex;align-items:center;gap:8px;min-width:0}
+  .top .brand{font-size:.74rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .btn{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font:inherit;font-size:.74rem;text-decoration:none;cursor:pointer;white-space:nowrap}
+  .btn:hover{border-color:var(--accent);color:var(--accent)}
+  .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .btn[hidden]{display:none}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace}
+  body{padding:0 32px 56px;max-width:1180px;margin:0 auto}
+  @media (max-width:640px){body{padding:0 16px 40px}}
+  h1{margin:0 0 8px;font-size:1.45rem}
+  .lead{color:var(--muted);font-size:.84rem;line-height:1.6;margin:0 0 28px;max-width:780px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(330px,100%),1fr));gap:14px}
+  .demo{display:flex;flex-direction:column;gap:10px;padding:18px;border:1px solid var(--line);border-radius:14px;background:var(--panel);cursor:pointer;transition:border-color .15s,transform .15s}
+  .demo:hover{border-color:var(--accent);transform:translateY(-1px)}
+  .tag{align-self:flex-start;font-size:.68rem;padding:2px 9px;border-radius:999px;border:1px solid currentColor}
+  .tag.code{color:var(--code)}.tag.docs{color:var(--docs)}.tag.proc{color:var(--proc)}
+  .demo h2{margin:0;font-size:1rem}
+  .demo p{margin:0;font-size:.76rem;line-height:1.55;color:var(--muted)}
+  .demo ul{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+  .demo a{color:var(--accent);text-decoration:none;font-size:.78rem}
+  .demo a:hover{text-decoration:underline}
+  .demo .home{margin-top:auto;padding-top:8px;border-top:1px dashed var(--line)}
+  h3{font-size:.9rem;margin:34px 0 10px}
+  pre{margin:0;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel);font-size:.74rem;line-height:1.6;overflow-x:auto}
+  footer{margin-top:36px;font-size:.7rem;color:var(--muted)}
+  footer a{color:var(--accent)}
+</style></head><body>
+<header class="top">
+  <div class="top-l"><span class="brand">scenario-map-kit · демо</span></div>
+  <div class="top-r"><button class="btn" type="button" id="sm-theme" aria-label="Сменить тему">◐ <span id="sm-theme-label">Тема</span></button></div>
+</header>
+<h1>scenario-map-kit</h1>
+<p class="lead">Сценарные карты «вход → финиш с ветвлениями» для любого проекта. Источник правды — код репозитория
+или документация; результат — интерактивные HTML-страницы без сервера. Клик по блоку — путь от входа и паспорт шага,
+селектор сверху — готовые сценарии, <b>⚠</b> — найденные проблемы.</p>
+
+<div class="grid">
+  <section class="demo">
+    <span class="tag code">карта кода</span>
+    <h2>Интернет-магазин</h2>
+    <p>Карты построены по исходникам <code>examples/shop/src</code>: шаги ссылаются на функции, сканер ловит правки кода,
+      покрытие показывает, какие HTTP-ручки ещё не описаны.</p>
+    <ul>
+      <li><a href="demo/shop/checkout.full.html">Оформление заказа и оплата →</a></li>
+      <li><a href="demo/shop/returns.full.html">Возврат товара →</a></li>
+    </ul>
+    <a class="home" href="demo/shop/index.html">Главная проекта: разделы и покрытие 5/6</a>
+  </section>
+
+  <section class="demo">
+    <span class="tag docs">карта по документации</span>
+    <h2>Онлайн-школа «Академия»</h2>
+    <p>Кода нет — только <code>examples/academy/docs/*.md</code>. Шаги ссылаются на разделы документов, условия — цитаты,
+      ⚠ — противоречия и пробелы в документации.</p>
+    <ul>
+      <li><a href="demo/academy/trial-to-subscription.full.html">Регистрация → пробный период → подписка →</a></li>
+      <li><a href="demo/academy/certificate.full.html">Как получить сертификат →</a></li>
+    </ul>
+    <a class="home" href="demo/academy/index.html">Главная проекта: покрытие 9/11 разделов</a>
+  </section>
+
+  <section class="demo">
+    <span class="tag proc">карта процесса</span>
+    <h2>CRM продаж и поддержки</h2>
+    <p>Регламент без кода и без документов-источников: циклы, таймеры SLA параллельной линией, развилки с тремя исходами.</p>
+    <ul>
+      <li><a href="demo/crm/lead-to-deal.full.html">Заявка → оплаченная сделка →</a></li>
+      <li><a href="demo/crm/support-ticket.full.html">Обращение в поддержку →</a></li>
+    </ul>
+    <a class="home" href="demo/crm/index.html">Главная проекта</a>
+  </section>
+</div>
+
+<h3>Собрать заново</h3>
+<pre>npm run build:demo        # все три демо → demo/
+npm run scan:demo         # сверка карт с кодом и документацией</pre>
+
+<footer>Страницы в <code>demo/</code> собираются из <code>examples/*/flows/*.json</code> командой <code>node bin/build.mjs</code>.
+Как описать свой проект — README.md и AGENTS.md.</footer>
+<script>
+(function () {
+  var html = document.documentElement, btn = document.getElementById('sm-theme'), label = document.getElementById('sm-theme-label');
+  function show() { var dark = html.getAttribute('data-theme') === 'dark'; label.textContent = dark ? 'Тёмная' : 'Светлая'; btn.setAttribute('aria-pressed', dark ? 'false' : 'true'); }
+  btn.addEventListener('click', function () {
+    var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    try { localStorage.setItem('archify-theme', next); } catch (_) {}
+    show();
+  });
+  show();
+  /* клик по карточке демо — на главную проекта (ссылка .home); ссылки на отдельные карты работают как обычно */
+  Array.prototype.forEach.call(document.querySelectorAll('.demo'), function (card) {
+    var home = card.querySelector('.home');
+    if (!home) return;
+    card.addEventListener('click', function (e) {
+      if (e.target.closest('a') || (getSelection && String(getSelection()).length)) return;
+      if (e.ctrlKey || e.metaKey || e.button === 1) window.open(home.href, '_blank'); else location.href = home.href;
+    });
+  });
+  var back = document.getElementById('sm-back');
+  if (back && (history.length > 1 || document.referrer)) { back.hidden = false; back.addEventListener('click', function () { history.back(); }); }
+})();
+</script>
+</body></html>
