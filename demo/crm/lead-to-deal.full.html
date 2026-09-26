@@ -16554,11 +16554,20 @@
           var c = CHAINS[i];
           var k = c.path.indexOf(id);
           if (k !== -1) return { name: c.name, tracks: [c.path.slice(0, k + 1)] };
+          /* шаг фоновой линии (sub): путь до блока, который её запускает, + линия до шага */
+          var ks = (c.sub || []).indexOf(id);
+          if (ks !== -1) {
+            var ps = -1;
+            c.path.forEach(function (n, j) { if (ps === -1 && data[n] && data[n].spawns.some(function (sp) { return sp.to === c.sub[0]; })) ps = j; });
+            if (ps !== -1) return { name: c.name, tracks: [c.path.slice(0, ps + 1).concat(c.sub.slice(0, ks + 1))] };
+          }
         }
+        /* кратчайший путь от входа; запуск фоновой задачи (spawns) — тоже переход */
         var prev = {}, seen = {}; seen[ROOT] = true; var q = [ROOT], found = false;
         while (q.length) {
           var u = q.shift(); if (u === id) { found = true; break; }
-          outsOf(u).forEach(function (e) { if (!seen[e.to]) { seen[e.to] = true; prev[e.to] = u; q.push(e.to); } });
+          outsOf(u).concat((data[u] ? data[u].spawns : []).map(function (sp) { return { to: sp.to }; }))
+            .forEach(function (e) { if (!seen[e.to]) { seen[e.to] = true; prev[e.to] = u; q.push(e.to); } });
         }
         var path = [id];
         if (found) { var c2 = id; while (prev[c2] !== undefined) { c2 = prev[c2]; path.unshift(c2); } }
