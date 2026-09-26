@@ -5013,7 +5013,7 @@
     <div class="diagram-container" data-detail-level="read"
          data-preset-badge-editorial-plate="ARCHIFY / PLATE 04">
       <!-- ARCHIFY:SVG_SLOT_START -->
-      <svg data-graph="all" viewBox="0 0 688 1433" role="img" lang="en" aria-labelledby="archify-diagram-title archify-diagram-description" data-preset="classic" data-quality-profile="standard" data-orientation="vertical">
+      <svg data-graph="all" viewBox="0 0 700 1433" role="img" lang="en" aria-labelledby="archify-diagram-title archify-diagram-description" data-preset="classic" data-quality-profile="standard" data-orientation="vertical">
         <title id="archify-diagram-title">Возврат товара</title>
         <desc id="archify-diagram-description">Покупатель оформляет возврат доставленного заказа в течение 14 дней, отправляет посылку, склад осматривает товар. Целый товар — деньги возвращаются через платёжку; если платёжка не смогла — возврат уходит бухгалтерии вручную.</desc>
         <!-- Definitions -->
@@ -5039,254 +5039,254 @@
         <circle cx="34" cy="18" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="18" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">1</text>
         <text x="48" y="18" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ЗАЯВКА НА ВОЗВРАТ</text>
-        <line x1="149.8" y1="18" x2="664" y2="18" class="a-dashed" stroke-width="1"/>
+        <line x1="149.8" y1="18" x2="676" y2="18" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="534" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="534" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">2</text>
         <text x="48" y="534" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ПОСЫЛКА</text>
-        <line x1="95.8" y1="534" x2="664" y2="534" class="a-dashed" stroke-width="1"/>
+        <line x1="95.8" y1="534" x2="676" y2="534" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="658" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="658" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">3</text>
         <text x="48" y="658" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ОСМОТР НА СКЛАДЕ</text>
-        <line x1="144.39999999999998" y1="658" x2="664" y2="658" class="a-dashed" stroke-width="1"/>
+        <line x1="144.39999999999998" y1="658" x2="676" y2="658" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="916" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="916" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">4</text>
         <text x="48" y="916" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ВОЗВРАТ ДЕНЕГ</text>
-        <line x1="128.2" y1="916" x2="664" y2="916" class="a-dashed" stroke-width="1"/>
+        <line x1="128.2" y1="916" x2="676" y2="916" class="a-dashed" stroke-width="1"/>
         <!-- Edge paths -->
-        <path data-edge-from="in.request" data-edge-to="br.delivered" data-edge-key="0" data-edge-id="in.request--br.delivered" data-composition-points="468,111;468,149;468,163" d="M 468 111 L 468 149 L 468 163" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="br.delivered" data-edge-to="br.period" data-edge-label="ДА · статус delivered" data-edge-key="1" data-edge-id="br.delivered--br.period" data-composition-points="461,234;461,272;368,272;368,286" d="M 461 234 L 461 272 L 368 272 L 368 286" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="br.delivered" data-edge-to="fin.notDelivered" data-edge-label="НЕТ · ещё в пути или отменён" data-edge-key="2" data-edge-id="br.delivered--fin.notDelivered" data-composition-points="475,234;475,272;568,272;568,286" d="M 475 234 L 475 272 L 568 272 L 568 286" class="a-security" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
-        <path data-edge-from="br.period" data-edge-to="st.create" data-edge-label="ДА · срок не истёк" data-edge-key="3" data-edge-id="br.period--st.create" data-composition-points="361,369;361,407;268,407;268,421" d="M 361 369 L 361 407 L 268 407 L 268 421" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="br.period" data-edge-to="fin.expired" data-edge-label="НЕТ · больше 14 дней" data-edge-key="4" data-edge-id="br.period--fin.expired" data-composition-points="375,369;375,407;468,407;468,421" d="M 375 369 L 375 407 L 468 407 L 468 421" class="a-security" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
-        <path data-edge-from="st.create" data-edge-to="wait.parcel" data-edge-key="5" data-edge-id="st.create--wait.parcel" data-composition-points="268,504;268,542;268,556" d="M 268 504 L 268 542 L 268 556" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="wait.parcel" data-edge-to="in.inspect" data-edge-key="6" data-edge-id="wait.parcel--in.inspect" data-composition-points="268,628;268,666;268,680" d="M 268 628 L 268 666 L 268 680" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="in.inspect" data-edge-to="br.intact" data-edge-key="7" data-edge-id="in.inspect--br.intact" data-composition-points="268,763;268,801;268,815" d="M 268 763 L 268 801 L 268 815" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="br.intact" data-edge-to="st.refund" data-edge-label="ДА · можно вернуть деньги" data-edge-key="8" data-edge-id="br.intact--st.refund" data-composition-points="275,886;275,924;374,924;374,938" d="M 275 886 L 275 924 L 374 924 L 374 938" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="br.intact" data-edge-to="st.reject" data-edge-label="НЕТ · повреждён или неполный" data-edge-key="9" data-edge-id="br.intact--st.reject" data-composition-points="261,886;261,924;162,924;162,938" d="M 261 886 L 261 924 L 162 924 L 162 938" class="a-security" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
-        <path data-edge-from="st.reject" data-edge-to="fin.rejected" data-edge-key="10" data-edge-id="st.reject--fin.rejected" data-composition-points="162,1021;162,1059;162,1073" d="M 162 1021 L 162 1059 L 162 1073" class="a-default" stroke-width="1.4" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="st.refund" data-edge-to="br.refunded" data-edge-key="11" data-edge-id="st.refund--br.refunded" data-composition-points="374,1021;374,1059;374,1073" d="M 374 1021 L 374 1059 L 374 1073" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="br.refunded" data-edge-to="st.restock" data-edge-label="ДА · refund succeeded" data-edge-key="12" data-edge-id="br.refunded--st.restock" data-composition-points="367,1144;367,1183;274,1183;274,1197" d="M 367 1144 L 367 1183 L 274 1183 L 274 1197" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="br.refunded" data-edge-to="fin.manual" data-edge-label="НЕТ · платёжка отказала" data-edge-key="13" data-edge-id="br.refunded--fin.manual" data-composition-points="381,1144;381,1183;474,1183;474,1197" d="M 381 1144 L 381 1183 L 474 1183 L 474 1197" class="a-default" stroke-width="1.4" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="st.restock" data-edge-to="fin.refunded" data-edge-key="14" data-edge-id="st.restock--fin.refunded" data-composition-points="274,1268;274,1307;274,1321" d="M 274 1268 L 274 1307 L 274 1321" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="in.request" data-edge-to="br.delivered" data-edge-key="0" data-edge-id="in.request--br.delivered" data-composition-points="350,111;350,149;350,163" d="M 350 111 L 350 149 L 350 163" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="br.delivered" data-edge-to="br.period" data-edge-label="ДА · статус delivered" data-edge-key="1" data-edge-id="br.delivered--br.period" data-composition-points="343,234;343,272;350,272;350,286" d="M 343 234 L 343 272 L 350 272 L 350 286" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="br.delivered" data-edge-to="fin.notDelivered" data-edge-label="НЕТ · ещё в пути или отменён" data-edge-key="2" data-edge-id="br.delivered--fin.notDelivered" data-composition-points="357,234;357,263;550,263;550,286" d="M 357 234 L 357 263 L 550 263 L 550 286" class="a-security" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
+        <path data-edge-from="br.period" data-edge-to="st.create" data-edge-label="ДА · срок не истёк" data-edge-key="3" data-edge-id="br.period--st.create" data-composition-points="357,369;357,407;350,407;350,421" d="M 357 369 L 357 407 L 350 407 L 350 421" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="br.period" data-edge-to="fin.expired" data-edge-label="НЕТ · больше 14 дней" data-edge-key="4" data-edge-id="br.period--fin.expired" data-composition-points="343,369;343,398;150,398;150,421" d="M 343 369 L 343 398 L 150 398 L 150 421" class="a-security" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
+        <path data-edge-from="st.create" data-edge-to="wait.parcel" data-edge-key="5" data-edge-id="st.create--wait.parcel" data-composition-points="350,504;350,542;350,556" d="M 350 504 L 350 542 L 350 556" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="wait.parcel" data-edge-to="in.inspect" data-edge-key="6" data-edge-id="wait.parcel--in.inspect" data-composition-points="350,628;350,666;350,680" d="M 350 628 L 350 666 L 350 680" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="in.inspect" data-edge-to="br.intact" data-edge-key="7" data-edge-id="in.inspect--br.intact" data-composition-points="350,763;350,801;350,815" d="M 350 763 L 350 801 L 350 815" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="br.intact" data-edge-to="st.refund" data-edge-label="ДА · можно вернуть деньги" data-edge-key="8" data-edge-id="br.intact--st.refund" data-composition-points="343,886;343,924;350,924;350,938" d="M 343 886 L 343 924 L 350 924 L 350 938" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="br.intact" data-edge-to="st.reject" data-edge-label="НЕТ · повреждён или неполный" data-edge-key="9" data-edge-id="br.intact--st.reject" data-composition-points="357,886;357,915;562,915;562,938" d="M 357 886 L 357 915 L 562 915 L 562 938" class="a-security" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
+        <path data-edge-from="st.reject" data-edge-to="fin.rejected" data-edge-key="10" data-edge-id="st.reject--fin.rejected" data-composition-points="562,1021;562,1059;562,1073" d="M 562 1021 L 562 1059 L 562 1073" class="a-default" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="st.refund" data-edge-to="br.refunded" data-edge-key="11" data-edge-id="st.refund--br.refunded" data-composition-points="350,1021;350,1059;350,1073" d="M 350 1021 L 350 1059 L 350 1073" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="br.refunded" data-edge-to="st.restock" data-edge-label="ДА · refund succeeded" data-edge-key="12" data-edge-id="br.refunded--st.restock" data-composition-points="357,1144;357,1183;350,1183;350,1197" d="M 357 1144 L 357 1183 L 350 1183 L 350 1197" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="br.refunded" data-edge-to="fin.manual" data-edge-label="НЕТ · платёжка отказала" data-edge-key="13" data-edge-id="br.refunded--fin.manual" data-composition-points="343,1144;343,1174;150,1174;150,1197" d="M 343 1144 L 343 1174 L 150 1174 L 150 1197" class="a-default" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="st.restock" data-edge-to="fin.refunded" data-edge-key="14" data-edge-id="st.restock--fin.refunded" data-composition-points="350,1268;350,1307;350,1321" d="M 350 1268 L 350 1307 L 350 1321" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
         <!-- Nodes -->
         <g id="node-in.request" data-node-id="in.request" data-node-label="Покупатель оформляет возврат" tabindex="0" role="button" aria-label="Focus Покупатель оформляет возврат, POST /api/orders/:id/returns, вход · покупатель" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="POST /api/orders/:id/returns" data-node-tag="⚠ обратить внимание" data-node-context="вход · покупатель">
           <title>Покупатель оформляет возврат · POST /api/orders/:id/returns · вход · покупатель · ⚠ обратить внимание</title>
-          <rect x="376" y="40" width="184" height="71" rx="6" class="c-mask"/>
-          <rect x="376" y="40" width="184" height="71" rx="6" class="c-frontend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="start" class="semantic-sigil s-frontend" transform="translate(382 46) scale(0.6875)">
+          <rect x="258" y="40" width="184" height="71" rx="6" class="c-mask"/>
+          <rect x="258" y="40" width="184" height="71" rx="6" class="c-frontend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="start" class="semantic-sigil s-frontend" transform="translate(264 46) scale(0.6875)">
             <circle cx="8" cy="8" r="5"/>
             <path d="m7 5.4 3.6 2.6L7 10.6Z" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="468" y="68" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Покупатель оформляет возврат</text>
-          <text data-detail="context" x="468" y="87" class="t-muted" font-size="7.5" text-anchor="middle">POST /api/orders/:id/returns</text>
-          <text data-detail="fine" x="386" y="102" class="t-frontend" font-size="7">⚠ обратить внимание</text>
+          <text data-node-label="" data-detail-anchor="" x="350" y="68" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Покупатель оформляет возврат</text>
+          <text data-detail="context" x="350" y="87" class="t-muted" font-size="7.5" text-anchor="middle">POST /api/orders/:id/returns</text>
+          <text data-detail="fine" x="268" y="102" class="t-frontend" font-size="7">⚠ обратить внимание</text>
         </g>
         <g id="node-br.delivered" data-node-id="br.delivered" data-node-label="Заказ уже доставлен?" tabindex="0" role="button" aria-label="Focus Заказ уже доставлен?, requestReturn, ветвление · API магазина" aria-pressed="false" data-node-kind="backend" data-node-sublabel="requestReturn" data-node-context="ветвление · API магазина">
           <title>Заказ уже доставлен? · requestReturn · ветвление · API магазина</title>
-          <rect x="376" y="163" width="184" height="71" rx="14" class="c-mask"/>
-          <rect x="376" y="163" width="184" height="71" rx="14" class="c-backend" stroke-width="2"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(382 169) scale(0.6875)">
+          <rect x="258" y="163" width="184" height="71" rx="14" class="c-mask"/>
+          <rect x="258" y="163" width="184" height="71" rx="14" class="c-backend" stroke-width="2"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(264 169) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text x="552" y="177" class="t-backend" font-size="10" font-weight="700" text-anchor="end">?</text>
-          <text data-node-label="" data-detail-anchor="" x="468" y="191" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Заказ уже доставлен?</text>
-          <text data-detail="context" x="468" y="210" class="t-muted" font-size="7.5" text-anchor="middle">requestReturn</text>
+          <text x="434" y="177" class="t-backend" font-size="10" font-weight="700" text-anchor="end">?</text>
+          <text data-node-label="" data-detail-anchor="" x="350" y="191" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Заказ уже доставлен?</text>
+          <text data-detail="context" x="350" y="210" class="t-muted" font-size="7.5" text-anchor="middle">requestReturn</text>
         </g>
         <g id="node-br.period" data-node-id="br.period" data-node-label="С доставки прошло не больше 14 дней?" tabindex="0" role="button" aria-label="Focus С доставки прошло не больше 14 дней?, requestReturn · RETURN_DAYS = 14, ветвление · API магазина" aria-pressed="false" data-node-kind="backend" data-node-sublabel="requestReturn · RETURN_DAYS = 14" data-node-context="ветвление · API магазина">
           <title>С доставки прошло не больше 14 дней? · requestReturn · RETURN_DAYS = 14 · ветвление · API магазина</title>
-          <rect x="276" y="286" width="184" height="83" rx="14" class="c-mask"/>
-          <rect x="276" y="286" width="184" height="83" rx="14" class="c-backend" stroke-width="2"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(282 292) scale(0.6875)">
+          <rect x="258" y="286" width="184" height="83" rx="14" class="c-mask"/>
+          <rect x="258" y="286" width="184" height="83" rx="14" class="c-backend" stroke-width="2"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(264 292) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text x="452" y="300" class="t-backend" font-size="10" font-weight="700" text-anchor="end">?</text>
-          <text data-node-label="" data-detail-anchor="" x="368" y="314" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">С доставки прошло не больше</text>
-          <text x="368" y="326" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">14 дней?</text>
-          <text data-detail="context" x="368" y="345" class="t-muted" font-size="7.5" text-anchor="middle">requestReturn · RETURN_DAYS = 14</text>
+          <text x="434" y="300" class="t-backend" font-size="10" font-weight="700" text-anchor="end">?</text>
+          <text data-node-label="" data-detail-anchor="" x="350" y="314" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">С доставки прошло не больше</text>
+          <text x="350" y="326" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">14 дней?</text>
+          <text data-detail="context" x="350" y="345" class="t-muted" font-size="7.5" text-anchor="middle">requestReturn · RETURN_DAYS = 14</text>
         </g>
         <g id="node-st.create" data-node-id="st.create" data-node-label="Создаём заявку и шлём этикетку для посылки" tabindex="0" role="button" aria-label="Focus Создаём заявку и шлём этикетку для посылки, db.returns.create, шаг · база и склад" aria-pressed="false" data-node-kind="database" data-node-sublabel="db.returns.create" data-node-context="шаг · база и склад">
           <title>Создаём заявку и шлём этикетку для посылки · db.returns.create · шаг · база и склад</title>
-          <rect x="176" y="421" width="184" height="83" rx="6" class="c-mask"/>
-          <rect x="176" y="421" width="184" height="83" rx="6" class="c-database" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(182 427) scale(0.6875)">
+          <rect x="258" y="421" width="184" height="83" rx="6" class="c-mask"/>
+          <rect x="258" y="421" width="184" height="83" rx="6" class="c-database" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(264 427) scale(0.6875)">
             <ellipse cx="8" cy="4" rx="5" ry="2"/>
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="268" y="449" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Создаём заявку и шлём</text>
-          <text x="268" y="461" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">этикетку для посылки</text>
-          <text data-detail="context" x="268" y="480" class="t-muted" font-size="7.5" text-anchor="middle">db.returns.create</text>
+          <text data-node-label="" data-detail-anchor="" x="350" y="449" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Создаём заявку и шлём</text>
+          <text x="350" y="461" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">этикетку для посылки</text>
+          <text data-detail="context" x="350" y="480" class="t-muted" font-size="7.5" text-anchor="middle">db.returns.create</text>
         </g>
         <g id="node-wait.parcel" data-node-id="wait.parcel" data-node-label="Ждём: покупатель отправляет посылку" tabindex="0" role="button" aria-label="Focus Ждём: покупатель отправляет посылку, ожидание · покупатель" aria-pressed="false" data-node-kind="frontend" data-node-tag="⏸ примечание" data-node-context="ожидание · покупатель">
           <title>Ждём: покупатель отправляет посылку · ожидание · покупатель · ⏸ примечание</title>
-          <rect x="176" y="556" width="184" height="72" rx="6" class="c-mask"/>
-          <rect x="176" y="556" width="184" height="72" rx="6" class="c-frontend" stroke-width="1.5" stroke-dasharray="5,3"/>
-          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-frontend" transform="translate(182 562) scale(0.6875)">
+          <rect x="258" y="556" width="184" height="72" rx="6" class="c-mask"/>
+          <rect x="258" y="556" width="184" height="72" rx="6" class="c-frontend" stroke-width="1.5" stroke-dasharray="5,3"/>
+          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-frontend" transform="translate(264 562) scale(0.6875)">
             <path d="M4 2.5h8M4 13.5h8M5 3c0 2.8 2 3.2 3 5-1 1.8-3 2.2-3 5M11 3c0 2.8-2 3.2-3 5 1 1.8 3 2.2 3 5"/>
           </g>
-          <text data-node-label="" x="268" y="584" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Ждём: покупатель отправляет</text>
-          <text x="268" y="596" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">посылку</text>
-          <text data-detail="fine" x="186" y="619" class="t-frontend" font-size="7">⏸ примечание</text>
+          <text data-node-label="" x="350" y="584" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Ждём: покупатель отправляет</text>
+          <text x="350" y="596" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">посылку</text>
+          <text data-detail="fine" x="268" y="619" class="t-frontend" font-size="7">⏸ примечание</text>
         </g>
         <g id="node-in.inspect" data-node-id="in.inspect" data-node-label="Склад вскрывает посылку и отмечает результат" tabindex="0" role="button" aria-label="Focus Склад вскрывает посылку и отмечает результат, POST /api/returns/:id/inspect, вход · сотрудник склада" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="POST /api/returns/:id/inspect" data-node-context="вход · сотрудник склада">
           <title>Склад вскрывает посылку и отмечает результат · POST /api/returns/:id/inspect · вход · сотрудник склада</title>
-          <rect x="176" y="680" width="184" height="83" rx="6" class="c-mask"/>
-          <rect x="176" y="680" width="184" height="83" rx="6" class="c-cloud" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="start" class="semantic-sigil s-cloud" transform="translate(182 686) scale(0.6875)">
+          <rect x="258" y="680" width="184" height="83" rx="6" class="c-mask"/>
+          <rect x="258" y="680" width="184" height="83" rx="6" class="c-cloud" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="start" class="semantic-sigil s-cloud" transform="translate(264 686) scale(0.6875)">
             <circle cx="8" cy="8" r="5"/>
             <path d="m7 5.4 3.6 2.6L7 10.6Z" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="268" y="708" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Склад вскрывает посылку и</text>
-          <text x="268" y="720" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">отмечает результат</text>
-          <text data-detail="context" x="268" y="739" class="t-muted" font-size="7.5" text-anchor="middle">POST /api/returns/:id/inspect</text>
+          <text data-node-label="" data-detail-anchor="" x="350" y="708" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Склад вскрывает посылку и</text>
+          <text x="350" y="720" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">отмечает результат</text>
+          <text data-detail="context" x="350" y="739" class="t-muted" font-size="7.5" text-anchor="middle">POST /api/returns/:id/inspect</text>
         </g>
         <g id="node-br.intact" data-node-id="br.intact" data-node-label="Товар в целости?" tabindex="0" role="button" aria-label="Focus Товар в целости?, inspectReturn, ветвление · сотрудник склада" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="inspectReturn" data-node-context="ветвление · сотрудник склада">
           <title>Товар в целости? · inspectReturn · ветвление · сотрудник склада</title>
-          <rect x="176" y="815" width="184" height="71" rx="14" class="c-mask"/>
-          <rect x="176" y="815" width="184" height="71" rx="14" class="c-cloud" stroke-width="2"/>
-          <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(182 821) scale(0.6875)">
+          <rect x="258" y="815" width="184" height="71" rx="14" class="c-mask"/>
+          <rect x="258" y="815" width="184" height="71" rx="14" class="c-cloud" stroke-width="2"/>
+          <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(264 821) scale(0.6875)">
             <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
-          <text x="352" y="829" class="t-cloud" font-size="10" font-weight="700" text-anchor="end">?</text>
-          <text data-node-label="" data-detail-anchor="" x="268" y="843" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Товар в целости?</text>
-          <text data-detail="context" x="268" y="862" class="t-muted" font-size="7.5" text-anchor="middle">inspectReturn</text>
+          <text x="434" y="829" class="t-cloud" font-size="10" font-weight="700" text-anchor="end">?</text>
+          <text data-node-label="" data-detail-anchor="" x="350" y="843" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Товар в целости?</text>
+          <text data-detail="context" x="350" y="862" class="t-muted" font-size="7.5" text-anchor="middle">inspectReturn</text>
         </g>
         <g id="node-st.reject" data-node-id="st.reject" data-node-label="Отказываем в возврате и сообщаем покупателю" tabindex="0" role="button" aria-label="Focus Отказываем в возврате и сообщаем покупателю, inspectReturn, шаг · база и склад" aria-pressed="false" data-node-kind="database" data-node-sublabel="inspectReturn" data-node-context="шаг · база и склад">
           <title>Отказываем в возврате и сообщаем покупателю · inspectReturn · шаг · база и склад</title>
-          <rect x="70" y="938" width="184" height="83" rx="6" class="c-mask"/>
-          <rect x="70" y="938" width="184" height="83" rx="6" class="c-database" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(76 944) scale(0.6875)">
+          <rect x="470" y="938" width="184" height="83" rx="6" class="c-mask"/>
+          <rect x="470" y="938" width="184" height="83" rx="6" class="c-database" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(476 944) scale(0.6875)">
             <ellipse cx="8" cy="4" rx="5" ry="2"/>
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="162" y="966" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Отказываем в возврате и</text>
-          <text x="162" y="978" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">сообщаем покупателю</text>
-          <text data-detail="context" x="162" y="997" class="t-muted" font-size="7.5" text-anchor="middle">inspectReturn</text>
+          <text data-node-label="" data-detail-anchor="" x="562" y="966" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Отказываем в возврате и</text>
+          <text x="562" y="978" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">сообщаем покупателю</text>
+          <text data-detail="context" x="562" y="997" class="t-muted" font-size="7.5" text-anchor="middle">inspectReturn</text>
         </g>
         <g id="node-st.refund" data-node-id="st.refund" data-node-label="Просим платёжку вернуть деньги" tabindex="0" role="button" aria-label="Focus Просим платёжку вернуть деньги, payments.refund, шаг · платёжная система" aria-pressed="false" data-node-kind="security" data-node-sublabel="payments.refund" data-node-tag="⚠ обратить внимание" data-node-context="шаг · платёжная система">
           <title>Просим платёжку вернуть деньги · payments.refund · шаг · платёжная система · ⚠ обратить внимание</title>
-          <rect x="282" y="938" width="184" height="83" rx="6" class="c-mask"/>
-          <rect x="282" y="938" width="184" height="83" rx="6" class="c-security" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="security" class="semantic-sigil s-security" transform="translate(288 944) scale(0.6875)">
+          <rect x="258" y="938" width="184" height="83" rx="6" class="c-mask"/>
+          <rect x="258" y="938" width="184" height="83" rx="6" class="c-security" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="security" class="semantic-sigil s-security" transform="translate(264 944) scale(0.6875)">
             <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
             <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="374" y="966" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Просим платёжку вернуть</text>
-          <text x="374" y="978" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">деньги</text>
-          <text data-detail="context" x="374" y="997" class="t-muted" font-size="7.5" text-anchor="middle">payments.refund</text>
-          <text data-detail="fine" x="292" y="1012" class="t-security" font-size="7">⚠ обратить внимание</text>
+          <text data-node-label="" data-detail-anchor="" x="350" y="966" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Просим платёжку вернуть</text>
+          <text x="350" y="978" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">деньги</text>
+          <text data-detail="context" x="350" y="997" class="t-muted" font-size="7.5" text-anchor="middle">payments.refund</text>
+          <text data-detail="fine" x="268" y="1012" class="t-security" font-size="7">⚠ обратить внимание</text>
         </g>
         <g id="node-br.refunded" data-node-id="br.refunded" data-node-label="Платёжка вернула деньги?" tabindex="0" role="button" aria-label="Focus Платёжка вернула деньги?, inspectReturn, ветвление · API магазина" aria-pressed="false" data-node-kind="backend" data-node-sublabel="inspectReturn" data-node-context="ветвление · API магазина">
           <title>Платёжка вернула деньги? · inspectReturn · ветвление · API магазина</title>
-          <rect x="282" y="1073" width="184" height="71" rx="14" class="c-mask"/>
-          <rect x="282" y="1073" width="184" height="71" rx="14" class="c-backend" stroke-width="2"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(288 1079) scale(0.6875)">
+          <rect x="258" y="1073" width="184" height="71" rx="14" class="c-mask"/>
+          <rect x="258" y="1073" width="184" height="71" rx="14" class="c-backend" stroke-width="2"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(264 1079) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text x="458" y="1087" class="t-backend" font-size="10" font-weight="700" text-anchor="end">?</text>
-          <text data-node-label="" data-detail-anchor="" x="374" y="1101" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Платёжка вернула деньги?</text>
-          <text data-detail="context" x="374" y="1120" class="t-muted" font-size="7.5" text-anchor="middle">inspectReturn</text>
+          <text x="434" y="1087" class="t-backend" font-size="10" font-weight="700" text-anchor="end">?</text>
+          <text data-node-label="" data-detail-anchor="" x="350" y="1101" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Платёжка вернула деньги?</text>
+          <text data-detail="context" x="350" y="1120" class="t-muted" font-size="7.5" text-anchor="middle">inspectReturn</text>
         </g>
         <g id="node-st.restock" data-node-id="st.restock" data-node-label="Возвращаем товар в продажу" tabindex="0" role="button" aria-label="Focus Возвращаем товар в продажу, db.stock.restock, шаг · база и склад" aria-pressed="false" data-node-kind="database" data-node-sublabel="db.stock.restock" data-node-context="шаг · база и склад">
           <title>Возвращаем товар в продажу · db.stock.restock · шаг · база и склад</title>
-          <rect x="182" y="1197" width="184" height="71" rx="6" class="c-mask"/>
-          <rect x="182" y="1197" width="184" height="71" rx="6" class="c-database" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(188 1203) scale(0.6875)">
+          <rect x="258" y="1197" width="184" height="71" rx="6" class="c-mask"/>
+          <rect x="258" y="1197" width="184" height="71" rx="6" class="c-database" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(264 1203) scale(0.6875)">
             <ellipse cx="8" cy="4" rx="5" ry="2"/>
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="274" y="1225" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Возвращаем товар в продажу</text>
-          <text data-detail="context" x="274" y="1244" class="t-muted" font-size="7.5" text-anchor="middle">db.stock.restock</text>
+          <text data-node-label="" data-detail-anchor="" x="350" y="1225" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Возвращаем товар в продажу</text>
+          <text data-detail="context" x="350" y="1244" class="t-muted" font-size="7.5" text-anchor="middle">db.stock.restock</text>
         </g>
         <g id="node-fin.notDelivered" data-node-id="fin.notDelivered" data-node-label="Отказ 409 — заказ ещё не доставлен" tabindex="0" role="button" aria-label="Focus Отказ 409 — заказ ещё не доставлен, финиш · API магазина" aria-pressed="false" data-node-kind="security" data-node-tag="финиш · bad" data-node-context="финиш · API магазина">
           <title>Отказ 409 — заказ ещё не доставлен · финиш · API магазина · финиш · bad</title>
-          <rect x="488" y="286" width="160" height="72" rx="6" class="c-mask"/>
-          <rect x="488" y="286" width="160" height="72" rx="6" class="c-security" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="failure" class="semantic-sigil s-security" transform="translate(494 292) scale(0.6875)">
+          <rect x="470" y="286" width="160" height="72" rx="6" class="c-mask"/>
+          <rect x="470" y="286" width="160" height="72" rx="6" class="c-security" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="failure" class="semantic-sigil s-security" transform="translate(476 292) scale(0.6875)">
             <circle cx="8" cy="8" r="5.3"/>
             <path d="m5.7 5.7 4.6 4.6m0-4.6-4.6 4.6"/>
           </g>
-          <text data-node-label="" x="568" y="314" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Отказ 409 — заказ ещё не</text>
-          <text x="568" y="326" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">доставлен</text>
-          <text data-detail="fine" x="498" y="349" class="t-security" font-size="7">финиш · bad</text>
+          <text data-node-label="" x="550" y="314" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Отказ 409 — заказ ещё не</text>
+          <text x="550" y="326" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">доставлен</text>
+          <text data-detail="fine" x="480" y="349" class="t-security" font-size="7">финиш · bad</text>
         </g>
         <g id="node-fin.expired" data-node-id="fin.expired" data-node-label="Отказ 422 — срок возврата истёк" tabindex="0" role="button" aria-label="Focus Отказ 422 — срок возврата истёк, финиш · API магазина" aria-pressed="false" data-node-kind="security" data-node-tag="финиш · bad" data-node-context="финиш · API магазина">
           <title>Отказ 422 — срок возврата истёк · финиш · API магазина · финиш · bad</title>
-          <rect x="388" y="421" width="160" height="72" rx="6" class="c-mask"/>
-          <rect x="388" y="421" width="160" height="72" rx="6" class="c-security" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="failure" class="semantic-sigil s-security" transform="translate(394 427) scale(0.6875)">
+          <rect x="70" y="421" width="160" height="72" rx="6" class="c-mask"/>
+          <rect x="70" y="421" width="160" height="72" rx="6" class="c-security" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="failure" class="semantic-sigil s-security" transform="translate(76 427) scale(0.6875)">
             <circle cx="8" cy="8" r="5.3"/>
             <path d="m5.7 5.7 4.6 4.6m0-4.6-4.6 4.6"/>
           </g>
-          <text data-node-label="" x="468" y="449" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Отказ 422 — срок</text>
-          <text x="468" y="461" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">возврата истёк</text>
-          <text data-detail="fine" x="398" y="484" class="t-security" font-size="7">финиш · bad</text>
+          <text data-node-label="" x="150" y="449" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Отказ 422 — срок</text>
+          <text x="150" y="461" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">возврата истёк</text>
+          <text data-detail="fine" x="80" y="484" class="t-security" font-size="7">финиш · bad</text>
         </g>
         <g id="node-fin.rejected" data-node-id="fin.rejected" data-node-label="Финиш: в возврате отказано" tabindex="0" role="button" aria-label="Focus Финиш: в возврате отказано, финиш · сотрудник склада" aria-pressed="false" data-node-kind="cloud" data-node-tag="финиш · warn" data-node-context="финиш · сотрудник склада">
           <title>Финиш: в возврате отказано · финиш · сотрудник склада · финиш · warn</title>
-          <rect x="82" y="1073" width="160" height="72" rx="6" class="c-mask"/>
-          <rect x="82" y="1073" width="160" height="72" rx="6" class="c-cloud" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-cloud" transform="translate(88 1079) scale(0.6875)">
+          <rect x="482" y="1073" width="160" height="72" rx="6" class="c-mask"/>
+          <rect x="482" y="1073" width="160" height="72" rx="6" class="c-cloud" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-cloud" transform="translate(488 1079) scale(0.6875)">
             <path d="M4 2.5h8M4 13.5h8M5 3c0 2.8 2 3.2 3 5-1 1.8-3 2.2-3 5M11 3c0 2.8-2 3.2-3 5 1 1.8 3 2.2 3 5"/>
           </g>
-          <text data-node-label="" x="162" y="1101" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Финиш: в возврате</text>
-          <text x="162" y="1113" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">отказано</text>
-          <text data-detail="fine" x="92" y="1136" class="t-cloud" font-size="7">финиш · warn</text>
+          <text data-node-label="" x="562" y="1101" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Финиш: в возврате</text>
+          <text x="562" y="1113" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">отказано</text>
+          <text data-detail="fine" x="492" y="1136" class="t-cloud" font-size="7">финиш · warn</text>
         </g>
         <g id="node-fin.manual" data-node-id="fin.manual" data-node-label="Финиш: возврат передан бухгалтерии" tabindex="0" role="button" aria-label="Focus Финиш: возврат передан бухгалтерии, финиш · API магазина" aria-pressed="false" data-node-kind="cloud" data-node-tag="финиш · warn · ⚠ обратить внимание" data-node-context="финиш · API магазина">
           <title>Финиш: возврат передан бухгалтерии · финиш · API магазина · финиш · warn · ⚠ обратить внимание</title>
-          <rect x="394" y="1197" width="160" height="72" rx="6" class="c-mask"/>
-          <rect x="394" y="1197" width="160" height="72" rx="6" class="c-cloud" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-cloud" transform="translate(400 1203) scale(0.6875)">
+          <rect x="70" y="1197" width="160" height="72" rx="6" class="c-mask"/>
+          <rect x="70" y="1197" width="160" height="72" rx="6" class="c-cloud" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-cloud" transform="translate(76 1203) scale(0.6875)">
             <path d="M4 2.5h8M4 13.5h8M5 3c0 2.8 2 3.2 3 5-1 1.8-3 2.2-3 5M11 3c0 2.8-2 3.2-3 5 1 1.8 3 2.2 3 5"/>
           </g>
-          <text data-node-label="" x="474" y="1225" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Финиш: возврат передан</text>
-          <text x="474" y="1237" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">бухгалтерии</text>
-          <text data-detail="fine" x="404" y="1260" class="t-cloud" font-size="6">финиш · warn · ⚠ обратить внимание</text>
+          <text data-node-label="" x="150" y="1225" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Финиш: возврат передан</text>
+          <text x="150" y="1237" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">бухгалтерии</text>
+          <text data-detail="fine" x="80" y="1260" class="t-cloud" font-size="6">финиш · warn · ⚠ обратить внимание</text>
         </g>
         <g id="node-fin.refunded" data-node-id="fin.refunded" data-node-label="Финиш: деньги возвращены покупателю" tabindex="0" role="button" aria-label="Focus Финиш: деньги возвращены покупателю, финиш · API магазина" aria-pressed="false" data-node-kind="backend" data-node-tag="финиш · ok" data-node-context="финиш · API магазина">
           <title>Финиш: деньги возвращены покупателю · финиш · API магазина · финиш · ok</title>
-          <rect x="194" y="1321" width="160" height="72" rx="6" class="c-mask"/>
-          <rect x="194" y="1321" width="160" height="72" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="success" class="semantic-sigil s-backend" transform="translate(200 1327) scale(0.6875)">
+          <rect x="270" y="1321" width="160" height="72" rx="6" class="c-mask"/>
+          <rect x="270" y="1321" width="160" height="72" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="success" class="semantic-sigil s-backend" transform="translate(276 1327) scale(0.6875)">
             <circle cx="8" cy="8" r="5.3"/>
             <path d="m5.2 8 1.8 1.8 3.8-4"/>
           </g>
-          <text data-node-label="" x="274" y="1349" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Финиш: деньги возвращены</text>
-          <text x="274" y="1361" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">покупателю</text>
-          <text data-detail="fine" x="204" y="1384" class="t-backend" font-size="7">финиш · ok</text>
+          <text data-node-label="" x="350" y="1349" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Финиш: деньги возвращены</text>
+          <text x="350" y="1361" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">покупателю</text>
+          <text data-detail="fine" x="280" y="1384" class="t-backend" font-size="7">финиш · ok</text>
         </g>
         <!-- Edge labels -->
         <g data-detail="context" data-edge-from="br.delivered" data-edge-to="br.period" data-edge-label="ДА · статус delivered" data-edge-key="1" data-edge-id="br.delivered--br.period">
-          <rect x="360.1" y="259" width="108.8" height="14" rx="3" class="c-mask"/>
-          <text x="414.5" y="269" class="t-backend" font-size="8" text-anchor="middle">ДА · статус delivered</text>
+          <rect x="349" y="243" width="108.8" height="14" rx="3" class="c-mask"/>
+          <text x="403.4" y="253" class="t-backend" font-size="8" text-anchor="middle">ДА · статус delivered</text>
         </g>
         <g data-detail="context" data-edge-from="br.delivered" data-edge-to="fin.notDelivered" data-edge-label="НЕТ · ещё в пути или отменён" data-edge-key="2" data-edge-id="br.delivered--fin.notDelivered">
-          <rect x="450.3" y="259" width="142.4" height="14" rx="3" class="c-mask"/>
-          <text x="521.5" y="269" class="t-security" font-size="8" text-anchor="middle">НЕТ · ещё в пути или отменён</text>
+          <rect x="382.3" y="250" width="142.4" height="14" rx="3" class="c-mask"/>
+          <text x="453.5" y="260" class="t-security" font-size="8" text-anchor="middle">НЕТ · ещё в пути или отменён</text>
         </g>
         <g data-detail="context" data-edge-from="br.period" data-edge-to="st.create" data-edge-label="ДА · срок не истёк" data-edge-key="3" data-edge-id="br.period--st.create">
-          <rect x="267.3" y="394" width="94.39999999999999" height="14" rx="3" class="c-mask"/>
-          <text x="314.5" y="404" class="t-backend" font-size="8" text-anchor="middle">ДА · срок не истёк</text>
+          <rect x="363" y="378" width="94.39999999999999" height="14" rx="3" class="c-mask"/>
+          <text x="410.2" y="388" class="t-backend" font-size="8" text-anchor="middle">ДА · срок не истёк</text>
         </g>
         <g data-detail="context" data-edge-from="br.period" data-edge-to="fin.expired" data-edge-label="НЕТ · больше 14 дней" data-edge-key="4" data-edge-id="br.period--fin.expired">
-          <rect x="369.5" y="394" width="104" height="14" rx="3" class="c-mask"/>
-          <text x="421.5" y="404" class="t-security" font-size="8" text-anchor="middle">НЕТ · больше 14 дней</text>
+          <rect x="194.5" y="385" width="104" height="14" rx="3" class="c-mask"/>
+          <text x="246.5" y="395" class="t-security" font-size="8" text-anchor="middle">НЕТ · больше 14 дней</text>
         </g>
         <g data-detail="context" data-edge-from="br.intact" data-edge-to="st.refund" data-edge-label="ДА · можно вернуть деньги" data-edge-key="8" data-edge-id="br.intact--st.refund">
-          <rect x="260.5" y="911" width="128" height="14" rx="3" class="c-mask"/>
-          <text x="324.5" y="921" class="t-backend" font-size="8" text-anchor="middle">ДА · можно вернуть деньги</text>
+          <rect x="349" y="895" width="128" height="14" rx="3" class="c-mask"/>
+          <text x="413" y="905" class="t-backend" font-size="8" text-anchor="middle">ДА · можно вернуть деньги</text>
         </g>
         <g data-detail="context" data-edge-from="br.intact" data-edge-to="st.reject" data-edge-label="НЕТ · повреждён или неполный" data-edge-key="9" data-edge-id="br.intact--st.reject">
-          <rect x="140.3" y="911" width="142.4" height="14" rx="3" class="c-mask"/>
-          <text x="211.5" y="921" class="t-security" font-size="8" text-anchor="middle">НЕТ · повреждён или неполный</text>
+          <rect x="388.3" y="902" width="142.4" height="14" rx="3" class="c-mask"/>
+          <text x="459.5" y="912" class="t-security" font-size="8" text-anchor="middle">НЕТ · повреждён или неполный</text>
         </g>
         <g data-detail="context" data-edge-from="br.refunded" data-edge-to="st.restock" data-edge-label="ДА · refund succeeded" data-edge-key="12" data-edge-id="br.refunded--st.restock">
-          <rect x="266.1" y="1170" width="108.8" height="14" rx="3" class="c-mask"/>
-          <text x="320.5" y="1180" class="t-backend" font-size="8" text-anchor="middle">ДА · refund succeeded</text>
+          <rect x="363" y="1153.5" width="108.8" height="14" rx="3" class="c-mask"/>
+          <text x="417.4" y="1163.5" class="t-backend" font-size="8" text-anchor="middle">ДА · refund succeeded</text>
         </g>
         <g data-detail="context" data-edge-from="br.refunded" data-edge-to="fin.manual" data-edge-label="НЕТ · платёжка отказала" data-edge-key="13" data-edge-id="br.refunded--fin.manual">
-          <rect x="368.3" y="1170" width="118.39999999999999" height="14" rx="3" class="c-mask"/>
-          <text x="427.5" y="1180" class="t-cloud" font-size="8" text-anchor="middle">НЕТ · платёжка отказала</text>
+          <rect x="187.3" y="1161" width="118.39999999999999" height="14" rx="3" class="c-mask"/>
+          <text x="246.5" y="1171" class="t-cloud" font-size="8" text-anchor="middle">НЕТ · платёжка отказала</text>
         </g>
         <!-- Legend -->
         <g data-legend="">
@@ -5298,7 +5298,7 @@
           <g data-legend-semantic-kind="security" data-legend-x="539" data-legend-baseline="1419" data-legend-width="149.5"><rect x="539" y="1411" width="14" height="9" rx="2" class="c-security" stroke-width="1"/><text x="558" y="1419" class="t-muted" font-size="7.5" font-weight="500">платёжная система · финиш bad</text></g>
         </g>
       </svg>
-      <svg data-graph="0" hidden viewBox="0 0 294 1431" role="img" lang="en" aria-labelledby="s0-archify-diagram-title s0-archify-diagram-description" data-preset="classic" data-quality-profile="standard" data-orientation="vertical">
+      <svg data-graph="0" hidden viewBox="0 0 324 1431" role="img" lang="en" aria-labelledby="s0-archify-diagram-title s0-archify-diagram-description" data-preset="classic" data-quality-profile="standard" data-orientation="vertical">
         <title id="s0-archify-diagram-title">Возврат товара</title>
         <desc id="s0-archify-diagram-description">Покупатель оформляет возврат доставленного заказа в течение 14 дней, отправляет посылку, склад осматривает товар. Целый товар — деньги возвращаются через платёжку; если платёжка не смогла — возврат уходит бухгалтерии вручную.</desc>
         <!-- Definitions -->
@@ -5324,19 +5324,19 @@
         <circle cx="34" cy="18" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="18" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">1</text>
         <text x="48" y="18" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ЗАЯВКА НА ВОЗВРАТ</text>
-        <line x1="149.8" y1="18" x2="270" y2="18" class="a-dashed" stroke-width="1"/>
+        <line x1="149.8" y1="18" x2="300" y2="18" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="534" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="534" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">2</text>
         <text x="48" y="534" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ПОСЫЛКА</text>
-        <line x1="95.8" y1="534" x2="270" y2="534" class="a-dashed" stroke-width="1"/>
+        <line x1="95.8" y1="534" x2="300" y2="534" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="658" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="658" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">3</text>
         <text x="48" y="658" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ОСМОТР НА СКЛАДЕ</text>
-        <line x1="144.39999999999998" y1="658" x2="270" y2="658" class="a-dashed" stroke-width="1"/>
+        <line x1="144.39999999999998" y1="658" x2="300" y2="658" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="916" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="916" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">4</text>
         <text x="48" y="916" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ВОЗВРАТ ДЕНЕГ</text>
-        <line x1="128.2" y1="916" x2="270" y2="916" class="a-dashed" stroke-width="1"/>
+        <line x1="128.2" y1="916" x2="300" y2="916" class="a-dashed" stroke-width="1"/>
         <!-- Edge paths -->
         <path data-edge-from="in.request" data-edge-to="br.delivered" data-edge-key="0" data-edge-id="in.request--br.delivered" data-composition-points="162,111;162,149;162,163" d="M 162 111 L 162 149 L 162 163" class="a-emphasis" stroke-width="1.9" marker-end="url(#s0-arrowhead-emphasis)"/>
         <path data-edge-from="br.delivered" data-edge-to="br.period" data-edge-label="ДА · статус delivered" data-edge-key="1" data-edge-id="br.delivered--br.period" data-composition-points="162,234;162,272;162,286" d="M 162 234 L 162 272 L 162 286" class="a-emphasis" stroke-width="1.9" marker-end="url(#s0-arrowhead-emphasis)"/>
@@ -5504,7 +5504,7 @@
           <g data-legend-semantic-kind="security" data-legend-x="480.5" data-legend-baseline="1417" data-legend-width="95.5"><rect x="480.5" y="1409" width="14" height="9" rx="2" class="c-security" stroke-width="1"/><text x="499.5" y="1417" class="t-muted" font-size="7.5" font-weight="500">платёжная система</text></g>
         </g>
       </svg>
-      <svg data-graph="1" hidden viewBox="0 0 294 1185" role="img" lang="en" aria-labelledby="s1-archify-diagram-title s1-archify-diagram-description" data-preset="classic" data-quality-profile="standard" data-orientation="vertical">
+      <svg data-graph="1" hidden viewBox="0 0 324 1185" role="img" lang="en" aria-labelledby="s1-archify-diagram-title s1-archify-diagram-description" data-preset="classic" data-quality-profile="standard" data-orientation="vertical">
         <title id="s1-archify-diagram-title">Возврат товара</title>
         <desc id="s1-archify-diagram-description">Покупатель оформляет возврат доставленного заказа в течение 14 дней, отправляет посылку, склад осматривает товар. Целый товар — деньги возвращаются через платёжку; если платёжка не смогла — возврат уходит бухгалтерии вручную.</desc>
         <!-- Definitions -->
@@ -5530,15 +5530,15 @@
         <circle cx="34" cy="18" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="18" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">1</text>
         <text x="48" y="18" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ЗАЯВКА НА ВОЗВРАТ</text>
-        <line x1="149.8" y1="18" x2="270" y2="18" class="a-dashed" stroke-width="1"/>
+        <line x1="149.8" y1="18" x2="300" y2="18" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="534" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="534" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">2</text>
         <text x="48" y="534" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ПОСЫЛКА</text>
-        <line x1="95.8" y1="534" x2="270" y2="534" class="a-dashed" stroke-width="1"/>
+        <line x1="95.8" y1="534" x2="300" y2="534" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="658" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="658" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">3</text>
         <text x="48" y="658" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ОСМОТР НА СКЛАДЕ</text>
-        <line x1="144.39999999999998" y1="658" x2="270" y2="658" class="a-dashed" stroke-width="1"/>
+        <line x1="144.39999999999998" y1="658" x2="300" y2="658" class="a-dashed" stroke-width="1"/>
         <!-- Edge paths -->
         <path data-edge-from="in.request" data-edge-to="br.delivered" data-edge-key="0" data-edge-id="in.request--br.delivered" data-composition-points="162,111;162,149;162,163" d="M 162 111 L 162 149 L 162 163" class="a-emphasis" stroke-width="1.9" marker-end="url(#s1-arrowhead-emphasis)"/>
         <path data-edge-from="br.delivered" data-edge-to="br.period" data-edge-label="ДА · статус delivered" data-edge-key="1" data-edge-id="br.delivered--br.period" data-composition-points="162,234;162,272;162,286" d="M 162 234 L 162 272 L 162 286" class="a-emphasis" stroke-width="1.9" marker-end="url(#s1-arrowhead-emphasis)"/>
@@ -5675,7 +5675,7 @@
           <g data-legend-semantic-kind="cloud" data-legend-x="328" data-legend-baseline="1171" data-legend-width="149.5"><rect x="328" y="1163" width="14" height="9" rx="2" class="c-cloud" stroke-width="1"/><text x="347" y="1171" class="t-muted" font-size="7.5" font-weight="500">сотрудник склада · финиш warn</text></g>
         </g>
       </svg>
-      <svg data-graph="2" hidden viewBox="0 0 294 1308" role="img" lang="en" aria-labelledby="s2-archify-diagram-title s2-archify-diagram-description" data-preset="classic" data-quality-profile="standard" data-orientation="vertical">
+      <svg data-graph="2" hidden viewBox="0 0 324 1308" role="img" lang="en" aria-labelledby="s2-archify-diagram-title s2-archify-diagram-description" data-preset="classic" data-quality-profile="standard" data-orientation="vertical">
         <title id="s2-archify-diagram-title">Возврат товара</title>
         <desc id="s2-archify-diagram-description">Покупатель оформляет возврат доставленного заказа в течение 14 дней, отправляет посылку, склад осматривает товар. Целый товар — деньги возвращаются через платёжку; если платёжка не смогла — возврат уходит бухгалтерии вручную.</desc>
         <!-- Definitions -->
@@ -5701,19 +5701,19 @@
         <circle cx="34" cy="18" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="18" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">1</text>
         <text x="48" y="18" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ЗАЯВКА НА ВОЗВРАТ</text>
-        <line x1="149.8" y1="18" x2="270" y2="18" class="a-dashed" stroke-width="1"/>
+        <line x1="149.8" y1="18" x2="300" y2="18" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="534" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="534" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">2</text>
         <text x="48" y="534" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ПОСЫЛКА</text>
-        <line x1="95.8" y1="534" x2="270" y2="534" class="a-dashed" stroke-width="1"/>
+        <line x1="95.8" y1="534" x2="300" y2="534" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="658" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="658" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">3</text>
         <text x="48" y="658" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ОСМОТР НА СКЛАДЕ</text>
-        <line x1="144.39999999999998" y1="658" x2="270" y2="658" class="a-dashed" stroke-width="1"/>
+        <line x1="144.39999999999998" y1="658" x2="300" y2="658" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="916" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="916" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">4</text>
         <text x="48" y="916" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ВОЗВРАТ ДЕНЕГ</text>
-        <line x1="128.2" y1="916" x2="270" y2="916" class="a-dashed" stroke-width="1"/>
+        <line x1="128.2" y1="916" x2="300" y2="916" class="a-dashed" stroke-width="1"/>
         <!-- Edge paths -->
         <path data-edge-from="in.request" data-edge-to="br.delivered" data-edge-key="0" data-edge-id="in.request--br.delivered" data-composition-points="162,111;162,149;162,163" d="M 162 111 L 162 149 L 162 163" class="a-emphasis" stroke-width="1.9" marker-end="url(#s2-arrowhead-emphasis)"/>
         <path data-edge-from="br.delivered" data-edge-to="br.period" data-edge-label="ДА · статус delivered" data-edge-key="1" data-edge-id="br.delivered--br.period" data-composition-points="162,234;162,272;162,286" d="M 162 234 L 162 272 L 162 286" class="a-emphasis" stroke-width="1.9" marker-end="url(#s2-arrowhead-emphasis)"/>
@@ -5868,7 +5868,7 @@
           <g data-legend-semantic-kind="security" data-legend-x="489.5" data-legend-baseline="1294" data-legend-width="95.5"><rect x="489.5" y="1286" width="14" height="9" rx="2" class="c-security" stroke-width="1"/><text x="508.5" y="1294" class="t-muted" font-size="7.5" font-weight="500">платёжная система</text></g>
         </g>
       </svg>
-      <svg data-graph="3" hidden viewBox="0 0 294 533" role="img" lang="en" aria-labelledby="s3-archify-diagram-title s3-archify-diagram-description" data-preset="classic" data-quality-profile="standard" data-orientation="vertical">
+      <svg data-graph="3" hidden viewBox="0 0 324 533" role="img" lang="en" aria-labelledby="s3-archify-diagram-title s3-archify-diagram-description" data-preset="classic" data-quality-profile="standard" data-orientation="vertical">
         <title id="s3-archify-diagram-title">Возврат товара</title>
         <desc id="s3-archify-diagram-description">Покупатель оформляет возврат доставленного заказа в течение 14 дней, отправляет посылку, склад осматривает товар. Целый товар — деньги возвращаются через платёжку; если платёжка не смогла — возврат уходит бухгалтерии вручную.</desc>
         <!-- Definitions -->
@@ -5894,7 +5894,7 @@
         <circle cx="34" cy="18" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="18" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">1</text>
         <text x="48" y="18" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ЗАЯВКА НА ВОЗВРАТ</text>
-        <line x1="149.8" y1="18" x2="270" y2="18" class="a-dashed" stroke-width="1"/>
+        <line x1="149.8" y1="18" x2="300" y2="18" class="a-dashed" stroke-width="1"/>
         <!-- Edge paths -->
         <path data-edge-from="in.request" data-edge-to="br.delivered" data-edge-key="0" data-edge-id="in.request--br.delivered" data-composition-points="162,111;162,149;162,163" d="M 162 111 L 162 149 L 162 163" class="a-emphasis" stroke-width="1.9" marker-end="url(#s3-arrowhead-emphasis)"/>
         <path data-edge-from="br.delivered" data-edge-to="br.period" data-edge-label="ДА · статус delivered" data-edge-key="1" data-edge-id="br.delivered--br.period" data-composition-points="162,234;162,272;162,286" d="M 162 234 L 162 272 L 162 286" class="a-emphasis" stroke-width="1.9" marker-end="url(#s3-arrowhead-emphasis)"/>

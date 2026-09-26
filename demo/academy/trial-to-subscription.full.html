@@ -5013,7 +5013,7 @@
     <div class="diagram-container" data-detail-level="read"
          data-preset-badge-editorial-plate="ARCHIFY / PLATE 04">
       <!-- ARCHIFY:SVG_SLOT_START -->
-      <svg data-graph="all" viewBox="0 0 835 1657" role="img" lang="en" aria-labelledby="archify-diagram-title archify-diagram-description" data-preset="classic" data-quality-profile="standard" data-orientation="vertical">
+      <svg data-graph="all" viewBox="0 0 904 1657" role="img" lang="en" aria-labelledby="archify-diagram-title archify-diagram-description" data-preset="classic" data-quality-profile="standard" data-orientation="vertical">
         <title id="archify-diagram-title">Регистрация → пробный период → подписка</title>
         <desc id="archify-diagram-description">Путь нового студента от формы регистрации до оплаченной подписки: подтверждение почты, пробный доступ, привязка карты и списание с повторами. Собран по docs/onboarding.md и docs/billing.md — в них расходятся сроки пробного периода.</desc>
         <!-- Definitions -->
@@ -5039,332 +5039,336 @@
         <circle cx="34" cy="18" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="18" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">1</text>
         <text x="48" y="18" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">РЕГИСТРАЦИЯ</text>
-        <line x1="117.4" y1="18" x2="811" y2="18" class="a-dashed" stroke-width="1"/>
+        <line x1="117.4" y1="18" x2="880" y2="18" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="423" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="423" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">2</text>
         <text x="48" y="423" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ПРОБНЫЙ ПЕРИОД</text>
-        <line x1="133.6" y1="423" x2="811" y2="423" class="a-dashed" stroke-width="1"/>
-        <circle cx="34" cy="702" r="8" class="c-mask" stroke-width="1"/>
-        <text x="34" y="702" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">3</text>
-        <text x="48" y="702" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ОПЛАТА</text>
-        <line x1="90.4" y1="702" x2="811" y2="702" class="a-dashed" stroke-width="1"/>
-        <circle cx="34" cy="558" r="8" class="c-mask" stroke-width="1"/>
-        <text x="34" y="558" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">4</text>
-        <text x="48" y="558" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ИТОГ</text>
-        <line x1="79.6" y1="558" x2="811" y2="558" class="a-dashed" stroke-width="1"/>
+        <line x1="133.6" y1="423" x2="880" y2="423" class="a-dashed" stroke-width="1"/>
+        <circle cx="34" cy="972" r="8" class="c-mask" stroke-width="1"/>
+        <text x="34" y="972" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">3</text>
+        <text x="48" y="972" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ОПЛАТА</text>
+        <line x1="90.4" y1="972" x2="880" y2="972" class="a-dashed" stroke-width="1"/>
+        <circle cx="34" cy="1377" r="8" class="c-mask" stroke-width="1"/>
+        <text x="34" y="1377" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">4</text>
+        <text x="48" y="1377" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ИТОГ</text>
+        <line x1="79.6" y1="1377" x2="880" y2="1377" class="a-dashed" stroke-width="1"/>
+        <circle cx="34" cy="1512" r="8" class="c-mask" stroke-width="1"/>
+        <text x="34" y="1512" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">3</text>
+        <text x="48" y="1512" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ОПЛАТА</text>
+        <line x1="90.4" y1="1512" x2="880" y2="1512" class="a-dashed" stroke-width="1"/>
         <!-- Edge paths -->
-        <path data-edge-from="in.signup" data-edge-to="st.mail" data-edge-key="0" data-edge-id="in.signup--st.mail" data-composition-points="326.6666666666667,123;326.6666666666667,161;326.6666666666667,175" d="M 326.6666666666667 123 L 326.6666666666667 161 L 326.6666666666667 175" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="st.mail" data-edge-to="wait.confirm" data-edge-key="1" data-edge-id="st.mail--wait.confirm" data-composition-points="326.6666666666667,258;326.6666666666667,296;326.6666666666667,310" d="M 326.6666666666667 258 L 326.6666666666667 296 L 326.6666666666667 310" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="wait.confirm" data-edge-to="br.trial-used" data-edge-label="ПЕРЕШЁЛ · в течение 24 часов" data-edge-key="2" data-edge-id="wait.confirm--br.trial-used" data-composition-points="333.6666666666667,393;333.6666666666667,431;432.6666666666667,431;432.6666666666667,445" d="M 333.6666666666667 393 L 333.6666666666667 431 L 432.6666666666667 431 L 432.6666666666667 445" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="wait.confirm" data-edge-to="br.resend" data-edge-label="НЕ УСПЕЛ · ссылка истекла" data-edge-key="3" data-edge-id="wait.confirm--br.resend" data-composition-points="319.6666666666667,393;319.6666666666667,431;220.66666666666669,431;220.66666666666669,445" d="M 319.6666666666667 393 L 319.6666666666667 431 L 220.66666666666669 431 L 220.66666666666669 445" class="a-default" stroke-width="1.4" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="br.resend" data-edge-to="st.mail" data-edge-label="ДА · со страницы входа" data-edge-key="4" data-edge-id="br.resend--st.mail" data-composition-points="312.6666666666667,486.5;809,486.5;809,216.5;418.6666666666667,216.5" d="M 312.6666666666667 486.5 L 809 486.5 L 809 216.5 L 418.6666666666667 216.5" class="a-dashed" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
-        <path data-edge-from="br.resend" data-edge-to="fin.unconfirmed" data-edge-label="НЕТ · почта не подтверждена" data-edge-key="5" data-edge-id="br.resend--fin.unconfirmed" data-composition-points="220.66666666666669,528;220.66666666666669,566;150,566;150,580" d="M 220.66666666666669 528 L 220.66666666666669 566 L 150 566 L 150 580" class="a-default" stroke-width="1.4" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="br.trial-used" data-edge-to="st.trial" data-edge-label="ДА · первый пробный период" data-edge-key="6" data-edge-id="br.trial-used--st.trial" data-composition-points="425.6666666666667,528;425.6666666666667,566;362,566;362,580" d="M 425.6666666666667 528 L 425.6666666666667 566 L 362 566 L 362 580" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="br.trial-used" data-edge-to="st.offer" data-edge-label="НЕТ · почта уже была" data-edge-key="7" data-edge-id="br.trial-used--st.offer" data-composition-points="439.6666666666667,528;439.6666666666667,566;574,566;574,580" d="M 439.6666666666667 528 L 439.6666666666667 566 L 574 566 L 574 580" class="a-default" stroke-width="1.4" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="st.trial" data-edge-to="wait.trial" data-edge-key="8" data-edge-id="st.trial--wait.trial" data-composition-points="362,651;362,710;362,724" d="M 362 651 L 362 710 L 362 724" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="wait.trial" data-edge-to="br.card" data-edge-key="9" data-edge-id="wait.trial--br.card" data-composition-points="362,807;362,845;362,859" d="M 362 807 L 362 845 L 362 859" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="br.card" data-edge-to="st.charge" data-edge-label="ДА · оформляем автоматически" data-edge-key="10" data-edge-id="br.card--st.charge" data-composition-points="369,942;369,980;508,980;508,994" d="M 369 942 L 369 980 L 508 980 L 508 994" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="br.card" data-edge-to="fin.closed" data-edge-label="НЕТ · карты нет" data-edge-key="11" data-edge-id="br.card--fin.closed" data-composition-points="355,942;355,980;315,980;315,994" d="M 355 942 L 355 980 L 315 980 L 315 994" class="a-default" stroke-width="1.4" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="st.offer" data-edge-to="in.card" data-edge-key="12" data-edge-id="st.offer--in.card" data-composition-points="574,663;574,710;574,724" d="M 574 663 L 574 710 L 574 724" class="a-default" stroke-width="1.4" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="in.card" data-edge-to="st.charge" data-edge-key="13" data-edge-id="in.card--st.charge" data-composition-points="574,807;574,845;544.5,845;544.5,980;522,980;522,994" d="M 574 807 L 574 845 L 544.5 845 L 544.5 980 L 522 980 L 522 994" class="a-default" stroke-width="1.4" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="st.charge" data-edge-to="br.bank" data-edge-key="14" data-edge-id="st.charge--br.bank" data-composition-points="515,1065;515,1115;515,1129" d="M 515 1065 L 515 1115 L 515 1129" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="br.bank" data-edge-to="fin.paid" data-edge-label="ДА · деньги списаны" data-edge-key="15" data-edge-id="br.bank--fin.paid" data-composition-points="501,1212;501,1250;386,1250;386,1385;408,1385;408,1399" d="M 501 1212 L 501 1250 L 386 1250 L 386 1385 L 408 1385 L 408 1399" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="br.bank" data-edge-to="wait.3ds" data-edge-label="3-D SECURE" data-edge-key="16" data-edge-id="br.bank--wait.3ds" data-composition-points="515,1212;515,1250;515,1264" d="M 515 1212 L 515 1250 L 515 1264" class="a-default" stroke-width="1.4" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="br.bank" data-edge-to="br.retry" data-edge-label="НЕТ · списание не прошло" data-edge-key="17" data-edge-id="br.bank--br.retry" data-composition-points="529,1212;529,1250;644,1250;644,1385;622,1385;622,1399" d="M 529 1212 L 529 1250 L 644 1250 L 644 1385 L 622 1385 L 622 1399" class="a-security" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
-        <path data-edge-from="wait.3ds" data-edge-to="fin.paid" data-edge-label="ПОДТВЕРДИЛ · в течение часа" data-edge-key="18" data-edge-id="wait.3ds--fin.paid" data-composition-points="508,1347;508,1385;422,1385;422,1399" d="M 508 1347 L 508 1385 L 422 1385 L 422 1399" class="a-default" stroke-width="1.4" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="wait.3ds" data-edge-to="br.retry" data-edge-label="МОЛЧИТ · час прошёл" data-edge-key="19" data-edge-id="wait.3ds--br.retry" data-composition-points="522,1347;522,1385;608,1385;608,1399" d="M 522 1347 L 522 1385 L 608 1385 L 608 1399" class="a-security" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
-        <path data-edge-from="br.retry" data-edge-to="st.retry" data-edge-label="ДА · повторим завтра" data-edge-key="20" data-edge-id="br.retry--st.retry" data-composition-points="608,1482;608,1520;515,1520;515,1534" d="M 608 1482 L 608 1520 L 515 1520 L 515 1534" class="a-default" stroke-width="1.4" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="br.retry" data-edge-to="fin.failed" data-edge-label="НЕТ · третья неудача" data-edge-key="21" data-edge-id="br.retry--fin.failed" data-composition-points="622,1482;622,1520;715,1520;715,1534" d="M 622 1482 L 622 1520 L 715 1520 L 715 1534" class="a-security" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
-        <path data-edge-from="st.retry" data-edge-to="st.charge" data-edge-key="22" data-edge-id="st.retry--st.charge" data-composition-points="607,1575.5;819,1575.5;819,1029.5;607,1029.5" d="M 607 1575.5 L 819 1575.5 L 819 1029.5 L 607 1029.5" class="a-dashed" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="in.signup" data-edge-to="st.mail" data-edge-key="0" data-edge-id="in.signup--st.mail" data-composition-points="462,123;462,161;462,175" d="M 462 123 L 462 161 L 462 175" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="st.mail" data-edge-to="wait.confirm" data-edge-key="1" data-edge-id="st.mail--wait.confirm" data-composition-points="462,258;462,296;462,310" d="M 462 258 L 462 296 L 462 310" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="wait.confirm" data-edge-to="br.trial-used" data-edge-label="ПЕРЕШЁЛ · в течение 24 часов" data-edge-key="2" data-edge-id="wait.confirm--br.trial-used" data-composition-points="455,393;455,431;462,431;462,445" d="M 455 393 L 455 431 L 462 431 L 462 445" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="wait.confirm" data-edge-to="br.resend" data-edge-label="НЕ УСПЕЛ · ссылка истекла" data-edge-key="3" data-edge-id="wait.confirm--br.resend" data-composition-points="469,393;469,422;674,422;674,445" d="M 469 393 L 469 422 L 674 422 L 674 445" class="a-default" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="br.resend" data-edge-to="st.mail" data-edge-label="ДА · со страницы входа" data-edge-key="4" data-edge-id="br.resend--st.mail" data-composition-points="754,528;754,540;780,540;780,169;542,169;542,175" d="M 754 528 L 754 540 L 780 540 L 780 169 L 542 169 L 542 175" class="a-dashed" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="br.resend" data-edge-to="fin.unconfirmed" data-edge-label="НЕТ · почта не подтверждена" data-edge-key="5" data-edge-id="br.resend--fin.unconfirmed" data-composition-points="674,528;674,557;674,580" d="M 674 528 L 674 557 L 674 580" class="a-default" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="br.trial-used" data-edge-to="st.trial" data-edge-label="ДА · первый пробный период" data-edge-key="6" data-edge-id="br.trial-used--st.trial" data-composition-points="469,528;469,566;462,566;462,580" d="M 469 528 L 469 566 L 462 566 L 462 580" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="br.trial-used" data-edge-to="st.offer" data-edge-label="НЕТ · почта уже была" data-edge-key="7" data-edge-id="br.trial-used--st.offer" data-composition-points="455,528;455,557;250,557;250,580" d="M 455 528 L 455 557 L 250 557 L 250 580" class="a-default" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="st.trial" data-edge-to="wait.trial" data-edge-key="8" data-edge-id="st.trial--wait.trial" data-composition-points="462,651;462,710;462,724" d="M 462 651 L 462 710 L 462 724" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="wait.trial" data-edge-to="br.card" data-edge-key="9" data-edge-id="wait.trial--br.card" data-composition-points="462,807;462,845;462,859" d="M 462 807 L 462 845 L 462 859" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="br.card" data-edge-to="st.charge" data-edge-label="ДА · оформляем автоматически" data-edge-key="10" data-edge-id="br.card--st.charge" data-composition-points="455,942;455,980;469,980;469,994" d="M 455 942 L 455 980 L 469 980 L 469 994" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="br.card" data-edge-to="fin.closed" data-edge-label="НЕТ · карты нет" data-edge-key="11" data-edge-id="br.card--fin.closed" data-composition-points="469,942;469,971;662,971;662,994" d="M 469 942 L 469 971 L 662 971 L 662 994" class="a-default" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="st.offer" data-edge-to="in.card" data-edge-key="12" data-edge-id="st.offer--in.card" data-composition-points="250,663;250,710;250,724" d="M 250 663 L 250 710 L 250 724" class="a-default" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="in.card" data-edge-to="st.charge" data-edge-key="13" data-edge-id="in.card--st.charge" data-composition-points="250,807;250,845;250,971;455,971;455,994" d="M 250 807 L 250 845 L 250 971 L 455 971 L 455 994" class="a-default" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="st.charge" data-edge-to="br.bank" data-edge-key="14" data-edge-id="st.charge--br.bank" data-composition-points="462,1065;462,1115;462,1129" d="M 462 1065 L 462 1115 L 462 1129" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="br.bank" data-edge-to="fin.paid" data-edge-label="ДА · деньги списаны" data-edge-key="15" data-edge-id="br.bank--fin.paid" data-composition-points="462,1212;462,1250;462,1385;469,1385;469,1399" d="M 462 1212 L 462 1250 L 462 1385 L 469 1385 L 469 1399" class="a-emphasis" stroke-width="1.9" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="br.bank" data-edge-to="wait.3ds" data-edge-label="3-D SECURE" data-edge-key="16" data-edge-id="br.bank--wait.3ds" data-composition-points="448,1212;448,1250;333,1250;333,1264" d="M 448 1212 L 448 1250 L 333 1250 L 333 1264" class="a-default" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="br.bank" data-edge-to="br.retry" data-edge-label="НЕТ · списание не прошло" data-edge-key="17" data-edge-id="br.bank--br.retry" data-composition-points="476,1212;476,1250;508,1250;508,1367;269,1367;269,1399" d="M 476 1212 L 476 1250 L 508 1250 L 508 1367 L 269 1367 L 269 1399" class="a-security" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
+        <path data-edge-from="wait.3ds" data-edge-to="fin.paid" data-edge-label="ПОДТВЕРДИЛ · в течение часа" data-edge-key="18" data-edge-id="wait.3ds--fin.paid" data-composition-points="340,1347;340,1376;455,1376;455,1399" d="M 340 1347 L 340 1376 L 455 1376 L 455 1399" class="a-default" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="wait.3ds" data-edge-to="br.retry" data-edge-label="МОЛЧИТ · час прошёл" data-edge-key="19" data-edge-id="wait.3ds--br.retry" data-composition-points="326,1347;326,1376;255,1376;255,1399" d="M 326 1347 L 326 1376 L 255 1376 L 255 1399" class="a-security" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
+        <path data-edge-from="br.retry" data-edge-to="st.retry" data-edge-label="ДА · повторим завтра" data-edge-key="20" data-edge-id="br.retry--st.retry" data-composition-points="255,1482;255,1520;162,1520;162,1534" d="M 255 1482 L 255 1520 L 162 1520 L 162 1534" class="a-default" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="br.retry" data-edge-to="fin.failed" data-edge-label="НЕТ · третья неудача" data-edge-key="21" data-edge-id="br.retry--fin.failed" data-composition-points="269,1482;269,1520;362,1520;362,1534" d="M 269 1482 L 269 1520 L 362 1520 L 362 1534" class="a-security" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
+        <path data-edge-from="st.retry" data-edge-to="st.charge" data-edge-key="22" data-edge-id="st.retry--st.charge" data-composition-points="242,1617;242,1634;790,1634;790,984;542,984;542,994" d="M 242 1617 L 242 1634 L 790 1634 L 790 984 L 542 984 L 542 994" class="a-dashed" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
         <!-- Nodes -->
         <g id="node-in.signup" data-node-id="in.signup" data-node-label="Студент регистрируется по почте" tabindex="0" role="button" aria-label="Focus Студент регистрируется по почте, onboarding.md → Регистрация, вход · студент" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="onboarding.md → Регистрация" data-node-context="вход · студент">
           <title>Студент регистрируется по почте · onboarding.md → Регистрация · вход · студент</title>
-          <rect x="234.66666666666669" y="40" width="184" height="83" rx="6" class="c-mask"/>
-          <rect x="234.66666666666669" y="40" width="184" height="83" rx="6" class="c-frontend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="start" class="semantic-sigil s-frontend" transform="translate(240.66666666666669 46) scale(0.6875)">
+          <rect x="370" y="40" width="184" height="83" rx="6" class="c-mask"/>
+          <rect x="370" y="40" width="184" height="83" rx="6" class="c-frontend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="start" class="semantic-sigil s-frontend" transform="translate(376 46) scale(0.6875)">
             <circle cx="8" cy="8" r="5"/>
             <path d="m7 5.4 3.6 2.6L7 10.6Z" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="326.6666666666667" y="68" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Студент регистрируется по</text>
-          <text x="326.6666666666667" y="80" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">почте</text>
-          <text data-detail="context" x="326.6666666666667" y="99" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Регистрация</text>
+          <text data-node-label="" data-detail-anchor="" x="462" y="68" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Студент регистрируется по</text>
+          <text x="462" y="80" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">почте</text>
+          <text data-detail="context" x="462" y="99" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Регистрация</text>
         </g>
         <g id="node-st.mail" data-node-id="st.mail" data-node-label="Отправляем письмо со ссылкой подтверждения" tabindex="0" role="button" aria-label="Focus Отправляем письмо со ссылкой подтверждения, onboarding.md → Регистрация, шаг · платформа" aria-pressed="false" data-node-kind="backend" data-node-sublabel="onboarding.md → Регистрация" data-node-context="шаг · платформа">
           <title>Отправляем письмо со ссылкой подтверждения · onboarding.md → Регистрация · шаг · платформа</title>
-          <rect x="234.66666666666669" y="175" width="184" height="83" rx="6" class="c-mask"/>
-          <rect x="234.66666666666669" y="175" width="184" height="83" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(240.66666666666669 181) scale(0.6875)">
+          <rect x="370" y="175" width="184" height="83" rx="6" class="c-mask"/>
+          <rect x="370" y="175" width="184" height="83" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(376 181) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="326.6666666666667" y="203" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Отправляем письмо со ссылкой</text>
-          <text x="326.6666666666667" y="215" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">подтверждения</text>
-          <text data-detail="context" x="326.6666666666667" y="234" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Регистрация</text>
+          <text data-node-label="" data-detail-anchor="" x="462" y="203" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Отправляем письмо со ссылкой</text>
+          <text x="462" y="215" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">подтверждения</text>
+          <text data-detail="context" x="462" y="234" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Регистрация</text>
         </g>
         <g id="node-wait.confirm" data-node-id="wait.confirm" data-node-label="Ждём: студент переходит по ссылке из письма" tabindex="0" role="button" aria-label="Focus Ждём: студент переходит по ссылке из письма, onboarding.md → Регистрация, ожидание · студент" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="onboarding.md → Регистрация" data-node-context="ожидание · студент">
           <title>Ждём: студент переходит по ссылке из письма · onboarding.md → Регистрация · ожидание · студент</title>
-          <rect x="234.66666666666669" y="310" width="184" height="83" rx="6" class="c-mask"/>
-          <rect x="234.66666666666669" y="310" width="184" height="83" rx="6" class="c-frontend" stroke-width="1.5" stroke-dasharray="5,3"/>
-          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-frontend" transform="translate(240.66666666666669 316) scale(0.6875)">
+          <rect x="370" y="310" width="184" height="83" rx="6" class="c-mask"/>
+          <rect x="370" y="310" width="184" height="83" rx="6" class="c-frontend" stroke-width="1.5" stroke-dasharray="5,3"/>
+          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-frontend" transform="translate(376 316) scale(0.6875)">
             <path d="M4 2.5h8M4 13.5h8M5 3c0 2.8 2 3.2 3 5-1 1.8-3 2.2-3 5M11 3c0 2.8-2 3.2-3 5 1 1.8 3 2.2 3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="326.6666666666667" y="338" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Ждём: студент переходит по</text>
-          <text x="326.6666666666667" y="350" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">ссылке из письма</text>
-          <text data-detail="context" x="326.6666666666667" y="369" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Регистрация</text>
+          <text data-node-label="" data-detail-anchor="" x="462" y="338" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Ждём: студент переходит по</text>
+          <text x="462" y="350" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">ссылке из письма</text>
+          <text data-detail="context" x="462" y="369" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Регистрация</text>
         </g>
         <g id="node-br.resend" data-node-id="br.resend" data-node-label="Студент запросил новое письмо?" tabindex="0" role="button" aria-label="Focus Студент запросил новое письмо?, onboarding.md → Регистрация, ветвление · студент" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="onboarding.md → Регистрация" data-node-context="ветвление · студент">
           <title>Студент запросил новое письмо? · onboarding.md → Регистрация · ветвление · студент</title>
-          <rect x="128.66666666666669" y="445" width="184" height="83" rx="14" class="c-mask"/>
-          <rect x="128.66666666666669" y="445" width="184" height="83" rx="14" class="c-frontend" stroke-width="2"/>
-          <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(134.66666666666669 451) scale(0.6875)">
+          <rect x="582" y="445" width="184" height="83" rx="14" class="c-mask"/>
+          <rect x="582" y="445" width="184" height="83" rx="14" class="c-frontend" stroke-width="2"/>
+          <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(588 451) scale(0.6875)">
             <rect x="2" y="3" width="12" height="10" rx="2"/>
             <path d="M2 6.5h12"/>
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text x="304.6666666666667" y="459" class="t-frontend" font-size="10" font-weight="700" text-anchor="end">?</text>
-          <text data-node-label="" data-detail-anchor="" x="220.66666666666669" y="473" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Студент запросил новое</text>
-          <text x="220.66666666666669" y="485" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">письмо?</text>
-          <text data-detail="context" x="220.66666666666669" y="504" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Регистрация</text>
+          <text x="758" y="459" class="t-frontend" font-size="10" font-weight="700" text-anchor="end">?</text>
+          <text data-node-label="" data-detail-anchor="" x="674" y="473" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Студент запросил новое</text>
+          <text x="674" y="485" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">письмо?</text>
+          <text data-detail="context" x="674" y="504" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Регистрация</text>
         </g>
         <g id="node-fin.unconfirmed" data-node-id="fin.unconfirmed" data-node-label="Тупик: почта не подтверждена — курсы закрыты" tabindex="0" role="button" aria-label="Focus Тупик: почта не подтверждена — курсы закрыты, onboarding.md → Регистрация, финиш · платформа" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="onboarding.md → Регистрация" data-node-tag="финиш · warn" data-node-context="финиш · платформа">
           <title>Тупик: почта не подтверждена — курсы закрыты · onboarding.md → Регистрация · финиш · платформа · финиш · warn</title>
-          <rect x="70" y="580" width="160" height="92" rx="6" class="c-mask"/>
-          <rect x="70" y="580" width="160" height="92" rx="6" class="c-cloud" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-cloud" transform="translate(76 586) scale(0.6875)">
+          <rect x="594" y="580" width="160" height="92" rx="6" class="c-mask"/>
+          <rect x="594" y="580" width="160" height="92" rx="6" class="c-cloud" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-cloud" transform="translate(600 586) scale(0.6875)">
             <path d="M4 2.5h8M4 13.5h8M5 3c0 2.8 2 3.2 3 5-1 1.8-3 2.2-3 5M11 3c0 2.8-2 3.2-3 5 1 1.8 3 2.2 3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="150" y="607" class="t-primary" font-size="9" font-weight="600" text-anchor="middle">Тупик: почта не</text>
-          <text x="150" y="618" class="t-primary" font-size="9" font-weight="600" text-anchor="middle">подтверждена — курсы</text>
-          <text x="150" y="629" class="t-primary" font-size="9" font-weight="600" text-anchor="middle">закрыты</text>
-          <text data-detail="context" x="150" y="647" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Регистрация</text>
-          <text data-detail="fine" x="80" y="663" class="t-cloud" font-size="7">финиш · warn</text>
+          <text data-node-label="" data-detail-anchor="" x="674" y="607" class="t-primary" font-size="9" font-weight="600" text-anchor="middle">Тупик: почта не</text>
+          <text x="674" y="618" class="t-primary" font-size="9" font-weight="600" text-anchor="middle">подтверждена — курсы</text>
+          <text x="674" y="629" class="t-primary" font-size="9" font-weight="600" text-anchor="middle">закрыты</text>
+          <text data-detail="context" x="674" y="647" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Регистрация</text>
+          <text data-detail="fine" x="604" y="663" class="t-cloud" font-size="7">финиш · warn</text>
         </g>
         <g id="node-br.trial-used" data-node-id="br.trial-used" data-node-label="Почта ещё не получала пробный период?" tabindex="0" role="button" aria-label="Focus Почта ещё не получала пробный период?, onboarding.md → Пробный период, ветвление · платформа" aria-pressed="false" data-node-kind="backend" data-node-sublabel="onboarding.md → Пробный период" data-node-tag="⚠ обратить внимание" data-node-context="ветвление · платформа">
           <title>Почта ещё не получала пробный период? · onboarding.md → Пробный период · ветвление · платформа · ⚠ обратить внимание</title>
-          <rect x="340.6666666666667" y="445" width="184" height="83" rx="14" class="c-mask"/>
-          <rect x="340.6666666666667" y="445" width="184" height="83" rx="14" class="c-backend" stroke-width="2"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(346.6666666666667 451) scale(0.6875)">
+          <rect x="370" y="445" width="184" height="83" rx="14" class="c-mask"/>
+          <rect x="370" y="445" width="184" height="83" rx="14" class="c-backend" stroke-width="2"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(376 451) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text x="516.6666666666667" y="459" class="t-backend" font-size="10" font-weight="700" text-anchor="end">?</text>
-          <text data-node-label="" data-detail-anchor="" x="432.6666666666667" y="473" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Почта ещё не получала</text>
-          <text x="432.6666666666667" y="485" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">пробный период?</text>
-          <text data-detail="context" x="432.6666666666667" y="504" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Пробный период</text>
-          <text data-detail="fine" x="350.6666666666667" y="519" class="t-backend" font-size="7">⚠ обратить внимание</text>
+          <text x="546" y="459" class="t-backend" font-size="10" font-weight="700" text-anchor="end">?</text>
+          <text data-node-label="" data-detail-anchor="" x="462" y="473" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Почта ещё не получала</text>
+          <text x="462" y="485" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">пробный период?</text>
+          <text data-detail="context" x="462" y="504" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Пробный период</text>
+          <text data-detail="fine" x="380" y="519" class="t-backend" font-size="7">⚠ обратить внимание</text>
         </g>
         <g id="node-st.trial" data-node-id="st.trial" data-node-label="Открываем пробный доступ" tabindex="0" role="button" aria-label="Focus Открываем пробный доступ, onboarding.md → Пробный период, шаг · платформа" aria-pressed="false" data-node-kind="backend" data-node-sublabel="onboarding.md → Пробный период" data-node-tag="⚠ обратить внимание" data-node-context="шаг · платформа">
           <title>Открываем пробный доступ · onboarding.md → Пробный период · шаг · платформа · ⚠ обратить внимание</title>
-          <rect x="270" y="580" width="184" height="71" rx="6" class="c-mask"/>
-          <rect x="270" y="580" width="184" height="71" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(276 586) scale(0.6875)">
+          <rect x="370" y="580" width="184" height="71" rx="6" class="c-mask"/>
+          <rect x="370" y="580" width="184" height="71" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(376 586) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="362" y="608" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Открываем пробный доступ</text>
-          <text data-detail="context" x="362" y="627" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Пробный период</text>
-          <text data-detail="fine" x="280" y="642" class="t-backend" font-size="7">⚠ обратить внимание</text>
+          <text data-node-label="" data-detail-anchor="" x="462" y="608" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Открываем пробный доступ</text>
+          <text data-detail="context" x="462" y="627" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Пробный период</text>
+          <text data-detail="fine" x="380" y="642" class="t-backend" font-size="7">⚠ обратить внимание</text>
         </g>
         <g id="node-wait.trial" data-node-id="wait.trial" data-node-label="Ждём: студент учится в пробный период" tabindex="0" role="button" aria-label="Focus Ждём: студент учится в пробный период, onboarding.md → Окончание пробного периода, ожидание · студент" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="onboarding.md → Окончание пробного периода" data-node-context="ожидание · студент">
           <title>Ждём: студент учится в пробный период · onboarding.md → Окончание пробного периода · ожидание · студент</title>
-          <rect x="270" y="724" width="184" height="83" rx="6" class="c-mask"/>
-          <rect x="270" y="724" width="184" height="83" rx="6" class="c-frontend" stroke-width="1.5" stroke-dasharray="5,3"/>
-          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-frontend" transform="translate(276 730) scale(0.6875)">
+          <rect x="370" y="724" width="184" height="83" rx="6" class="c-mask"/>
+          <rect x="370" y="724" width="184" height="83" rx="6" class="c-frontend" stroke-width="1.5" stroke-dasharray="5,3"/>
+          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-frontend" transform="translate(376 730) scale(0.6875)">
             <path d="M4 2.5h8M4 13.5h8M5 3c0 2.8 2 3.2 3 5-1 1.8-3 2.2-3 5M11 3c0 2.8-2 3.2-3 5 1 1.8 3 2.2 3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="362" y="752" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Ждём: студент учится в</text>
-          <text x="362" y="764" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">пробный период</text>
-          <text data-detail="context" x="362" y="783" class="t-muted" font-size="6.9" text-anchor="middle">onboarding.md → Окончание пробного периода</text>
+          <text data-node-label="" data-detail-anchor="" x="462" y="752" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Ждём: студент учится в</text>
+          <text x="462" y="764" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">пробный период</text>
+          <text data-detail="context" x="462" y="783" class="t-muted" font-size="6.9" text-anchor="middle">onboarding.md → Окончание пробного периода</text>
         </g>
         <g id="node-br.card" data-node-id="br.card" data-node-label="К концу пробного периода карта привязана?" tabindex="0" role="button" aria-label="Focus К концу пробного периода карта привязана?, onboarding.md → Окончание пробного периода, ветвление · платформа" aria-pressed="false" data-node-kind="backend" data-node-sublabel="onboarding.md → Окончание пробного периода" data-node-context="ветвление · платформа">
           <title>К концу пробного периода карта привязана? · onboarding.md → Окончание пробного периода · ветвление · платформа</title>
-          <rect x="270" y="859" width="184" height="83" rx="14" class="c-mask"/>
-          <rect x="270" y="859" width="184" height="83" rx="14" class="c-backend" stroke-width="2"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(276 865) scale(0.6875)">
+          <rect x="370" y="859" width="184" height="83" rx="14" class="c-mask"/>
+          <rect x="370" y="859" width="184" height="83" rx="14" class="c-backend" stroke-width="2"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(376 865) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text x="446" y="873" class="t-backend" font-size="10" font-weight="700" text-anchor="end">?</text>
-          <text data-node-label="" data-detail-anchor="" x="362" y="887" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">К концу пробного периода</text>
-          <text x="362" y="899" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">карта привязана?</text>
-          <text data-detail="context" x="362" y="918" class="t-muted" font-size="6.9" text-anchor="middle">onboarding.md → Окончание пробного периода</text>
+          <text x="546" y="873" class="t-backend" font-size="10" font-weight="700" text-anchor="end">?</text>
+          <text data-node-label="" data-detail-anchor="" x="462" y="887" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">К концу пробного периода</text>
+          <text x="462" y="899" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">карта привязана?</text>
+          <text data-detail="context" x="462" y="918" class="t-muted" font-size="6.9" text-anchor="middle">onboarding.md → Окончание пробного периода</text>
         </g>
         <g id="node-fin.closed" data-node-id="fin.closed" data-node-label="Тупик: пробный период кончился без карты" tabindex="0" role="button" aria-label="Focus Тупик: пробный период кончился без карты, onboarding.md → Окончание пробного периода, финиш · платформа" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="onboarding.md → Окончание пробного периода" data-node-tag="финиш · warn" data-node-context="финиш · платформа">
           <title>Тупик: пробный период кончился без карты · onboarding.md → Окончание пробного периода · финиш · платформа · финиш · warn</title>
-          <rect x="235" y="994" width="160" height="83" rx="6" class="c-mask"/>
-          <rect x="235" y="994" width="160" height="83" rx="6" class="c-cloud" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-cloud" transform="translate(241 1000) scale(0.6875)">
+          <rect x="582" y="994" width="160" height="83" rx="6" class="c-mask"/>
+          <rect x="582" y="994" width="160" height="83" rx="6" class="c-cloud" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-cloud" transform="translate(588 1000) scale(0.6875)">
             <path d="M4 2.5h8M4 13.5h8M5 3c0 2.8 2 3.2 3 5-1 1.8-3 2.2-3 5M11 3c0 2.8-2 3.2-3 5 1 1.8 3 2.2 3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="315" y="1022" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Тупик: пробный период</text>
-          <text x="315" y="1034" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">кончился без карты</text>
-          <text data-detail="context" x="315" y="1053" class="t-muted" font-size="6" text-anchor="middle">onboarding.md → Окончание пробного периода</text>
-          <text data-detail="fine" x="245" y="1068" class="t-cloud" font-size="7">финиш · warn</text>
+          <text data-node-label="" data-detail-anchor="" x="662" y="1022" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Тупик: пробный период</text>
+          <text x="662" y="1034" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">кончился без карты</text>
+          <text data-detail="context" x="662" y="1053" class="t-muted" font-size="6" text-anchor="middle">onboarding.md → Окончание пробного периода</text>
+          <text data-detail="fine" x="592" y="1068" class="t-cloud" font-size="7">финиш · warn</text>
         </g>
         <g id="node-st.offer" data-node-id="st.offer" data-node-label="Предлагаем сразу оформить подписку" tabindex="0" role="button" aria-label="Focus Предлагаем сразу оформить подписку, onboarding.md → Пробный период, шаг · платформа" aria-pressed="false" data-node-kind="backend" data-node-sublabel="onboarding.md → Пробный период" data-node-context="шаг · платформа">
           <title>Предлагаем сразу оформить подписку · onboarding.md → Пробный период · шаг · платформа</title>
-          <rect x="482" y="580" width="184" height="83" rx="6" class="c-mask"/>
-          <rect x="482" y="580" width="184" height="83" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(488 586) scale(0.6875)">
+          <rect x="158" y="580" width="184" height="83" rx="6" class="c-mask"/>
+          <rect x="158" y="580" width="184" height="83" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(164 586) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="574" y="608" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Предлагаем сразу оформить</text>
-          <text x="574" y="620" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">подписку</text>
-          <text data-detail="context" x="574" y="639" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Пробный период</text>
+          <text data-node-label="" data-detail-anchor="" x="250" y="608" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Предлагаем сразу оформить</text>
+          <text x="250" y="620" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">подписку</text>
+          <text data-detail="context" x="250" y="639" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Пробный период</text>
         </g>
         <g id="node-in.card" data-node-id="in.card" data-node-label="Студент привязывает карту и выбирает тариф" tabindex="0" role="button" aria-label="Focus Студент привязывает карту и выбирает тариф, billing.md → Привязка карты, вход · студент" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="billing.md → Привязка карты" data-node-context="вход · студент">
           <title>Студент привязывает карту и выбирает тариф · billing.md → Привязка карты · вход · студент</title>
-          <rect x="482" y="724" width="184" height="83" rx="6" class="c-mask"/>
-          <rect x="482" y="724" width="184" height="83" rx="6" class="c-frontend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="start" class="semantic-sigil s-frontend" transform="translate(488 730) scale(0.6875)">
+          <rect x="158" y="724" width="184" height="83" rx="6" class="c-mask"/>
+          <rect x="158" y="724" width="184" height="83" rx="6" class="c-frontend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="start" class="semantic-sigil s-frontend" transform="translate(164 730) scale(0.6875)">
             <circle cx="8" cy="8" r="5"/>
             <path d="m7 5.4 3.6 2.6L7 10.6Z" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="574" y="752" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Студент привязывает карту и</text>
-          <text x="574" y="764" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">выбирает тариф</text>
-          <text data-detail="context" x="574" y="783" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Привязка карты</text>
+          <text data-node-label="" data-detail-anchor="" x="250" y="752" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Студент привязывает карту и</text>
+          <text x="250" y="764" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">выбирает тариф</text>
+          <text data-detail="context" x="250" y="783" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Привязка карты</text>
         </g>
         <g id="node-st.charge" data-node-id="st.charge" data-node-label="Списываем оплату подписки" tabindex="0" role="button" aria-label="Focus Списываем оплату подписки, billing.md → Списание, шаг · платёжный сервис" aria-pressed="false" data-node-kind="external" data-node-sublabel="billing.md → Списание" data-node-context="шаг · платёжный сервис">
           <title>Списываем оплату подписки · billing.md → Списание · шаг · платёжный сервис</title>
-          <rect x="423" y="994" width="184" height="71" rx="6" class="c-mask"/>
-          <rect x="423" y="994" width="184" height="71" rx="6" class="c-external" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(429 1000) scale(0.6875)">
+          <rect x="370" y="994" width="184" height="71" rx="6" class="c-mask"/>
+          <rect x="370" y="994" width="184" height="71" rx="6" class="c-external" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(376 1000) scale(0.6875)">
             <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
             <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="515" y="1022" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Списываем оплату подписки</text>
-          <text data-detail="context" x="515" y="1041" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
+          <text data-node-label="" data-detail-anchor="" x="462" y="1022" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Списываем оплату подписки</text>
+          <text data-detail="context" x="462" y="1041" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
         </g>
         <g id="node-br.bank" data-node-id="br.bank" data-node-label="Банк провёл платёж без подтверждения?" tabindex="0" role="button" aria-label="Focus Банк провёл платёж без подтверждения?, billing.md → Списание, ветвление · платёжный сервис" aria-pressed="false" data-node-kind="external" data-node-sublabel="billing.md → Списание" data-node-context="ветвление · платёжный сервис">
           <title>Банк провёл платёж без подтверждения? · billing.md → Списание · ветвление · платёжный сервис</title>
-          <rect x="423" y="1129" width="184" height="83" rx="14" class="c-mask"/>
-          <rect x="423" y="1129" width="184" height="83" rx="14" class="c-external" stroke-width="2"/>
-          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(429 1135) scale(0.6875)">
+          <rect x="370" y="1129" width="184" height="83" rx="14" class="c-mask"/>
+          <rect x="370" y="1129" width="184" height="83" rx="14" class="c-external" stroke-width="2"/>
+          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(376 1135) scale(0.6875)">
             <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
             <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
-          <text x="599" y="1143" class="t-external" font-size="10" font-weight="700" text-anchor="end">?</text>
-          <text data-node-label="" data-detail-anchor="" x="515" y="1157" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Банк провёл платёж без</text>
-          <text x="515" y="1169" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">подтверждения?</text>
-          <text data-detail="context" x="515" y="1188" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
+          <text x="546" y="1143" class="t-external" font-size="10" font-weight="700" text-anchor="end">?</text>
+          <text data-node-label="" data-detail-anchor="" x="462" y="1157" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Банк провёл платёж без</text>
+          <text x="462" y="1169" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">подтверждения?</text>
+          <text data-detail="context" x="462" y="1188" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
         </g>
         <g id="node-wait.3ds" data-node-id="wait.3ds" data-node-label="Ждём: студент подтверждает платёж в банке" tabindex="0" role="button" aria-label="Focus Ждём: студент подтверждает платёж в банке, billing.md → Списание, ожидание · студент" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="billing.md → Списание" data-node-context="ожидание · студент">
           <title>Ждём: студент подтверждает платёж в банке · billing.md → Списание · ожидание · студент</title>
-          <rect x="423" y="1264" width="184" height="83" rx="6" class="c-mask"/>
-          <rect x="423" y="1264" width="184" height="83" rx="6" class="c-frontend" stroke-width="1.5" stroke-dasharray="5,3"/>
-          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-frontend" transform="translate(429 1270) scale(0.6875)">
+          <rect x="241" y="1264" width="184" height="83" rx="6" class="c-mask"/>
+          <rect x="241" y="1264" width="184" height="83" rx="6" class="c-frontend" stroke-width="1.5" stroke-dasharray="5,3"/>
+          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-frontend" transform="translate(247 1270) scale(0.6875)">
             <path d="M4 2.5h8M4 13.5h8M5 3c0 2.8 2 3.2 3 5-1 1.8-3 2.2-3 5M11 3c0 2.8-2 3.2-3 5 1 1.8 3 2.2 3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="515" y="1292" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Ждём: студент подтверждает</text>
-          <text x="515" y="1304" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">платёж в банке</text>
-          <text data-detail="context" x="515" y="1323" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
+          <text data-node-label="" data-detail-anchor="" x="333" y="1292" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Ждём: студент подтверждает</text>
+          <text x="333" y="1304" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">платёж в банке</text>
+          <text data-detail="context" x="333" y="1323" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
         </g>
         <g id="node-br.retry" data-node-id="br.retry" data-node-label="Неудачных попыток меньше трёх?" tabindex="0" role="button" aria-label="Focus Неудачных попыток меньше трёх?, billing.md → Списание, ветвление · платформа" aria-pressed="false" data-node-kind="backend" data-node-sublabel="billing.md → Списание" data-node-context="ветвление · платформа">
           <title>Неудачных попыток меньше трёх? · billing.md → Списание · ветвление · платформа</title>
-          <rect x="523" y="1399" width="184" height="83" rx="14" class="c-mask"/>
-          <rect x="523" y="1399" width="184" height="83" rx="14" class="c-backend" stroke-width="2"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(529 1405) scale(0.6875)">
+          <rect x="170" y="1399" width="184" height="83" rx="14" class="c-mask"/>
+          <rect x="170" y="1399" width="184" height="83" rx="14" class="c-backend" stroke-width="2"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(176 1405) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text x="699" y="1413" class="t-backend" font-size="10" font-weight="700" text-anchor="end">?</text>
-          <text data-node-label="" data-detail-anchor="" x="615" y="1427" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Неудачных попыток меньше</text>
-          <text x="615" y="1439" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">трёх?</text>
-          <text data-detail="context" x="615" y="1458" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
+          <text x="346" y="1413" class="t-backend" font-size="10" font-weight="700" text-anchor="end">?</text>
+          <text data-node-label="" data-detail-anchor="" x="262" y="1427" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Неудачных попыток меньше</text>
+          <text x="262" y="1439" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">трёх?</text>
+          <text data-detail="context" x="262" y="1458" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
         </g>
         <g id="node-st.retry" data-node-id="st.retry" data-node-label="Пишем студенту и ждём следующего дня" tabindex="0" role="button" aria-label="Focus Пишем студенту и ждём следующего дня, billing.md → Списание, шаг · платформа" aria-pressed="false" data-node-kind="backend" data-node-sublabel="billing.md → Списание" data-node-context="шаг · платформа">
           <title>Пишем студенту и ждём следующего дня · billing.md → Списание · шаг · платформа</title>
-          <rect x="423.00000000000006" y="1534" width="184" height="83" rx="6" class="c-mask"/>
-          <rect x="423.00000000000006" y="1534" width="184" height="83" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(429.00000000000006 1540) scale(0.6875)">
+          <rect x="70" y="1534" width="184" height="83" rx="6" class="c-mask"/>
+          <rect x="70" y="1534" width="184" height="83" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(76 1540) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="515" y="1562" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Пишем студенту и ждём</text>
-          <text x="515" y="1574" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">следующего дня</text>
-          <text data-detail="context" x="515" y="1593" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
+          <text data-node-label="" data-detail-anchor="" x="162" y="1562" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Пишем студенту и ждём</text>
+          <text x="162" y="1574" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">следующего дня</text>
+          <text data-detail="context" x="162" y="1593" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
         </g>
         <g id="node-fin.paid" data-node-id="fin.paid" data-node-label="Финиш: подписка оформлена" tabindex="0" role="button" aria-label="Focus Финиш: подписка оформлена, billing.md → Списание, финиш · платформа" aria-pressed="false" data-node-kind="backend" data-node-sublabel="billing.md → Списание" data-node-tag="финиш · ok" data-node-context="финиш · платформа">
           <title>Финиш: подписка оформлена · billing.md → Списание · финиш · платформа · финиш · ok</title>
-          <rect x="335" y="1399" width="160" height="83" rx="6" class="c-mask"/>
-          <rect x="335" y="1399" width="160" height="83" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="success" class="semantic-sigil s-backend" transform="translate(341 1405) scale(0.6875)">
+          <rect x="382" y="1399" width="160" height="83" rx="6" class="c-mask"/>
+          <rect x="382" y="1399" width="160" height="83" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="success" class="semantic-sigil s-backend" transform="translate(388 1405) scale(0.6875)">
             <circle cx="8" cy="8" r="5.3"/>
             <path d="m5.2 8 1.8 1.8 3.8-4"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="415" y="1427" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Финиш: подписка</text>
-          <text x="415" y="1439" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">оформлена</text>
-          <text data-detail="context" x="415" y="1458" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
-          <text data-detail="fine" x="345" y="1473" class="t-backend" font-size="7">финиш · ok</text>
+          <text data-node-label="" data-detail-anchor="" x="462" y="1427" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Финиш: подписка</text>
+          <text x="462" y="1439" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">оформлена</text>
+          <text data-detail="context" x="462" y="1458" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
+          <text data-detail="fine" x="392" y="1473" class="t-backend" font-size="7">финиш · ok</text>
         </g>
         <g id="node-fin.failed" data-node-id="fin.failed" data-node-label="Отказ — три попытки списания не прошли" tabindex="0" role="button" aria-label="Focus Отказ — три попытки списания не прошли, billing.md → Списание, финиш · платформа" aria-pressed="false" data-node-kind="security" data-node-sublabel="billing.md → Списание" data-node-tag="финиш · bad · ⚠ обратить внимание" data-node-context="финиш · платформа">
           <title>Отказ — три попытки списания не прошли · billing.md → Списание · финиш · платформа · финиш · bad · ⚠ обратить внимание</title>
-          <rect x="635" y="1534" width="160" height="83" rx="6" class="c-mask"/>
-          <rect x="635" y="1534" width="160" height="83" rx="6" class="c-security" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="failure" class="semantic-sigil s-security" transform="translate(641 1540) scale(0.6875)">
+          <rect x="282" y="1534" width="160" height="83" rx="6" class="c-mask"/>
+          <rect x="282" y="1534" width="160" height="83" rx="6" class="c-security" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="failure" class="semantic-sigil s-security" transform="translate(288 1540) scale(0.6875)">
             <circle cx="8" cy="8" r="5.3"/>
             <path d="m5.7 5.7 4.6 4.6m0-4.6-4.6 4.6"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="715" y="1562" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Отказ — три попытки</text>
-          <text x="715" y="1574" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">списания не прошли</text>
-          <text data-detail="context" x="715" y="1593" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
-          <text data-detail="fine" x="645" y="1608" class="t-security" font-size="6">финиш · bad · ⚠ обратить внимание</text>
+          <text data-node-label="" data-detail-anchor="" x="362" y="1562" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Отказ — три попытки</text>
+          <text x="362" y="1574" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">списания не прошли</text>
+          <text data-detail="context" x="362" y="1593" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
+          <text data-detail="fine" x="292" y="1608" class="t-security" font-size="6">финиш · bad · ⚠ обратить внимание</text>
         </g>
         <!-- Edge labels -->
         <g data-detail="context" data-edge-from="wait.confirm" data-edge-to="br.trial-used" data-edge-label="ПЕРЕШЁЛ · в течение 24 часов" data-edge-key="2" data-edge-id="wait.confirm--br.trial-used">
-          <rect x="311.9666666666667" y="418" width="142.4" height="14" rx="3" class="c-mask"/>
-          <text x="383.1666666666667" y="428" class="t-backend" font-size="8" text-anchor="middle">ПЕРЕШЁЛ · в течение 24 часов</text>
+          <rect x="461.00000000000006" y="402" width="142.4" height="14" rx="3" class="c-mask"/>
+          <text x="532.2" y="412" class="t-backend" font-size="8" text-anchor="middle">ПЕРЕШЁЛ · в течение 24 часов</text>
         </g>
         <g data-detail="context" data-edge-from="wait.confirm" data-edge-to="br.resend" data-edge-label="НЕ УСПЕЛ · ссылка истекла" data-edge-key="3" data-edge-id="wait.confirm--br.resend">
-          <rect x="206.16666666666669" y="418" width="128" height="14" rx="3" class="c-mask"/>
-          <text x="270.1666666666667" y="428" class="t-cloud" font-size="8" text-anchor="middle">НЕ УСПЕЛ · ссылка истекла</text>
+          <rect x="507.5" y="409" width="128" height="14" rx="3" class="c-mask"/>
+          <text x="571.5" y="419" class="t-cloud" font-size="8" text-anchor="middle">НЕ УСПЕЛ · ссылка истекла</text>
         </g>
         <g data-detail="context" data-edge-from="br.resend" data-edge-to="st.mail" data-edge-label="ДА · со страницы входа" data-edge-key="4" data-edge-id="br.resend--st.mail">
-          <rect x="496.2333333333334" y="196.5" width="113.6" height="14" rx="3" class="c-mask"/>
-          <text x="553.0333333333334" y="206.5" class="t-backend" font-size="8" text-anchor="middle">ДА · со страницы входа</text>
+          <rect x="543.4000000000001" y="159" width="113.6" height="14" rx="3" class="c-mask"/>
+          <text x="600.2" y="169" class="t-backend" font-size="8" text-anchor="middle">ДА · со страницы входа</text>
         </g>
         <g data-detail="context" data-edge-from="br.resend" data-edge-to="fin.unconfirmed" data-edge-label="НЕТ · почта не подтверждена" data-edge-key="5" data-edge-id="br.resend--fin.unconfirmed">
-          <rect x="116.53333333333335" y="553" width="137.6" height="14" rx="3" class="c-mask"/>
-          <text x="185.33333333333334" y="563" class="t-cloud" font-size="8" text-anchor="middle">НЕТ · почта не подтверждена</text>
+          <rect x="680" y="532.5" width="137.6" height="14" rx="3" class="c-mask"/>
+          <text x="748.8" y="542.5" class="t-cloud" font-size="8" text-anchor="middle">НЕТ · почта не подтверждена</text>
         </g>
         <g data-detail="context" data-edge-from="br.trial-used" data-edge-to="st.trial" data-edge-label="ДА · первый пробный период" data-edge-key="6" data-edge-id="br.trial-used--st.trial">
-          <rect x="327.4333333333334" y="553" width="132.8" height="14" rx="3" class="c-mask"/>
-          <text x="393.83333333333337" y="563" class="t-backend" font-size="8" text-anchor="middle">ДА · первый пробный период</text>
+          <rect x="475" y="537" width="132.8" height="14" rx="3" class="c-mask"/>
+          <text x="541.4" y="547" class="t-backend" font-size="8" text-anchor="middle">ДА · первый пробный период</text>
         </g>
         <g data-detail="context" data-edge-from="br.trial-used" data-edge-to="st.offer" data-edge-label="НЕТ · почта уже была" data-edge-key="7" data-edge-id="br.trial-used--st.offer">
-          <rect x="454.83333333333337" y="553" width="104" height="14" rx="3" class="c-mask"/>
-          <text x="506.83333333333337" y="563" class="t-frontend" font-size="8" text-anchor="middle">НЕТ · почта уже была</text>
+          <rect x="300.5" y="544" width="104" height="14" rx="3" class="c-mask"/>
+          <text x="352.5" y="554" class="t-frontend" font-size="8" text-anchor="middle">НЕТ · почта уже была</text>
         </g>
         <g data-detail="context" data-edge-from="br.card" data-edge-to="st.charge" data-edge-label="ДА · оформляем автоматически" data-edge-key="10" data-edge-id="br.card--st.charge">
-          <rect x="367.3" y="967" width="142.4" height="14" rx="3" class="c-mask"/>
-          <text x="438.5" y="977" class="t-backend" font-size="8" text-anchor="middle">ДА · оформляем автоматически</text>
+          <rect x="461.00000000000006" y="951" width="142.4" height="14" rx="3" class="c-mask"/>
+          <text x="532.2" y="961" class="t-backend" font-size="8" text-anchor="middle">ДА · оформляем автоматически</text>
         </g>
         <g data-detail="context" data-edge-from="br.card" data-edge-to="fin.closed" data-edge-label="НЕТ · карты нет" data-edge-key="11" data-edge-id="br.card--fin.closed">
-          <rect x="295" y="967" width="80" height="14" rx="3" class="c-mask"/>
-          <text x="335" y="977" class="t-cloud" font-size="8" text-anchor="middle">НЕТ · карты нет</text>
+          <rect x="525.5" y="958" width="80" height="14" rx="3" class="c-mask"/>
+          <text x="565.5" y="968" class="t-cloud" font-size="8" text-anchor="middle">НЕТ · карты нет</text>
         </g>
         <g data-detail="context" data-edge-from="br.bank" data-edge-to="fin.paid" data-edge-label="ДА · деньги списаны" data-edge-key="15" data-edge-id="br.bank--fin.paid">
-          <rect x="393.9" y="1237" width="99.2" height="14" rx="3" class="c-mask"/>
-          <text x="443.5" y="1247" class="t-backend" font-size="8" text-anchor="middle">ДА · деньги списаны</text>
+          <rect x="468" y="1221" width="99.2" height="14" rx="3" class="c-mask"/>
+          <text x="517.6" y="1231" class="t-backend" font-size="8" text-anchor="middle">ДА · деньги списаны</text>
         </g>
         <g data-detail="context" data-edge-from="br.bank" data-edge-to="wait.3ds" data-edge-label="3-D SECURE" data-edge-key="16" data-edge-id="br.bank--wait.3ds">
-          <rect x="521" y="1221" width="56" height="14" rx="3" class="c-mask"/>
-          <text x="549" y="1231" class="t-frontend" font-size="8" text-anchor="middle">3-D SECURE</text>
+          <rect x="362.5" y="1237" width="56" height="14" rx="3" class="c-mask"/>
+          <text x="390.5" y="1247" class="t-frontend" font-size="8" text-anchor="middle">3-D SECURE</text>
         </g>
         <g data-detail="context" data-edge-from="br.bank" data-edge-to="br.retry" data-edge-label="НЕТ · списание не прошло" data-edge-key="17" data-edge-id="br.bank--br.retry">
-          <rect x="524.9" y="1237" width="123.19999999999999" height="14" rx="3" class="c-mask"/>
-          <text x="586.5" y="1247" class="t-security" font-size="8" text-anchor="middle">НЕТ · списание не прошло</text>
+          <rect x="430.4" y="1237" width="123.19999999999999" height="14" rx="3" class="c-mask"/>
+          <text x="492" y="1247" class="t-security" font-size="8" text-anchor="middle">НЕТ · списание не прошло</text>
         </g>
         <g data-detail="context" data-edge-from="wait.3ds" data-edge-to="fin.paid" data-edge-label="ПОДТВЕРДИЛ · в течение часа" data-edge-key="18" data-edge-id="wait.3ds--fin.paid">
-          <rect x="396.2" y="1372" width="137.6" height="14" rx="3" class="c-mask"/>
-          <text x="465" y="1382" class="t-backend" font-size="8" text-anchor="middle">ПОДТВЕРДИЛ · в течение часа</text>
+          <rect x="328.7" y="1363" width="137.6" height="14" rx="3" class="c-mask"/>
+          <text x="397.5" y="1373" class="t-backend" font-size="8" text-anchor="middle">ПОДТВЕРДИЛ · в течение часа</text>
         </g>
         <g data-detail="context" data-edge-from="wait.3ds" data-edge-to="br.retry" data-edge-label="МОЛЧИТ · час прошёл" data-edge-key="19" data-edge-id="wait.3ds--br.retry">
-          <rect x="515.4" y="1372" width="99.2" height="14" rx="3" class="c-mask"/>
-          <text x="565" y="1382" class="t-security" font-size="8" text-anchor="middle">МОЛЧИТ · час прошёл</text>
+          <rect x="240.9" y="1363" width="99.2" height="14" rx="3" class="c-mask"/>
+          <text x="290.5" y="1373" class="t-security" font-size="8" text-anchor="middle">МОЛЧИТ · час прошёл</text>
         </g>
         <g data-detail="context" data-edge-from="br.retry" data-edge-to="st.retry" data-edge-label="ДА · повторим завтра" data-edge-key="20" data-edge-id="br.retry--st.retry">
-          <rect x="509.5" y="1507" width="104" height="14" rx="3" class="c-mask"/>
-          <text x="561.5" y="1517" class="t-cloud" font-size="8" text-anchor="middle">ДА · повторим завтра</text>
+          <rect x="156.5" y="1507" width="104" height="14" rx="3" class="c-mask"/>
+          <text x="208.5" y="1517" class="t-cloud" font-size="8" text-anchor="middle">ДА · повторим завтра</text>
         </g>
         <g data-detail="context" data-edge-from="br.retry" data-edge-to="fin.failed" data-edge-label="НЕТ · третья неудача" data-edge-key="21" data-edge-id="br.retry--fin.failed">
-          <rect x="616.5" y="1507" width="104" height="14" rx="3" class="c-mask"/>
-          <text x="668.5" y="1517" class="t-security" font-size="8" text-anchor="middle">НЕТ · третья неудача</text>
+          <rect x="263.5" y="1507" width="104" height="14" rx="3" class="c-mask"/>
+          <text x="315.5" y="1517" class="t-security" font-size="8" text-anchor="middle">НЕТ · третья неудача</text>
         </g>
         <!-- Legend -->
         <g data-legend="">
@@ -5376,7 +5380,7 @@
           <g data-legend-semantic-kind="security" data-legend-x="480.5" data-legend-baseline="1643" data-legend-width="109"><rect x="480.5" y="1635" width="14" height="9" rx="2" class="c-security" stroke-width="1"/><text x="499.5" y="1643" class="t-muted" font-size="7.5" font-weight="500">security · финиш bad</text></g>
         </g>
       </svg>
-      <svg data-graph="0" hidden viewBox="0 0 294 1354" role="img" lang="en" aria-labelledby="s0-archify-diagram-title s0-archify-diagram-description" data-preset="classic" data-quality-profile="standard" data-orientation="vertical">
+      <svg data-graph="0" hidden viewBox="0 0 324 1354" role="img" lang="en" aria-labelledby="s0-archify-diagram-title s0-archify-diagram-description" data-preset="classic" data-quality-profile="standard" data-orientation="vertical">
         <title id="s0-archify-diagram-title">Регистрация → пробный период → подписка</title>
         <desc id="s0-archify-diagram-description">Путь нового студента от формы регистрации до оплаченной подписки: подтверждение почты, пробный доступ, привязка карты и списание с повторами. Собран по docs/onboarding.md и docs/billing.md — в них расходятся сроки пробного периода.</desc>
         <!-- Definitions -->
@@ -5402,19 +5406,19 @@
         <circle cx="34" cy="18" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="18" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">1</text>
         <text x="48" y="18" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">РЕГИСТРАЦИЯ</text>
-        <line x1="117.4" y1="18" x2="270" y2="18" class="a-dashed" stroke-width="1"/>
+        <line x1="117.4" y1="18" x2="300" y2="18" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="423" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="423" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">2</text>
         <text x="48" y="423" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ПРОБНЫЙ ПЕРИОД</text>
-        <line x1="133.6" y1="423" x2="270" y2="423" class="a-dashed" stroke-width="1"/>
+        <line x1="133.6" y1="423" x2="300" y2="423" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="951" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="951" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">3</text>
         <text x="48" y="951" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ОПЛАТА</text>
-        <line x1="90.4" y1="951" x2="270" y2="951" class="a-dashed" stroke-width="1"/>
+        <line x1="90.4" y1="951" x2="300" y2="951" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="1209" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="1209" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">4</text>
         <text x="48" y="1209" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ИТОГ</text>
-        <line x1="79.6" y1="1209" x2="270" y2="1209" class="a-dashed" stroke-width="1"/>
+        <line x1="79.6" y1="1209" x2="300" y2="1209" class="a-dashed" stroke-width="1"/>
         <!-- Edge paths -->
         <path data-edge-from="in.signup" data-edge-to="st.mail" data-edge-key="0" data-edge-id="in.signup--st.mail" data-composition-points="162,123;162,161;162,175" d="M 162 123 L 162 161 L 162 175" class="a-emphasis" stroke-width="1.9" marker-end="url(#s0-arrowhead-emphasis)"/>
         <path data-edge-from="st.mail" data-edge-to="wait.confirm" data-edge-key="1" data-edge-id="st.mail--wait.confirm" data-composition-points="162,258;162,296;162,310" d="M 162 258 L 162 296 L 162 310" class="a-emphasis" stroke-width="1.9" marker-end="url(#s0-arrowhead-emphasis)"/>
@@ -5569,7 +5573,7 @@
           <g data-legend-semantic-kind="external" data-legend-x="265.5" data-legend-baseline="1340" data-legend-width="91"><rect x="265.5" y="1332" width="14" height="9" rx="2" class="c-external" stroke-width="1"/><text x="284.5" y="1340" class="t-muted" font-size="7.5" font-weight="500">платёжный сервис</text></g>
         </g>
       </svg>
-      <svg data-graph="1" hidden viewBox="0 0 359 1489" role="img" lang="en" aria-labelledby="s1-archify-diagram-title s1-archify-diagram-description" data-preset="classic" data-quality-profile="standard" data-orientation="vertical">
+      <svg data-graph="1" hidden viewBox="0 0 356 1489" role="img" lang="en" aria-labelledby="s1-archify-diagram-title s1-archify-diagram-description" data-preset="classic" data-quality-profile="standard" data-orientation="vertical">
         <title id="s1-archify-diagram-title">Регистрация → пробный период → подписка</title>
         <desc id="s1-archify-diagram-description">Путь нового студента от формы регистрации до оплаченной подписки: подтверждение почты, пробный доступ, привязка карты и списание с повторами. Собран по docs/onboarding.md и docs/billing.md — в них расходятся сроки пробного периода.</desc>
         <!-- Definitions -->
@@ -5595,185 +5599,185 @@
         <circle cx="34" cy="18" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="18" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">1</text>
         <text x="48" y="18" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">РЕГИСТРАЦИЯ</text>
-        <line x1="117.4" y1="18" x2="335" y2="18" class="a-dashed" stroke-width="1"/>
+        <line x1="117.4" y1="18" x2="332" y2="18" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="423" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="423" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">2</text>
         <text x="48" y="423" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ПРОБНЫЙ ПЕРИОД</text>
-        <line x1="133.6" y1="423" x2="335" y2="423" class="a-dashed" stroke-width="1"/>
+        <line x1="133.6" y1="423" x2="332" y2="423" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="951" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="951" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">3</text>
         <text x="48" y="951" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ОПЛАТА</text>
-        <line x1="90.4" y1="951" x2="335" y2="951" class="a-dashed" stroke-width="1"/>
+        <line x1="90.4" y1="951" x2="332" y2="951" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="1344" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="1344" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">4</text>
         <text x="48" y="1344" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ИТОГ</text>
-        <line x1="79.6" y1="1344" x2="335" y2="1344" class="a-dashed" stroke-width="1"/>
+        <line x1="79.6" y1="1344" x2="332" y2="1344" class="a-dashed" stroke-width="1"/>
         <!-- Edge paths -->
-        <path data-edge-from="in.signup" data-edge-to="st.mail" data-edge-key="0" data-edge-id="in.signup--st.mail" data-composition-points="226.5,123;226.5,161;226.5,175" d="M 226.5 123 L 226.5 161 L 226.5 175" class="a-emphasis" stroke-width="1.9" marker-end="url(#s1-arrowhead-emphasis)"/>
-        <path data-edge-from="st.mail" data-edge-to="wait.confirm" data-edge-key="1" data-edge-id="st.mail--wait.confirm" data-composition-points="226.5,258;226.5,296;226.5,310" d="M 226.5 258 L 226.5 296 L 226.5 310" class="a-emphasis" stroke-width="1.9" marker-end="url(#s1-arrowhead-emphasis)"/>
-        <path data-edge-from="wait.confirm" data-edge-to="br.trial-used" data-edge-label="ПЕРЕШЁЛ · в течение 24 часов" data-edge-key="2" data-edge-id="wait.confirm--br.trial-used" data-composition-points="226.5,393;226.5,431;226.5,445" d="M 226.5 393 L 226.5 431 L 226.5 445" class="a-emphasis" stroke-width="1.9" marker-end="url(#s1-arrowhead-emphasis)"/>
-        <path data-edge-from="br.trial-used" data-edge-to="st.trial" data-edge-label="ДА · первый пробный период" data-edge-key="3" data-edge-id="br.trial-used--st.trial" data-composition-points="226.5,528;226.5,566;226.5,580" d="M 226.5 528 L 226.5 566 L 226.5 580" class="a-emphasis" stroke-width="1.9" marker-end="url(#s1-arrowhead-emphasis)"/>
-        <path data-edge-from="st.trial" data-edge-to="wait.trial" data-edge-key="4" data-edge-id="st.trial--wait.trial" data-composition-points="226.5,651;226.5,689;226.5,703" d="M 226.5 651 L 226.5 689 L 226.5 703" class="a-emphasis" stroke-width="1.9" marker-end="url(#s1-arrowhead-emphasis)"/>
-        <path data-edge-from="wait.trial" data-edge-to="br.card" data-edge-key="5" data-edge-id="wait.trial--br.card" data-composition-points="226.5,786;226.5,824;226.5,838" d="M 226.5 786 L 226.5 824 L 226.5 838" class="a-emphasis" stroke-width="1.9" marker-end="url(#s1-arrowhead-emphasis)"/>
-        <path data-edge-from="br.card" data-edge-to="st.charge" data-edge-label="ДА · оформляем автоматически" data-edge-key="6" data-edge-id="br.card--st.charge" data-composition-points="226.5,921;226.5,959;226.5,973" d="M 226.5 921 L 226.5 959 L 226.5 973" class="a-emphasis" stroke-width="1.9" marker-end="url(#s1-arrowhead-emphasis)"/>
-        <path data-edge-from="st.charge" data-edge-to="br.bank" data-edge-key="7" data-edge-id="st.charge--br.bank" data-composition-points="226.5,1044;226.5,1082;226.5,1096" d="M 226.5 1044 L 226.5 1082 L 226.5 1096" class="a-emphasis" stroke-width="1.9" marker-end="url(#s1-arrowhead-emphasis)"/>
-        <path data-edge-from="br.bank" data-edge-to="fin.paid" data-edge-label="ДА · деньги списаны" data-edge-key="8" data-edge-id="br.bank--fin.paid" data-composition-points="233.5,1179;233.5,1217;291,1217;291,1352;233.5,1352;233.5,1366" d="M 233.5 1179 L 233.5 1217 L 291 1217 L 291 1352 L 233.5 1352 L 233.5 1366" class="a-emphasis" stroke-width="1.9" marker-end="url(#s1-arrowhead-emphasis)"/>
-        <path data-edge-from="br.bank" data-edge-to="wait.3ds" data-edge-label="3-D SECURE" data-edge-key="9" data-edge-id="br.bank--wait.3ds" data-composition-points="219.5,1179;219.5,1217;162,1217;162,1231" d="M 219.5 1179 L 219.5 1217 L 162 1217 L 162 1231" class="a-default" stroke-width="1.4" marker-end="url(#s1-arrowhead)"/>
-        <path data-edge-from="wait.3ds" data-edge-to="fin.paid" data-edge-label="ПОДТВЕРДИЛ · в течение часа" data-edge-key="10" data-edge-id="wait.3ds--fin.paid" data-composition-points="162,1314;162,1352;219.5,1352;219.5,1366" d="M 162 1314 L 162 1352 L 219.5 1352 L 219.5 1366" class="a-default" stroke-width="1.4" marker-end="url(#s1-arrowhead)"/>
+        <path data-edge-from="in.signup" data-edge-to="st.mail" data-edge-key="0" data-edge-id="in.signup--st.mail" data-composition-points="178,123;178,161;178,175" d="M 178 123 L 178 161 L 178 175" class="a-emphasis" stroke-width="1.9" marker-end="url(#s1-arrowhead-emphasis)"/>
+        <path data-edge-from="st.mail" data-edge-to="wait.confirm" data-edge-key="1" data-edge-id="st.mail--wait.confirm" data-composition-points="178,258;178,296;178,310" d="M 178 258 L 178 296 L 178 310" class="a-emphasis" stroke-width="1.9" marker-end="url(#s1-arrowhead-emphasis)"/>
+        <path data-edge-from="wait.confirm" data-edge-to="br.trial-used" data-edge-label="ПЕРЕШЁЛ · в течение 24 часов" data-edge-key="2" data-edge-id="wait.confirm--br.trial-used" data-composition-points="178,393;178,431;178,445" d="M 178 393 L 178 431 L 178 445" class="a-emphasis" stroke-width="1.9" marker-end="url(#s1-arrowhead-emphasis)"/>
+        <path data-edge-from="br.trial-used" data-edge-to="st.trial" data-edge-label="ДА · первый пробный период" data-edge-key="3" data-edge-id="br.trial-used--st.trial" data-composition-points="178,528;178,566;178,580" d="M 178 528 L 178 566 L 178 580" class="a-emphasis" stroke-width="1.9" marker-end="url(#s1-arrowhead-emphasis)"/>
+        <path data-edge-from="st.trial" data-edge-to="wait.trial" data-edge-key="4" data-edge-id="st.trial--wait.trial" data-composition-points="178,651;178,689;178,703" d="M 178 651 L 178 689 L 178 703" class="a-emphasis" stroke-width="1.9" marker-end="url(#s1-arrowhead-emphasis)"/>
+        <path data-edge-from="wait.trial" data-edge-to="br.card" data-edge-key="5" data-edge-id="wait.trial--br.card" data-composition-points="178,786;178,824;178,838" d="M 178 786 L 178 824 L 178 838" class="a-emphasis" stroke-width="1.9" marker-end="url(#s1-arrowhead-emphasis)"/>
+        <path data-edge-from="br.card" data-edge-to="st.charge" data-edge-label="ДА · оформляем автоматически" data-edge-key="6" data-edge-id="br.card--st.charge" data-composition-points="178,921;178,959;178,973" d="M 178 921 L 178 959 L 178 973" class="a-emphasis" stroke-width="1.9" marker-end="url(#s1-arrowhead-emphasis)"/>
+        <path data-edge-from="st.charge" data-edge-to="br.bank" data-edge-key="7" data-edge-id="st.charge--br.bank" data-composition-points="178,1044;178,1082;178,1096" d="M 178 1044 L 178 1082 L 178 1096" class="a-emphasis" stroke-width="1.9" marker-end="url(#s1-arrowhead-emphasis)"/>
+        <path data-edge-from="br.bank" data-edge-to="fin.paid" data-edge-label="ДА · деньги списаны" data-edge-key="8" data-edge-id="br.bank--fin.paid" data-composition-points="185,1179;185,1208;307,1208;307,1343;185,1343;185,1366" d="M 185 1179 L 185 1208 L 307 1208 L 307 1343 L 185 1343 L 185 1366" class="a-emphasis" stroke-width="1.9" marker-end="url(#s1-arrowhead-emphasis)"/>
+        <path data-edge-from="br.bank" data-edge-to="wait.3ds" data-edge-label="3-D SECURE" data-edge-key="9" data-edge-id="br.bank--wait.3ds" data-composition-points="171,1179;171,1217;178,1217;178,1231" d="M 171 1179 L 171 1217 L 178 1217 L 178 1231" class="a-default" stroke-width="1.4" marker-end="url(#s1-arrowhead)"/>
+        <path data-edge-from="wait.3ds" data-edge-to="fin.paid" data-edge-label="ПОДТВЕРДИЛ · в течение часа" data-edge-key="10" data-edge-id="wait.3ds--fin.paid" data-composition-points="178,1314;178,1352;171,1352;171,1366" d="M 178 1314 L 178 1352 L 171 1352 L 171 1366" class="a-default" stroke-width="1.4" marker-end="url(#s1-arrowhead)"/>
         <!-- Nodes -->
         <g id="s1-node-in.signup" data-node-id="in.signup" data-node-label="Студент регистрируется по почте" tabindex="0" role="button" aria-label="Focus Студент регистрируется по почте, onboarding.md → Регистрация, вход · студент" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="onboarding.md → Регистрация" data-node-context="вход · студент">
           <title>Студент регистрируется по почте · onboarding.md → Регистрация · вход · студент</title>
-          <rect x="134.5" y="40" width="184" height="83" rx="6" class="c-mask"/>
-          <rect x="134.5" y="40" width="184" height="83" rx="6" class="c-frontend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="start" class="semantic-sigil s-frontend" transform="translate(140.5 46) scale(0.6875)">
+          <rect x="86" y="40" width="184" height="83" rx="6" class="c-mask"/>
+          <rect x="86" y="40" width="184" height="83" rx="6" class="c-frontend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="start" class="semantic-sigil s-frontend" transform="translate(92 46) scale(0.6875)">
             <circle cx="8" cy="8" r="5"/>
             <path d="m7 5.4 3.6 2.6L7 10.6Z" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="226.5" y="68" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Студент регистрируется по</text>
-          <text x="226.5" y="80" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">почте</text>
-          <text data-detail="context" x="226.5" y="99" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Регистрация</text>
+          <text data-node-label="" data-detail-anchor="" x="178" y="68" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Студент регистрируется по</text>
+          <text x="178" y="80" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">почте</text>
+          <text data-detail="context" x="178" y="99" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Регистрация</text>
         </g>
         <g id="s1-node-st.mail" data-node-id="st.mail" data-node-label="Отправляем письмо со ссылкой подтверждения" tabindex="0" role="button" aria-label="Focus Отправляем письмо со ссылкой подтверждения, onboarding.md → Регистрация, шаг · платформа" aria-pressed="false" data-node-kind="backend" data-node-sublabel="onboarding.md → Регистрация" data-node-context="шаг · платформа">
           <title>Отправляем письмо со ссылкой подтверждения · onboarding.md → Регистрация · шаг · платформа</title>
-          <rect x="134.5" y="175" width="184" height="83" rx="6" class="c-mask"/>
-          <rect x="134.5" y="175" width="184" height="83" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(140.5 181) scale(0.6875)">
+          <rect x="86" y="175" width="184" height="83" rx="6" class="c-mask"/>
+          <rect x="86" y="175" width="184" height="83" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(92 181) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="226.5" y="203" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Отправляем письмо со ссылкой</text>
-          <text x="226.5" y="215" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">подтверждения</text>
-          <text data-detail="context" x="226.5" y="234" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Регистрация</text>
+          <text data-node-label="" data-detail-anchor="" x="178" y="203" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Отправляем письмо со ссылкой</text>
+          <text x="178" y="215" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">подтверждения</text>
+          <text data-detail="context" x="178" y="234" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Регистрация</text>
         </g>
         <g id="s1-node-wait.confirm" data-node-id="wait.confirm" data-node-label="Ждём: студент переходит по ссылке из письма" tabindex="0" role="button" aria-label="Focus Ждём: студент переходит по ссылке из письма, onboarding.md → Регистрация, ожидание · студент" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="onboarding.md → Регистрация" data-node-context="ожидание · студент">
           <title>Ждём: студент переходит по ссылке из письма · onboarding.md → Регистрация · ожидание · студент</title>
-          <rect x="134.5" y="310" width="184" height="83" rx="6" class="c-mask"/>
-          <rect x="134.5" y="310" width="184" height="83" rx="6" class="c-frontend" stroke-width="1.5" stroke-dasharray="5,3"/>
-          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-frontend" transform="translate(140.5 316) scale(0.6875)">
+          <rect x="86" y="310" width="184" height="83" rx="6" class="c-mask"/>
+          <rect x="86" y="310" width="184" height="83" rx="6" class="c-frontend" stroke-width="1.5" stroke-dasharray="5,3"/>
+          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-frontend" transform="translate(92 316) scale(0.6875)">
             <path d="M4 2.5h8M4 13.5h8M5 3c0 2.8 2 3.2 3 5-1 1.8-3 2.2-3 5M11 3c0 2.8-2 3.2-3 5 1 1.8 3 2.2 3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="226.5" y="338" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Ждём: студент переходит по</text>
-          <text x="226.5" y="350" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">ссылке из письма</text>
-          <text data-detail="context" x="226.5" y="369" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Регистрация</text>
+          <text data-node-label="" data-detail-anchor="" x="178" y="338" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Ждём: студент переходит по</text>
+          <text x="178" y="350" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">ссылке из письма</text>
+          <text data-detail="context" x="178" y="369" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Регистрация</text>
         </g>
         <g id="s1-node-br.trial-used" data-node-id="br.trial-used" data-node-label="Почта ещё не получала пробный период?" tabindex="0" role="button" aria-label="Focus Почта ещё не получала пробный период?, onboarding.md → Пробный период, ветвление · платформа" aria-pressed="false" data-node-kind="backend" data-node-sublabel="onboarding.md → Пробный период" data-node-tag="⚠ обратить внимание" data-node-context="ветвление · платформа">
           <title>Почта ещё не получала пробный период? · onboarding.md → Пробный период · ветвление · платформа · ⚠ обратить внимание</title>
-          <rect x="134.5" y="445" width="184" height="83" rx="14" class="c-mask"/>
-          <rect x="134.5" y="445" width="184" height="83" rx="14" class="c-backend" stroke-width="2"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(140.5 451) scale(0.6875)">
+          <rect x="86" y="445" width="184" height="83" rx="14" class="c-mask"/>
+          <rect x="86" y="445" width="184" height="83" rx="14" class="c-backend" stroke-width="2"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(92 451) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text x="310.5" y="459" class="t-backend" font-size="10" font-weight="700" text-anchor="end">?</text>
-          <text data-node-label="" data-detail-anchor="" x="226.5" y="473" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Почта ещё не получала</text>
-          <text x="226.5" y="485" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">пробный период?</text>
-          <text data-detail="context" x="226.5" y="504" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Пробный период</text>
-          <text data-detail="fine" x="144.5" y="519" class="t-backend" font-size="7">⚠ обратить внимание</text>
+          <text x="262" y="459" class="t-backend" font-size="10" font-weight="700" text-anchor="end">?</text>
+          <text data-node-label="" data-detail-anchor="" x="178" y="473" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Почта ещё не получала</text>
+          <text x="178" y="485" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">пробный период?</text>
+          <text data-detail="context" x="178" y="504" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Пробный период</text>
+          <text data-detail="fine" x="96" y="519" class="t-backend" font-size="7">⚠ обратить внимание</text>
         </g>
         <g id="s1-node-st.trial" data-node-id="st.trial" data-node-label="Открываем пробный доступ" tabindex="0" role="button" aria-label="Focus Открываем пробный доступ, onboarding.md → Пробный период, шаг · платформа" aria-pressed="false" data-node-kind="backend" data-node-sublabel="onboarding.md → Пробный период" data-node-tag="⚠ обратить внимание" data-node-context="шаг · платформа">
           <title>Открываем пробный доступ · onboarding.md → Пробный период · шаг · платформа · ⚠ обратить внимание</title>
-          <rect x="134.5" y="580" width="184" height="71" rx="6" class="c-mask"/>
-          <rect x="134.5" y="580" width="184" height="71" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(140.5 586) scale(0.6875)">
+          <rect x="86" y="580" width="184" height="71" rx="6" class="c-mask"/>
+          <rect x="86" y="580" width="184" height="71" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(92 586) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="226.5" y="608" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Открываем пробный доступ</text>
-          <text data-detail="context" x="226.5" y="627" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Пробный период</text>
-          <text data-detail="fine" x="144.5" y="642" class="t-backend" font-size="7">⚠ обратить внимание</text>
+          <text data-node-label="" data-detail-anchor="" x="178" y="608" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Открываем пробный доступ</text>
+          <text data-detail="context" x="178" y="627" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Пробный период</text>
+          <text data-detail="fine" x="96" y="642" class="t-backend" font-size="7">⚠ обратить внимание</text>
         </g>
         <g id="s1-node-wait.trial" data-node-id="wait.trial" data-node-label="Ждём: студент учится в пробный период" tabindex="0" role="button" aria-label="Focus Ждём: студент учится в пробный период, onboarding.md → Окончание пробного периода, ожидание · студент" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="onboarding.md → Окончание пробного периода" data-node-context="ожидание · студент">
           <title>Ждём: студент учится в пробный период · onboarding.md → Окончание пробного периода · ожидание · студент</title>
-          <rect x="134.5" y="703" width="184" height="83" rx="6" class="c-mask"/>
-          <rect x="134.5" y="703" width="184" height="83" rx="6" class="c-frontend" stroke-width="1.5" stroke-dasharray="5,3"/>
-          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-frontend" transform="translate(140.5 709) scale(0.6875)">
+          <rect x="86" y="703" width="184" height="83" rx="6" class="c-mask"/>
+          <rect x="86" y="703" width="184" height="83" rx="6" class="c-frontend" stroke-width="1.5" stroke-dasharray="5,3"/>
+          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-frontend" transform="translate(92 709) scale(0.6875)">
             <path d="M4 2.5h8M4 13.5h8M5 3c0 2.8 2 3.2 3 5-1 1.8-3 2.2-3 5M11 3c0 2.8-2 3.2-3 5 1 1.8 3 2.2 3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="226.5" y="731" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Ждём: студент учится в</text>
-          <text x="226.5" y="743" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">пробный период</text>
-          <text data-detail="context" x="226.5" y="762" class="t-muted" font-size="6.9" text-anchor="middle">onboarding.md → Окончание пробного периода</text>
+          <text data-node-label="" data-detail-anchor="" x="178" y="731" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Ждём: студент учится в</text>
+          <text x="178" y="743" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">пробный период</text>
+          <text data-detail="context" x="178" y="762" class="t-muted" font-size="6.9" text-anchor="middle">onboarding.md → Окончание пробного периода</text>
         </g>
         <g id="s1-node-br.card" data-node-id="br.card" data-node-label="К концу пробного периода карта привязана?" tabindex="0" role="button" aria-label="Focus К концу пробного периода карта привязана?, onboarding.md → Окончание пробного периода, ветвление · платформа" aria-pressed="false" data-node-kind="backend" data-node-sublabel="onboarding.md → Окончание пробного периода" data-node-context="ветвление · платформа">
           <title>К концу пробного периода карта привязана? · onboarding.md → Окончание пробного периода · ветвление · платформа</title>
-          <rect x="134.5" y="838" width="184" height="83" rx="14" class="c-mask"/>
-          <rect x="134.5" y="838" width="184" height="83" rx="14" class="c-backend" stroke-width="2"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(140.5 844) scale(0.6875)">
+          <rect x="86" y="838" width="184" height="83" rx="14" class="c-mask"/>
+          <rect x="86" y="838" width="184" height="83" rx="14" class="c-backend" stroke-width="2"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(92 844) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text x="310.5" y="852" class="t-backend" font-size="10" font-weight="700" text-anchor="end">?</text>
-          <text data-node-label="" data-detail-anchor="" x="226.5" y="866" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">К концу пробного периода</text>
-          <text x="226.5" y="878" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">карта привязана?</text>
-          <text data-detail="context" x="226.5" y="897" class="t-muted" font-size="6.9" text-anchor="middle">onboarding.md → Окончание пробного периода</text>
+          <text x="262" y="852" class="t-backend" font-size="10" font-weight="700" text-anchor="end">?</text>
+          <text data-node-label="" data-detail-anchor="" x="178" y="866" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">К концу пробного периода</text>
+          <text x="178" y="878" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">карта привязана?</text>
+          <text data-detail="context" x="178" y="897" class="t-muted" font-size="6.9" text-anchor="middle">onboarding.md → Окончание пробного периода</text>
         </g>
         <g id="s1-node-st.charge" data-node-id="st.charge" data-node-label="Списываем оплату подписки" tabindex="0" role="button" aria-label="Focus Списываем оплату подписки, billing.md → Списание, шаг · платёжный сервис" aria-pressed="false" data-node-kind="external" data-node-sublabel="billing.md → Списание" data-node-context="шаг · платёжный сервис">
           <title>Списываем оплату подписки · billing.md → Списание · шаг · платёжный сервис</title>
-          <rect x="134.5" y="973" width="184" height="71" rx="6" class="c-mask"/>
-          <rect x="134.5" y="973" width="184" height="71" rx="6" class="c-external" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(140.5 979) scale(0.6875)">
+          <rect x="86" y="973" width="184" height="71" rx="6" class="c-mask"/>
+          <rect x="86" y="973" width="184" height="71" rx="6" class="c-external" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(92 979) scale(0.6875)">
             <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
             <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="226.5" y="1001" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Списываем оплату подписки</text>
-          <text data-detail="context" x="226.5" y="1020" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
+          <text data-node-label="" data-detail-anchor="" x="178" y="1001" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Списываем оплату подписки</text>
+          <text data-detail="context" x="178" y="1020" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
         </g>
         <g id="s1-node-br.bank" data-node-id="br.bank" data-node-label="Банк провёл платёж без подтверждения?" tabindex="0" role="button" aria-label="Focus Банк провёл платёж без подтверждения?, billing.md → Списание, ветвление · платёжный сервис" aria-pressed="false" data-node-kind="external" data-node-sublabel="billing.md → Списание" data-node-context="ветвление · платёжный сервис">
           <title>Банк провёл платёж без подтверждения? · billing.md → Списание · ветвление · платёжный сервис</title>
-          <rect x="134.5" y="1096" width="184" height="83" rx="14" class="c-mask"/>
-          <rect x="134.5" y="1096" width="184" height="83" rx="14" class="c-external" stroke-width="2"/>
-          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(140.5 1102) scale(0.6875)">
+          <rect x="86" y="1096" width="184" height="83" rx="14" class="c-mask"/>
+          <rect x="86" y="1096" width="184" height="83" rx="14" class="c-external" stroke-width="2"/>
+          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(92 1102) scale(0.6875)">
             <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
             <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
-          <text x="310.5" y="1110" class="t-external" font-size="10" font-weight="700" text-anchor="end">?</text>
-          <text data-node-label="" data-detail-anchor="" x="226.5" y="1124" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Банк провёл платёж без</text>
-          <text x="226.5" y="1136" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">подтверждения?</text>
-          <text data-detail="context" x="226.5" y="1155" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
+          <text x="262" y="1110" class="t-external" font-size="10" font-weight="700" text-anchor="end">?</text>
+          <text data-node-label="" data-detail-anchor="" x="178" y="1124" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Банк провёл платёж без</text>
+          <text x="178" y="1136" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">подтверждения?</text>
+          <text data-detail="context" x="178" y="1155" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
         </g>
         <g id="s1-node-wait.3ds" data-node-id="wait.3ds" data-node-label="Ждём: студент подтверждает платёж в банке" tabindex="0" role="button" aria-label="Focus Ждём: студент подтверждает платёж в банке, billing.md → Списание, ожидание · студент" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="billing.md → Списание" data-node-context="ожидание · студент">
           <title>Ждём: студент подтверждает платёж в банке · billing.md → Списание · ожидание · студент</title>
-          <rect x="70" y="1231" width="184" height="83" rx="6" class="c-mask"/>
-          <rect x="70" y="1231" width="184" height="83" rx="6" class="c-frontend" stroke-width="1.5" stroke-dasharray="5,3"/>
-          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-frontend" transform="translate(76 1237) scale(0.6875)">
+          <rect x="86" y="1231" width="184" height="83" rx="6" class="c-mask"/>
+          <rect x="86" y="1231" width="184" height="83" rx="6" class="c-frontend" stroke-width="1.5" stroke-dasharray="5,3"/>
+          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-frontend" transform="translate(92 1237) scale(0.6875)">
             <path d="M4 2.5h8M4 13.5h8M5 3c0 2.8 2 3.2 3 5-1 1.8-3 2.2-3 5M11 3c0 2.8-2 3.2-3 5 1 1.8 3 2.2 3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="162" y="1259" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Ждём: студент подтверждает</text>
-          <text x="162" y="1271" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">платёж в банке</text>
-          <text data-detail="context" x="162" y="1290" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
+          <text data-node-label="" data-detail-anchor="" x="178" y="1259" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Ждём: студент подтверждает</text>
+          <text x="178" y="1271" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">платёж в банке</text>
+          <text data-detail="context" x="178" y="1290" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
         </g>
         <g id="s1-node-fin.paid" data-node-id="fin.paid" data-node-label="Финиш: подписка оформлена" tabindex="0" role="button" aria-label="Focus Финиш: подписка оформлена, billing.md → Списание, финиш · платформа" aria-pressed="false" data-node-kind="backend" data-node-sublabel="billing.md → Списание" data-node-tag="финиш · ok" data-node-context="финиш · платформа">
           <title>Финиш: подписка оформлена · billing.md → Списание · финиш · платформа · финиш · ok</title>
-          <rect x="146.5" y="1366" width="160" height="83" rx="6" class="c-mask"/>
-          <rect x="146.5" y="1366" width="160" height="83" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="success" class="semantic-sigil s-backend" transform="translate(152.5 1372) scale(0.6875)">
+          <rect x="98" y="1366" width="160" height="83" rx="6" class="c-mask"/>
+          <rect x="98" y="1366" width="160" height="83" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="success" class="semantic-sigil s-backend" transform="translate(104 1372) scale(0.6875)">
             <circle cx="8" cy="8" r="5.3"/>
             <path d="m5.2 8 1.8 1.8 3.8-4"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="226.5" y="1394" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Финиш: подписка</text>
-          <text x="226.5" y="1406" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">оформлена</text>
-          <text data-detail="context" x="226.5" y="1425" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
-          <text data-detail="fine" x="156.5" y="1440" class="t-backend" font-size="7">финиш · ok</text>
+          <text data-node-label="" data-detail-anchor="" x="178" y="1394" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Финиш: подписка</text>
+          <text x="178" y="1406" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">оформлена</text>
+          <text data-detail="context" x="178" y="1425" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
+          <text data-detail="fine" x="108" y="1440" class="t-backend" font-size="7">финиш · ok</text>
         </g>
         <!-- Edge labels -->
         <g data-detail="context" data-edge-from="wait.confirm" data-edge-to="br.trial-used" data-edge-label="ПЕРЕШЁЛ · в течение 24 часов" data-edge-key="2" data-edge-id="wait.confirm--br.trial-used">
-          <rect x="232.5" y="402" width="142.4" height="14" rx="3" class="c-mask"/>
-          <text x="303.7" y="412" class="t-backend" font-size="8" text-anchor="middle">ПЕРЕШЁЛ · в течение 24 часов</text>
+          <rect x="184" y="402" width="142.4" height="14" rx="3" class="c-mask"/>
+          <text x="255.2" y="412" class="t-backend" font-size="8" text-anchor="middle">ПЕРЕШЁЛ · в течение 24 часов</text>
         </g>
         <g data-detail="context" data-edge-from="br.trial-used" data-edge-to="st.trial" data-edge-label="ДА · первый пробный период" data-edge-key="3" data-edge-id="br.trial-used--st.trial">
-          <rect x="232.49999999999997" y="537" width="132.8" height="14" rx="3" class="c-mask"/>
-          <text x="298.9" y="547" class="t-backend" font-size="8" text-anchor="middle">ДА · первый пробный период</text>
+          <rect x="184" y="537" width="132.8" height="14" rx="3" class="c-mask"/>
+          <text x="250.4" y="547" class="t-backend" font-size="8" text-anchor="middle">ДА · первый пробный период</text>
         </g>
         <g data-detail="context" data-edge-from="br.card" data-edge-to="st.charge" data-edge-label="ДА · оформляем автоматически" data-edge-key="6" data-edge-id="br.card--st.charge">
-          <rect x="232.5" y="930" width="142.4" height="14" rx="3" class="c-mask"/>
-          <text x="303.7" y="940" class="t-backend" font-size="8" text-anchor="middle">ДА · оформляем автоматически</text>
+          <rect x="184" y="930" width="142.4" height="14" rx="3" class="c-mask"/>
+          <text x="255.2" y="940" class="t-backend" font-size="8" text-anchor="middle">ДА · оформляем автоматически</text>
         </g>
         <g data-detail="context" data-edge-from="br.bank" data-edge-to="fin.paid" data-edge-label="ДА · деньги списаны" data-edge-key="8" data-edge-id="br.bank--fin.paid">
-          <rect x="212.65" y="1204" width="99.2" height="14" rx="3" class="c-mask"/>
-          <text x="262.25" y="1214" class="t-backend" font-size="8" text-anchor="middle">ДА · деньги списаны</text>
+          <rect x="196.4" y="1195" width="99.2" height="14" rx="3" class="c-mask"/>
+          <text x="246" y="1205" class="t-backend" font-size="8" text-anchor="middle">ДА · деньги списаны</text>
         </g>
         <g data-detail="context" data-edge-from="br.bank" data-edge-to="wait.3ds" data-edge-label="3-D SECURE" data-edge-key="9" data-edge-id="br.bank--wait.3ds">
-          <rect x="162.75" y="1204" width="56" height="14" rx="3" class="c-mask"/>
-          <text x="190.75" y="1214" class="t-frontend" font-size="8" text-anchor="middle">3-D SECURE</text>
+          <rect x="177" y="1188" width="56" height="14" rx="3" class="c-mask"/>
+          <text x="205" y="1198" class="t-frontend" font-size="8" text-anchor="middle">3-D SECURE</text>
         </g>
         <g data-detail="context" data-edge-from="wait.3ds" data-edge-to="fin.paid" data-edge-label="ПОДТВЕРДИЛ · в течение часа" data-edge-key="10" data-edge-id="wait.3ds--fin.paid">
-          <rect x="121.95" y="1339" width="137.6" height="14" rx="3" class="c-mask"/>
-          <text x="190.75" y="1349" class="t-backend" font-size="8" text-anchor="middle">ПОДТВЕРДИЛ · в течение часа</text>
+          <rect x="184" y="1323" width="137.6" height="14" rx="3" class="c-mask"/>
+          <text x="252.8" y="1333" class="t-backend" font-size="8" text-anchor="middle">ПОДТВЕРДИЛ · в течение часа</text>
         </g>
         <!-- Legend -->
         <g data-legend="">
@@ -5783,7 +5787,7 @@
           <g data-legend-semantic-kind="external" data-legend-x="265.5" data-legend-baseline="1475" data-legend-width="91"><rect x="265.5" y="1467" width="14" height="9" rx="2" class="c-external" stroke-width="1"/><text x="284.5" y="1475" class="t-muted" font-size="7.5" font-weight="500">платёжный сервис</text></g>
         </g>
       </svg>
-      <svg data-graph="2" hidden viewBox="0 0 294 1096" role="img" lang="en" aria-labelledby="s2-archify-diagram-title s2-archify-diagram-description" data-preset="classic" data-quality-profile="standard" data-orientation="vertical">
+      <svg data-graph="2" hidden viewBox="0 0 324 1096" role="img" lang="en" aria-labelledby="s2-archify-diagram-title s2-archify-diagram-description" data-preset="classic" data-quality-profile="standard" data-orientation="vertical">
         <title id="s2-archify-diagram-title">Регистрация → пробный период → подписка</title>
         <desc id="s2-archify-diagram-description">Путь нового студента от формы регистрации до оплаченной подписки: подтверждение почты, пробный доступ, привязка карты и списание с повторами. Собран по docs/onboarding.md и docs/billing.md — в них расходятся сроки пробного периода.</desc>
         <!-- Definitions -->
@@ -5809,15 +5813,15 @@
         <circle cx="34" cy="18" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="18" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">1</text>
         <text x="48" y="18" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">РЕГИСТРАЦИЯ</text>
-        <line x1="117.4" y1="18" x2="270" y2="18" class="a-dashed" stroke-width="1"/>
+        <line x1="117.4" y1="18" x2="300" y2="18" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="423" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="423" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">2</text>
         <text x="48" y="423" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ПРОБНЫЙ ПЕРИОД</text>
-        <line x1="133.6" y1="423" x2="270" y2="423" class="a-dashed" stroke-width="1"/>
+        <line x1="133.6" y1="423" x2="300" y2="423" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="951" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="951" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">3</text>
         <text x="48" y="951" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ИТОГ</text>
-        <line x1="79.6" y1="951" x2="270" y2="951" class="a-dashed" stroke-width="1"/>
+        <line x1="79.6" y1="951" x2="300" y2="951" class="a-dashed" stroke-width="1"/>
         <!-- Edge paths -->
         <path data-edge-from="in.signup" data-edge-to="st.mail" data-edge-key="0" data-edge-id="in.signup--st.mail" data-composition-points="162,123;162,161;162,175" d="M 162 123 L 162 161 L 162 175" class="a-emphasis" stroke-width="1.9" marker-end="url(#s2-arrowhead-emphasis)"/>
         <path data-edge-from="st.mail" data-edge-to="wait.confirm" data-edge-key="1" data-edge-id="st.mail--wait.confirm" data-composition-points="162,258;162,296;162,310" d="M 162 258 L 162 296 L 162 310" class="a-emphasis" stroke-width="1.9" marker-end="url(#s2-arrowhead-emphasis)"/>
@@ -5941,7 +5945,7 @@
           <g data-legend-semantic-kind="cloud" data-legend-x="216" data-legend-baseline="1082" data-legend-width="100"><rect x="216" y="1074" width="14" height="9" rx="2" class="c-cloud" stroke-width="1"/><text x="235" y="1082" class="t-muted" font-size="7.5" font-weight="500">cloud · финиш warn</text></g>
         </g>
       </svg>
-      <svg data-graph="3" hidden viewBox="0 0 482 1489" role="img" lang="en" aria-labelledby="s3-archify-diagram-title s3-archify-diagram-description" data-preset="classic" data-quality-profile="standard" data-orientation="vertical">
+      <svg data-graph="3" hidden viewBox="0 0 650 1489" role="img" lang="en" aria-labelledby="s3-archify-diagram-title s3-archify-diagram-description" data-preset="classic" data-quality-profile="standard" data-orientation="vertical">
         <title id="s3-archify-diagram-title">Регистрация → пробный период → подписка</title>
         <desc id="s3-archify-diagram-description">Путь нового студента от формы регистрации до оплаченной подписки: подтверждение почты, пробный доступ, привязка карты и списание с повторами. Собран по docs/onboarding.md и docs/billing.md — в них расходятся сроки пробного периода.</desc>
         <!-- Definitions -->
@@ -5967,198 +5971,194 @@
         <circle cx="34" cy="18" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="18" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">1</text>
         <text x="48" y="18" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">РЕГИСТРАЦИЯ</text>
-        <line x1="117.4" y1="18" x2="458" y2="18" class="a-dashed" stroke-width="1"/>
+        <line x1="117.4" y1="18" x2="626" y2="18" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="423" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="423" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">2</text>
         <text x="48" y="423" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ПРОБНЫЙ ПЕРИОД</text>
-        <line x1="133.6" y1="423" x2="458" y2="423" class="a-dashed" stroke-width="1"/>
+        <line x1="133.6" y1="423" x2="626" y2="423" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="951" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="951" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">3</text>
         <text x="48" y="951" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ОПЛАТА</text>
-        <line x1="90.4" y1="951" x2="458" y2="951" class="a-dashed" stroke-width="1"/>
-        <circle cx="34" cy="1344" r="8" class="c-mask" stroke-width="1"/>
-        <text x="34" y="1344" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">4</text>
-        <text x="48" y="1344" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ИТОГ</text>
-        <line x1="79.6" y1="1344" x2="458" y2="1344" class="a-dashed" stroke-width="1"/>
+        <line x1="90.4" y1="951" x2="626" y2="951" class="a-dashed" stroke-width="1"/>
         <!-- Edge paths -->
-        <path data-edge-from="in.signup" data-edge-to="st.mail" data-edge-key="0" data-edge-id="in.signup--st.mail" data-composition-points="262,123;262,161;262,175" d="M 262 123 L 262 161 L 262 175" class="a-emphasis" stroke-width="1.9" marker-end="url(#s3-arrowhead-emphasis)"/>
-        <path data-edge-from="st.mail" data-edge-to="wait.confirm" data-edge-key="1" data-edge-id="st.mail--wait.confirm" data-composition-points="262,258;262,296;262,310" d="M 262 258 L 262 296 L 262 310" class="a-emphasis" stroke-width="1.9" marker-end="url(#s3-arrowhead-emphasis)"/>
-        <path data-edge-from="wait.confirm" data-edge-to="br.trial-used" data-edge-label="ПЕРЕШЁЛ · в течение 24 часов" data-edge-key="2" data-edge-id="wait.confirm--br.trial-used" data-composition-points="262,393;262,431;262,445" d="M 262 393 L 262 431 L 262 445" class="a-emphasis" stroke-width="1.9" marker-end="url(#s3-arrowhead-emphasis)"/>
-        <path data-edge-from="br.trial-used" data-edge-to="st.trial" data-edge-label="ДА · первый пробный период" data-edge-key="3" data-edge-id="br.trial-used--st.trial" data-composition-points="262,528;262,566;262,580" d="M 262 528 L 262 566 L 262 580" class="a-emphasis" stroke-width="1.9" marker-end="url(#s3-arrowhead-emphasis)"/>
-        <path data-edge-from="st.trial" data-edge-to="wait.trial" data-edge-key="4" data-edge-id="st.trial--wait.trial" data-composition-points="262,651;262,689;262,703" d="M 262 651 L 262 689 L 262 703" class="a-emphasis" stroke-width="1.9" marker-end="url(#s3-arrowhead-emphasis)"/>
-        <path data-edge-from="wait.trial" data-edge-to="br.card" data-edge-key="5" data-edge-id="wait.trial--br.card" data-composition-points="262,786;262,824;262,838" d="M 262 786 L 262 824 L 262 838" class="a-emphasis" stroke-width="1.9" marker-end="url(#s3-arrowhead-emphasis)"/>
-        <path data-edge-from="br.card" data-edge-to="st.charge" data-edge-label="ДА · оформляем автоматически" data-edge-key="6" data-edge-id="br.card--st.charge" data-composition-points="262,921;262,959;262,973" d="M 262 921 L 262 959 L 262 973" class="a-emphasis" stroke-width="1.9" marker-end="url(#s3-arrowhead-emphasis)"/>
-        <path data-edge-from="st.charge" data-edge-to="br.bank" data-edge-key="7" data-edge-id="st.charge--br.bank" data-composition-points="262,1044;262,1082;262,1096" d="M 262 1044 L 262 1082 L 262 1096" class="a-emphasis" stroke-width="1.9" marker-end="url(#s3-arrowhead-emphasis)"/>
-        <path data-edge-from="br.bank" data-edge-to="br.retry" data-edge-label="НЕТ · списание не прошло" data-edge-key="8" data-edge-id="br.bank--br.retry" data-composition-points="262,1179;262,1217;262,1231" d="M 262 1179 L 262 1217 L 262 1231" class="a-security" stroke-width="1.4" marker-end="url(#s3-arrowhead-security)"/>
-        <path data-edge-from="br.retry" data-edge-to="st.retry" data-edge-label="ДА · повторим завтра" data-edge-key="9" data-edge-id="br.retry--st.retry" data-composition-points="255,1314;255,1352;162,1352;162,1366" d="M 255 1314 L 255 1352 L 162 1352 L 162 1366" class="a-default" stroke-width="1.4" marker-end="url(#s3-arrowhead)"/>
-        <path data-edge-from="br.retry" data-edge-to="fin.failed" data-edge-label="НЕТ · третья неудача" data-edge-key="10" data-edge-id="br.retry--fin.failed" data-composition-points="269,1314;269,1352;362,1352;362,1366" d="M 269 1314 L 269 1352 L 362 1352 L 362 1366" class="a-security" stroke-width="1.4" marker-end="url(#s3-arrowhead-security)"/>
-        <path data-edge-from="st.retry" data-edge-to="st.charge" data-edge-key="11" data-edge-id="st.retry--st.charge" data-composition-points="254,1407.5;456,1407.5;456,1008.5;354,1008.5" d="M 254 1407.5 L 456 1407.5 L 456 1008.5 L 354 1008.5" class="a-dashed" stroke-width="1.4" marker-end="url(#s3-arrowhead-dashed)"/>
+        <path data-edge-from="in.signup" data-edge-to="st.mail" data-edge-key="0" data-edge-id="in.signup--st.mail" data-composition-points="330,123;330,161;330,175" d="M 330 123 L 330 161 L 330 175" class="a-emphasis" stroke-width="1.9" marker-end="url(#s3-arrowhead-emphasis)"/>
+        <path data-edge-from="st.mail" data-edge-to="wait.confirm" data-edge-key="1" data-edge-id="st.mail--wait.confirm" data-composition-points="330,258;330,296;330,310" d="M 330 258 L 330 296 L 330 310" class="a-emphasis" stroke-width="1.9" marker-end="url(#s3-arrowhead-emphasis)"/>
+        <path data-edge-from="wait.confirm" data-edge-to="br.trial-used" data-edge-label="ПЕРЕШЁЛ · в течение 24 часов" data-edge-key="2" data-edge-id="wait.confirm--br.trial-used" data-composition-points="330,393;330,431;330,445" d="M 330 393 L 330 431 L 330 445" class="a-emphasis" stroke-width="1.9" marker-end="url(#s3-arrowhead-emphasis)"/>
+        <path data-edge-from="br.trial-used" data-edge-to="st.trial" data-edge-label="ДА · первый пробный период" data-edge-key="3" data-edge-id="br.trial-used--st.trial" data-composition-points="330,528;330,566;330,580" d="M 330 528 L 330 566 L 330 580" class="a-emphasis" stroke-width="1.9" marker-end="url(#s3-arrowhead-emphasis)"/>
+        <path data-edge-from="st.trial" data-edge-to="wait.trial" data-edge-key="4" data-edge-id="st.trial--wait.trial" data-composition-points="330,651;330,689;330,703" d="M 330 651 L 330 689 L 330 703" class="a-emphasis" stroke-width="1.9" marker-end="url(#s3-arrowhead-emphasis)"/>
+        <path data-edge-from="wait.trial" data-edge-to="br.card" data-edge-key="5" data-edge-id="wait.trial--br.card" data-composition-points="330,786;330,824;330,838" d="M 330 786 L 330 824 L 330 838" class="a-emphasis" stroke-width="1.9" marker-end="url(#s3-arrowhead-emphasis)"/>
+        <path data-edge-from="br.card" data-edge-to="st.charge" data-edge-label="ДА · оформляем автоматически" data-edge-key="6" data-edge-id="br.card--st.charge" data-composition-points="330,921;330,959;330,973" d="M 330 921 L 330 959 L 330 973" class="a-emphasis" stroke-width="1.9" marker-end="url(#s3-arrowhead-emphasis)"/>
+        <path data-edge-from="st.charge" data-edge-to="br.bank" data-edge-key="7" data-edge-id="st.charge--br.bank" data-composition-points="330,1044;330,1082;330,1096" d="M 330 1044 L 330 1082 L 330 1096" class="a-emphasis" stroke-width="1.9" marker-end="url(#s3-arrowhead-emphasis)"/>
+        <path data-edge-from="br.bank" data-edge-to="br.retry" data-edge-label="НЕТ · списание не прошло" data-edge-key="8" data-edge-id="br.bank--br.retry" data-composition-points="330,1179;330,1217;330,1231" d="M 330 1179 L 330 1217 L 330 1231" class="a-security" stroke-width="1.4" marker-end="url(#s3-arrowhead-security)"/>
+        <path data-edge-from="br.retry" data-edge-to="st.retry" data-edge-label="ДА · повторим завтра" data-edge-key="9" data-edge-id="br.retry--st.retry" data-composition-points="323,1314;323,1352;330,1352;330,1366" d="M 323 1314 L 323 1352 L 330 1352 L 330 1366" class="a-default" stroke-width="1.4" marker-end="url(#s3-arrowhead)"/>
+        <path data-edge-from="br.retry" data-edge-to="fin.failed" data-edge-label="НЕТ · третья неудача" data-edge-key="10" data-edge-id="br.retry--fin.failed" data-composition-points="337,1314;337,1343;530,1343;530,1366" d="M 337 1314 L 337 1343 L 530 1343 L 530 1366" class="a-security" stroke-width="1.4" marker-end="url(#s3-arrowhead-security)"/>
+        <path data-edge-from="st.retry" data-edge-to="st.charge" data-edge-key="11" data-edge-id="st.retry--st.charge" data-composition-points="410,1449;410,1461;624,1461;624,967;410,967;410,973" d="M 410 1449 L 410 1461 L 624 1461 L 624 967 L 410 967 L 410 973" class="a-dashed" stroke-width="1.4" marker-end="url(#s3-arrowhead-dashed)"/>
         <!-- Nodes -->
         <g id="s3-node-in.signup" data-node-id="in.signup" data-node-label="Студент регистрируется по почте" tabindex="0" role="button" aria-label="Focus Студент регистрируется по почте, onboarding.md → Регистрация, вход · студент" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="onboarding.md → Регистрация" data-node-context="вход · студент">
           <title>Студент регистрируется по почте · onboarding.md → Регистрация · вход · студент</title>
-          <rect x="170" y="40" width="184" height="83" rx="6" class="c-mask"/>
-          <rect x="170" y="40" width="184" height="83" rx="6" class="c-frontend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="start" class="semantic-sigil s-frontend" transform="translate(176 46) scale(0.6875)">
+          <rect x="238" y="40" width="184" height="83" rx="6" class="c-mask"/>
+          <rect x="238" y="40" width="184" height="83" rx="6" class="c-frontend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="start" class="semantic-sigil s-frontend" transform="translate(244 46) scale(0.6875)">
             <circle cx="8" cy="8" r="5"/>
             <path d="m7 5.4 3.6 2.6L7 10.6Z" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="262" y="68" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Студент регистрируется по</text>
-          <text x="262" y="80" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">почте</text>
-          <text data-detail="context" x="262" y="99" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Регистрация</text>
+          <text data-node-label="" data-detail-anchor="" x="330" y="68" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Студент регистрируется по</text>
+          <text x="330" y="80" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">почте</text>
+          <text data-detail="context" x="330" y="99" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Регистрация</text>
         </g>
         <g id="s3-node-st.mail" data-node-id="st.mail" data-node-label="Отправляем письмо со ссылкой подтверждения" tabindex="0" role="button" aria-label="Focus Отправляем письмо со ссылкой подтверждения, onboarding.md → Регистрация, шаг · платформа" aria-pressed="false" data-node-kind="backend" data-node-sublabel="onboarding.md → Регистрация" data-node-context="шаг · платформа">
           <title>Отправляем письмо со ссылкой подтверждения · onboarding.md → Регистрация · шаг · платформа</title>
-          <rect x="170" y="175" width="184" height="83" rx="6" class="c-mask"/>
-          <rect x="170" y="175" width="184" height="83" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(176 181) scale(0.6875)">
+          <rect x="238" y="175" width="184" height="83" rx="6" class="c-mask"/>
+          <rect x="238" y="175" width="184" height="83" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(244 181) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="262" y="203" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Отправляем письмо со ссылкой</text>
-          <text x="262" y="215" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">подтверждения</text>
-          <text data-detail="context" x="262" y="234" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Регистрация</text>
+          <text data-node-label="" data-detail-anchor="" x="330" y="203" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Отправляем письмо со ссылкой</text>
+          <text x="330" y="215" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">подтверждения</text>
+          <text data-detail="context" x="330" y="234" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Регистрация</text>
         </g>
         <g id="s3-node-wait.confirm" data-node-id="wait.confirm" data-node-label="Ждём: студент переходит по ссылке из письма" tabindex="0" role="button" aria-label="Focus Ждём: студент переходит по ссылке из письма, onboarding.md → Регистрация, ожидание · студент" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="onboarding.md → Регистрация" data-node-context="ожидание · студент">
           <title>Ждём: студент переходит по ссылке из письма · onboarding.md → Регистрация · ожидание · студент</title>
-          <rect x="170" y="310" width="184" height="83" rx="6" class="c-mask"/>
-          <rect x="170" y="310" width="184" height="83" rx="6" class="c-frontend" stroke-width="1.5" stroke-dasharray="5,3"/>
-          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-frontend" transform="translate(176 316) scale(0.6875)">
+          <rect x="238" y="310" width="184" height="83" rx="6" class="c-mask"/>
+          <rect x="238" y="310" width="184" height="83" rx="6" class="c-frontend" stroke-width="1.5" stroke-dasharray="5,3"/>
+          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-frontend" transform="translate(244 316) scale(0.6875)">
             <path d="M4 2.5h8M4 13.5h8M5 3c0 2.8 2 3.2 3 5-1 1.8-3 2.2-3 5M11 3c0 2.8-2 3.2-3 5 1 1.8 3 2.2 3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="262" y="338" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Ждём: студент переходит по</text>
-          <text x="262" y="350" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">ссылке из письма</text>
-          <text data-detail="context" x="262" y="369" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Регистрация</text>
+          <text data-node-label="" data-detail-anchor="" x="330" y="338" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Ждём: студент переходит по</text>
+          <text x="330" y="350" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">ссылке из письма</text>
+          <text data-detail="context" x="330" y="369" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Регистрация</text>
         </g>
         <g id="s3-node-br.trial-used" data-node-id="br.trial-used" data-node-label="Почта ещё не получала пробный период?" tabindex="0" role="button" aria-label="Focus Почта ещё не получала пробный период?, onboarding.md → Пробный период, ветвление · платформа" aria-pressed="false" data-node-kind="backend" data-node-sublabel="onboarding.md → Пробный период" data-node-tag="⚠ обратить внимание" data-node-context="ветвление · платформа">
           <title>Почта ещё не получала пробный период? · onboarding.md → Пробный период · ветвление · платформа · ⚠ обратить внимание</title>
-          <rect x="170" y="445" width="184" height="83" rx="14" class="c-mask"/>
-          <rect x="170" y="445" width="184" height="83" rx="14" class="c-backend" stroke-width="2"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(176 451) scale(0.6875)">
+          <rect x="238" y="445" width="184" height="83" rx="14" class="c-mask"/>
+          <rect x="238" y="445" width="184" height="83" rx="14" class="c-backend" stroke-width="2"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(244 451) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text x="346" y="459" class="t-backend" font-size="10" font-weight="700" text-anchor="end">?</text>
-          <text data-node-label="" data-detail-anchor="" x="262" y="473" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Почта ещё не получала</text>
-          <text x="262" y="485" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">пробный период?</text>
-          <text data-detail="context" x="262" y="504" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Пробный период</text>
-          <text data-detail="fine" x="180" y="519" class="t-backend" font-size="7">⚠ обратить внимание</text>
+          <text x="414" y="459" class="t-backend" font-size="10" font-weight="700" text-anchor="end">?</text>
+          <text data-node-label="" data-detail-anchor="" x="330" y="473" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Почта ещё не получала</text>
+          <text x="330" y="485" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">пробный период?</text>
+          <text data-detail="context" x="330" y="504" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Пробный период</text>
+          <text data-detail="fine" x="248" y="519" class="t-backend" font-size="7">⚠ обратить внимание</text>
         </g>
         <g id="s3-node-st.trial" data-node-id="st.trial" data-node-label="Открываем пробный доступ" tabindex="0" role="button" aria-label="Focus Открываем пробный доступ, onboarding.md → Пробный период, шаг · платформа" aria-pressed="false" data-node-kind="backend" data-node-sublabel="onboarding.md → Пробный период" data-node-tag="⚠ обратить внимание" data-node-context="шаг · платформа">
           <title>Открываем пробный доступ · onboarding.md → Пробный период · шаг · платформа · ⚠ обратить внимание</title>
-          <rect x="170" y="580" width="184" height="71" rx="6" class="c-mask"/>
-          <rect x="170" y="580" width="184" height="71" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(176 586) scale(0.6875)">
+          <rect x="238" y="580" width="184" height="71" rx="6" class="c-mask"/>
+          <rect x="238" y="580" width="184" height="71" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(244 586) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="262" y="608" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Открываем пробный доступ</text>
-          <text data-detail="context" x="262" y="627" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Пробный период</text>
-          <text data-detail="fine" x="180" y="642" class="t-backend" font-size="7">⚠ обратить внимание</text>
+          <text data-node-label="" data-detail-anchor="" x="330" y="608" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Открываем пробный доступ</text>
+          <text data-detail="context" x="330" y="627" class="t-muted" font-size="7.5" text-anchor="middle">onboarding.md → Пробный период</text>
+          <text data-detail="fine" x="248" y="642" class="t-backend" font-size="7">⚠ обратить внимание</text>
         </g>
         <g id="s3-node-wait.trial" data-node-id="wait.trial" data-node-label="Ждём: студент учится в пробный период" tabindex="0" role="button" aria-label="Focus Ждём: студент учится в пробный период, onboarding.md → Окончание пробного периода, ожидание · студент" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="onboarding.md → Окончание пробного периода" data-node-context="ожидание · студент">
           <title>Ждём: студент учится в пробный период · onboarding.md → Окончание пробного периода · ожидание · студент</title>
-          <rect x="170" y="703" width="184" height="83" rx="6" class="c-mask"/>
-          <rect x="170" y="703" width="184" height="83" rx="6" class="c-frontend" stroke-width="1.5" stroke-dasharray="5,3"/>
-          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-frontend" transform="translate(176 709) scale(0.6875)">
+          <rect x="238" y="703" width="184" height="83" rx="6" class="c-mask"/>
+          <rect x="238" y="703" width="184" height="83" rx="6" class="c-frontend" stroke-width="1.5" stroke-dasharray="5,3"/>
+          <g aria-hidden="true" data-semantic-sigil="waiting" class="semantic-sigil s-frontend" transform="translate(244 709) scale(0.6875)">
             <path d="M4 2.5h8M4 13.5h8M5 3c0 2.8 2 3.2 3 5-1 1.8-3 2.2-3 5M11 3c0 2.8-2 3.2-3 5 1 1.8 3 2.2 3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="262" y="731" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Ждём: студент учится в</text>
-          <text x="262" y="743" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">пробный период</text>
-          <text data-detail="context" x="262" y="762" class="t-muted" font-size="6.9" text-anchor="middle">onboarding.md → Окончание пробного периода</text>
+          <text data-node-label="" data-detail-anchor="" x="330" y="731" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Ждём: студент учится в</text>
+          <text x="330" y="743" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">пробный период</text>
+          <text data-detail="context" x="330" y="762" class="t-muted" font-size="6.9" text-anchor="middle">onboarding.md → Окончание пробного периода</text>
         </g>
         <g id="s3-node-br.card" data-node-id="br.card" data-node-label="К концу пробного периода карта привязана?" tabindex="0" role="button" aria-label="Focus К концу пробного периода карта привязана?, onboarding.md → Окончание пробного периода, ветвление · платформа" aria-pressed="false" data-node-kind="backend" data-node-sublabel="onboarding.md → Окончание пробного периода" data-node-context="ветвление · платформа">
           <title>К концу пробного периода карта привязана? · onboarding.md → Окончание пробного периода · ветвление · платформа</title>
-          <rect x="170" y="838" width="184" height="83" rx="14" class="c-mask"/>
-          <rect x="170" y="838" width="184" height="83" rx="14" class="c-backend" stroke-width="2"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(176 844) scale(0.6875)">
+          <rect x="238" y="838" width="184" height="83" rx="14" class="c-mask"/>
+          <rect x="238" y="838" width="184" height="83" rx="14" class="c-backend" stroke-width="2"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(244 844) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text x="346" y="852" class="t-backend" font-size="10" font-weight="700" text-anchor="end">?</text>
-          <text data-node-label="" data-detail-anchor="" x="262" y="866" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">К концу пробного периода</text>
-          <text x="262" y="878" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">карта привязана?</text>
-          <text data-detail="context" x="262" y="897" class="t-muted" font-size="6.9" text-anchor="middle">onboarding.md → Окончание пробного периода</text>
+          <text x="414" y="852" class="t-backend" font-size="10" font-weight="700" text-anchor="end">?</text>
+          <text data-node-label="" data-detail-anchor="" x="330" y="866" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">К концу пробного периода</text>
+          <text x="330" y="878" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">карта привязана?</text>
+          <text data-detail="context" x="330" y="897" class="t-muted" font-size="6.9" text-anchor="middle">onboarding.md → Окончание пробного периода</text>
         </g>
         <g id="s3-node-st.charge" data-node-id="st.charge" data-node-label="Списываем оплату подписки" tabindex="0" role="button" aria-label="Focus Списываем оплату подписки, billing.md → Списание, шаг · платёжный сервис" aria-pressed="false" data-node-kind="external" data-node-sublabel="billing.md → Списание" data-node-context="шаг · платёжный сервис">
           <title>Списываем оплату подписки · billing.md → Списание · шаг · платёжный сервис</title>
-          <rect x="170" y="973" width="184" height="71" rx="6" class="c-mask"/>
-          <rect x="170" y="973" width="184" height="71" rx="6" class="c-external" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(176 979) scale(0.6875)">
+          <rect x="238" y="973" width="184" height="71" rx="6" class="c-mask"/>
+          <rect x="238" y="973" width="184" height="71" rx="6" class="c-external" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(244 979) scale(0.6875)">
             <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
             <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="262" y="1001" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Списываем оплату подписки</text>
-          <text data-detail="context" x="262" y="1020" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
+          <text data-node-label="" data-detail-anchor="" x="330" y="1001" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Списываем оплату подписки</text>
+          <text data-detail="context" x="330" y="1020" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
         </g>
         <g id="s3-node-br.bank" data-node-id="br.bank" data-node-label="Банк провёл платёж без подтверждения?" tabindex="0" role="button" aria-label="Focus Банк провёл платёж без подтверждения?, billing.md → Списание, ветвление · платёжный сервис" aria-pressed="false" data-node-kind="external" data-node-sublabel="billing.md → Списание" data-node-context="ветвление · платёжный сервис">
           <title>Банк провёл платёж без подтверждения? · billing.md → Списание · ветвление · платёжный сервис</title>
-          <rect x="170" y="1096" width="184" height="83" rx="14" class="c-mask"/>
-          <rect x="170" y="1096" width="184" height="83" rx="14" class="c-external" stroke-width="2"/>
-          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(176 1102) scale(0.6875)">
+          <rect x="238" y="1096" width="184" height="83" rx="14" class="c-mask"/>
+          <rect x="238" y="1096" width="184" height="83" rx="14" class="c-external" stroke-width="2"/>
+          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(244 1102) scale(0.6875)">
             <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
             <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
-          <text x="346" y="1110" class="t-external" font-size="10" font-weight="700" text-anchor="end">?</text>
-          <text data-node-label="" data-detail-anchor="" x="262" y="1124" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Банк провёл платёж без</text>
-          <text x="262" y="1136" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">подтверждения?</text>
-          <text data-detail="context" x="262" y="1155" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
+          <text x="414" y="1110" class="t-external" font-size="10" font-weight="700" text-anchor="end">?</text>
+          <text data-node-label="" data-detail-anchor="" x="330" y="1124" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Банк провёл платёж без</text>
+          <text x="330" y="1136" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">подтверждения?</text>
+          <text data-detail="context" x="330" y="1155" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
         </g>
         <g id="s3-node-br.retry" data-node-id="br.retry" data-node-label="Неудачных попыток меньше трёх?" tabindex="0" role="button" aria-label="Focus Неудачных попыток меньше трёх?, billing.md → Списание, ветвление · платформа" aria-pressed="false" data-node-kind="backend" data-node-sublabel="billing.md → Списание" data-node-context="ветвление · платформа">
           <title>Неудачных попыток меньше трёх? · billing.md → Списание · ветвление · платформа</title>
-          <rect x="170" y="1231" width="184" height="83" rx="14" class="c-mask"/>
-          <rect x="170" y="1231" width="184" height="83" rx="14" class="c-backend" stroke-width="2"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(176 1237) scale(0.6875)">
+          <rect x="238" y="1231" width="184" height="83" rx="14" class="c-mask"/>
+          <rect x="238" y="1231" width="184" height="83" rx="14" class="c-backend" stroke-width="2"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(244 1237) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text x="346" y="1245" class="t-backend" font-size="10" font-weight="700" text-anchor="end">?</text>
-          <text data-node-label="" data-detail-anchor="" x="262" y="1259" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Неудачных попыток меньше</text>
-          <text x="262" y="1271" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">трёх?</text>
-          <text data-detail="context" x="262" y="1290" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
+          <text x="414" y="1245" class="t-backend" font-size="10" font-weight="700" text-anchor="end">?</text>
+          <text data-node-label="" data-detail-anchor="" x="330" y="1259" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Неудачных попыток меньше</text>
+          <text x="330" y="1271" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">трёх?</text>
+          <text data-detail="context" x="330" y="1290" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
         </g>
         <g id="s3-node-st.retry" data-node-id="st.retry" data-node-label="Пишем студенту и ждём следующего дня" tabindex="0" role="button" aria-label="Focus Пишем студенту и ждём следующего дня, billing.md → Списание, шаг · платформа" aria-pressed="false" data-node-kind="backend" data-node-sublabel="billing.md → Списание" data-node-context="шаг · платформа">
           <title>Пишем студенту и ждём следующего дня · billing.md → Списание · шаг · платформа</title>
-          <rect x="70" y="1366" width="184" height="83" rx="6" class="c-mask"/>
-          <rect x="70" y="1366" width="184" height="83" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(76 1372) scale(0.6875)">
+          <rect x="238" y="1366" width="184" height="83" rx="6" class="c-mask"/>
+          <rect x="238" y="1366" width="184" height="83" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(244 1372) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="162" y="1394" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Пишем студенту и ждём</text>
-          <text x="162" y="1406" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">следующего дня</text>
-          <text data-detail="context" x="162" y="1425" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
+          <text data-node-label="" data-detail-anchor="" x="330" y="1394" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Пишем студенту и ждём</text>
+          <text x="330" y="1406" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">следующего дня</text>
+          <text data-detail="context" x="330" y="1425" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
         </g>
         <g id="s3-node-fin.failed" data-node-id="fin.failed" data-node-label="Отказ — три попытки списания не прошли" tabindex="0" role="button" aria-label="Focus Отказ — три попытки списания не прошли, billing.md → Списание, финиш · платформа" aria-pressed="false" data-node-kind="security" data-node-sublabel="billing.md → Списание" data-node-tag="финиш · bad · ⚠ обратить внимание" data-node-context="финиш · платформа">
           <title>Отказ — три попытки списания не прошли · billing.md → Списание · финиш · платформа · финиш · bad · ⚠ обратить внимание</title>
-          <rect x="282" y="1366" width="160" height="83" rx="6" class="c-mask"/>
-          <rect x="282" y="1366" width="160" height="83" rx="6" class="c-security" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="failure" class="semantic-sigil s-security" transform="translate(288 1372) scale(0.6875)">
+          <rect x="450" y="1366" width="160" height="83" rx="6" class="c-mask"/>
+          <rect x="450" y="1366" width="160" height="83" rx="6" class="c-security" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="failure" class="semantic-sigil s-security" transform="translate(456 1372) scale(0.6875)">
             <circle cx="8" cy="8" r="5.3"/>
             <path d="m5.7 5.7 4.6 4.6m0-4.6-4.6 4.6"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="362" y="1394" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Отказ — три попытки</text>
-          <text x="362" y="1406" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">списания не прошли</text>
-          <text data-detail="context" x="362" y="1425" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
-          <text data-detail="fine" x="292" y="1440" class="t-security" font-size="6">финиш · bad · ⚠ обратить внимание</text>
+          <text data-node-label="" data-detail-anchor="" x="530" y="1394" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Отказ — три попытки</text>
+          <text x="530" y="1406" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">списания не прошли</text>
+          <text data-detail="context" x="530" y="1425" class="t-muted" font-size="7.5" text-anchor="middle">billing.md → Списание</text>
+          <text data-detail="fine" x="460" y="1440" class="t-security" font-size="6">финиш · bad · ⚠ обратить внимание</text>
         </g>
         <!-- Edge labels -->
         <g data-detail="context" data-edge-from="wait.confirm" data-edge-to="br.trial-used" data-edge-label="ПЕРЕШЁЛ · в течение 24 часов" data-edge-key="2" data-edge-id="wait.confirm--br.trial-used">
-          <rect x="268" y="402" width="142.4" height="14" rx="3" class="c-mask"/>
-          <text x="339.2" y="412" class="t-backend" font-size="8" text-anchor="middle">ПЕРЕШЁЛ · в течение 24 часов</text>
+          <rect x="336" y="402" width="142.4" height="14" rx="3" class="c-mask"/>
+          <text x="407.2" y="412" class="t-backend" font-size="8" text-anchor="middle">ПЕРЕШЁЛ · в течение 24 часов</text>
         </g>
         <g data-detail="context" data-edge-from="br.trial-used" data-edge-to="st.trial" data-edge-label="ДА · первый пробный период" data-edge-key="3" data-edge-id="br.trial-used--st.trial">
-          <rect x="268" y="537" width="132.8" height="14" rx="3" class="c-mask"/>
-          <text x="334.4" y="547" class="t-backend" font-size="8" text-anchor="middle">ДА · первый пробный период</text>
+          <rect x="336" y="537" width="132.8" height="14" rx="3" class="c-mask"/>
+          <text x="402.4" y="547" class="t-backend" font-size="8" text-anchor="middle">ДА · первый пробный период</text>
         </g>
         <g data-detail="context" data-edge-from="br.card" data-edge-to="st.charge" data-edge-label="ДА · оформляем автоматически" data-edge-key="6" data-edge-id="br.card--st.charge">
-          <rect x="268" y="930" width="142.4" height="14" rx="3" class="c-mask"/>
-          <text x="339.2" y="940" class="t-backend" font-size="8" text-anchor="middle">ДА · оформляем автоматически</text>
+          <rect x="336" y="930" width="142.4" height="14" rx="3" class="c-mask"/>
+          <text x="407.2" y="940" class="t-backend" font-size="8" text-anchor="middle">ДА · оформляем автоматически</text>
         </g>
         <g data-detail="context" data-edge-from="br.bank" data-edge-to="br.retry" data-edge-label="НЕТ · списание не прошло" data-edge-key="8" data-edge-id="br.bank--br.retry">
-          <rect x="268" y="1188" width="123.19999999999999" height="14" rx="3" class="c-mask"/>
-          <text x="329.6" y="1198" class="t-security" font-size="8" text-anchor="middle">НЕТ · списание не прошло</text>
+          <rect x="336" y="1188" width="123.19999999999999" height="14" rx="3" class="c-mask"/>
+          <text x="397.6" y="1198" class="t-security" font-size="8" text-anchor="middle">НЕТ · списание не прошло</text>
         </g>
         <g data-detail="context" data-edge-from="br.retry" data-edge-to="st.retry" data-edge-label="ДА · повторим завтра" data-edge-key="9" data-edge-id="br.retry--st.retry">
-          <rect x="156.5" y="1339" width="104" height="14" rx="3" class="c-mask"/>
-          <text x="208.5" y="1349" class="t-cloud" font-size="8" text-anchor="middle">ДА · повторим завтра</text>
+          <rect x="329" y="1323" width="104" height="14" rx="3" class="c-mask"/>
+          <text x="381" y="1333" class="t-cloud" font-size="8" text-anchor="middle">ДА · повторим завтра</text>
         </g>
         <g data-detail="context" data-edge-from="br.retry" data-edge-to="fin.failed" data-edge-label="НЕТ · третья неудача" data-edge-key="10" data-edge-id="br.retry--fin.failed">
-          <rect x="263.5" y="1339" width="104" height="14" rx="3" class="c-mask"/>
-          <text x="315.5" y="1349" class="t-security" font-size="8" text-anchor="middle">НЕТ · третья неудача</text>
+          <rect x="381.5" y="1330" width="104" height="14" rx="3" class="c-mask"/>
+          <text x="433.5" y="1340" class="t-security" font-size="8" text-anchor="middle">НЕТ · третья неудача</text>
         </g>
         <!-- Legend -->
         <g data-legend="">
@@ -6169,7 +6169,7 @@
           <g data-legend-semantic-kind="security" data-legend-x="319" data-legend-baseline="1475" data-legend-width="109"><rect x="319" y="1467" width="14" height="9" rx="2" class="c-security" stroke-width="1"/><text x="338" y="1475" class="t-muted" font-size="7.5" font-weight="500">security · финиш bad</text></g>
         </g>
       </svg>
-      <svg data-graph="4" hidden viewBox="0 0 294 1231" role="img" lang="en" aria-labelledby="s4-archify-diagram-title s4-archify-diagram-description" data-preset="classic" data-quality-profile="standard" data-orientation="vertical">
+      <svg data-graph="4" hidden viewBox="0 0 324 1231" role="img" lang="en" aria-labelledby="s4-archify-diagram-title s4-archify-diagram-description" data-preset="classic" data-quality-profile="standard" data-orientation="vertical">
         <title id="s4-archify-diagram-title">Регистрация → пробный период → подписка</title>
         <desc id="s4-archify-diagram-description">Путь нового студента от формы регистрации до оплаченной подписки: подтверждение почты, пробный доступ, привязка карты и списание с повторами. Собран по docs/onboarding.md и docs/billing.md — в них расходятся сроки пробного периода.</desc>
         <!-- Definitions -->
@@ -6195,19 +6195,19 @@
         <circle cx="34" cy="18" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="18" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">1</text>
         <text x="48" y="18" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">РЕГИСТРАЦИЯ</text>
-        <line x1="117.4" y1="18" x2="270" y2="18" class="a-dashed" stroke-width="1"/>
+        <line x1="117.4" y1="18" x2="300" y2="18" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="423" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="423" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">2</text>
         <text x="48" y="423" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ПРОБНЫЙ ПЕРИОД</text>
-        <line x1="133.6" y1="423" x2="270" y2="423" class="a-dashed" stroke-width="1"/>
+        <line x1="133.6" y1="423" x2="300" y2="423" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="693" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="693" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">3</text>
         <text x="48" y="693" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ОПЛАТА</text>
-        <line x1="90.4" y1="693" x2="270" y2="693" class="a-dashed" stroke-width="1"/>
+        <line x1="90.4" y1="693" x2="300" y2="693" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="1086" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="1086" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">4</text>
         <text x="48" y="1086" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ИТОГ</text>
-        <line x1="79.6" y1="1086" x2="270" y2="1086" class="a-dashed" stroke-width="1"/>
+        <line x1="79.6" y1="1086" x2="300" y2="1086" class="a-dashed" stroke-width="1"/>
         <!-- Edge paths -->
         <path data-edge-from="in.signup" data-edge-to="st.mail" data-edge-key="0" data-edge-id="in.signup--st.mail" data-composition-points="162,123;162,161;162,175" d="M 162 123 L 162 161 L 162 175" class="a-emphasis" stroke-width="1.9" marker-end="url(#s4-arrowhead-emphasis)"/>
         <path data-edge-from="st.mail" data-edge-to="wait.confirm" data-edge-key="1" data-edge-id="st.mail--wait.confirm" data-composition-points="162,258;162,296;162,310" d="M 162 258 L 162 296 L 162 310" class="a-emphasis" stroke-width="1.9" marker-end="url(#s4-arrowhead-emphasis)"/>
@@ -6346,7 +6346,7 @@
           <g data-legend-semantic-kind="external" data-legend-x="265.5" data-legend-baseline="1217" data-legend-width="91"><rect x="265.5" y="1209" width="14" height="9" rx="2" class="c-external" stroke-width="1"/><text x="284.5" y="1217" class="t-muted" font-size="7.5" font-weight="500">платёжный сервис</text></g>
         </g>
       </svg>
-      <svg data-graph="5" hidden viewBox="0 0 294 712" role="img" lang="en" aria-labelledby="s5-archify-diagram-title s5-archify-diagram-description" data-preset="classic" data-quality-profile="standard" data-orientation="vertical">
+      <svg data-graph="5" hidden viewBox="0 0 314 712" role="img" lang="en" aria-labelledby="s5-archify-diagram-title s5-archify-diagram-description" data-preset="classic" data-quality-profile="standard" data-orientation="vertical">
         <title id="s5-archify-diagram-title">Регистрация → пробный период → подписка</title>
         <desc id="s5-archify-diagram-description">Путь нового студента от формы регистрации до оплаченной подписки: подтверждение почты, пробный доступ, привязка карты и списание с повторами. Собран по docs/onboarding.md и docs/billing.md — в них расходятся сроки пробного периода.</desc>
         <!-- Definitions -->
@@ -6372,16 +6372,16 @@
         <circle cx="34" cy="18" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="18" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">1</text>
         <text x="48" y="18" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">РЕГИСТРАЦИЯ</text>
-        <line x1="117.4" y1="18" x2="270" y2="18" class="a-dashed" stroke-width="1"/>
+        <line x1="117.4" y1="18" x2="290" y2="18" class="a-dashed" stroke-width="1"/>
         <circle cx="34" cy="558" r="8" class="c-mask" stroke-width="1"/>
         <text x="34" y="558" class="t-muted" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">2</text>
         <text x="48" y="558" class="t-muted" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">ИТОГ</text>
-        <line x1="79.6" y1="558" x2="270" y2="558" class="a-dashed" stroke-width="1"/>
+        <line x1="79.6" y1="558" x2="290" y2="558" class="a-dashed" stroke-width="1"/>
         <!-- Edge paths -->
         <path data-edge-from="in.signup" data-edge-to="st.mail" data-edge-key="0" data-edge-id="in.signup--st.mail" data-composition-points="162,123;162,161;162,175" d="M 162 123 L 162 161 L 162 175" class="a-emphasis" stroke-width="1.9" marker-end="url(#s5-arrowhead-emphasis)"/>
         <path data-edge-from="st.mail" data-edge-to="wait.confirm" data-edge-key="1" data-edge-id="st.mail--wait.confirm" data-composition-points="162,258;162,296;162,310" d="M 162 258 L 162 296 L 162 310" class="a-emphasis" stroke-width="1.9" marker-end="url(#s5-arrowhead-emphasis)"/>
         <path data-edge-from="wait.confirm" data-edge-to="br.resend" data-edge-label="НЕ УСПЕЛ · ссылка истекла" data-edge-key="2" data-edge-id="wait.confirm--br.resend" data-composition-points="162,393;162,431;162,445" d="M 162 393 L 162 431 L 162 445" class="a-default" stroke-width="1.4" marker-end="url(#s5-arrowhead)"/>
-        <path data-edge-from="br.resend" data-edge-to="st.mail" data-edge-label="ДА · со страницы входа" data-edge-key="3" data-edge-id="br.resend--st.mail" data-composition-points="254,486.5;268,486.5;268,216.5;254,216.5" d="M 254 486.5 L 268 486.5 L 268 216.5 L 254 216.5" class="a-dashed" stroke-width="1.4" marker-end="url(#s5-arrowhead-dashed)"/>
+        <path data-edge-from="br.resend" data-edge-to="st.mail" data-edge-label="ДА · со страницы входа" data-edge-key="3" data-edge-id="br.resend--st.mail" data-composition-points="242,528;242,540;268,540;268,169;242,169;242,175" d="M 242 528 L 242 540 L 268 540 L 268 169 L 242 169 L 242 175" class="a-dashed" stroke-width="1.4" marker-end="url(#s5-arrowhead-dashed)"/>
         <path data-edge-from="br.resend" data-edge-to="fin.unconfirmed" data-edge-label="НЕТ · почта не подтверждена" data-edge-key="4" data-edge-id="br.resend--fin.unconfirmed" data-composition-points="162,528;162,566;162,580" d="M 162 528 L 162 566 L 162 580" class="a-default" stroke-width="1.4" marker-end="url(#s5-arrowhead)"/>
         <!-- Nodes -->
         <g id="s5-node-in.signup" data-node-id="in.signup" data-node-label="Студент регистрируется по почте" tabindex="0" role="button" aria-label="Focus Студент регистрируется по почте, onboarding.md → Регистрация, вход · студент" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="onboarding.md → Регистрация" data-node-context="вход · студент">
@@ -6452,8 +6452,8 @@
           <text x="232" y="412" class="t-cloud" font-size="8" text-anchor="middle">НЕ УСПЕЛ · ссылка истекла</text>
         </g>
         <g data-detail="context" data-edge-from="br.resend" data-edge-to="st.mail" data-edge-label="ДА · со страницы входа" data-edge-key="3" data-edge-id="br.resend--st.mail">
-          <rect x="143.39999999999998" y="196.5" width="113.6" height="14" rx="3" class="c-mask"/>
-          <text x="200.2" y="206.5" class="t-backend" font-size="8" text-anchor="middle">ДА · со страницы входа</text>
+          <rect x="137.39999999999998" y="159" width="113.6" height="14" rx="3" class="c-mask"/>
+          <text x="194.2" y="169" class="t-backend" font-size="8" text-anchor="middle">ДА · со страницы входа</text>
         </g>
         <g data-detail="context" data-edge-from="br.resend" data-edge-to="fin.unconfirmed" data-edge-label="НЕТ · почта не подтверждена" data-edge-key="4" data-edge-id="br.resend--fin.unconfirmed">
           <rect x="168" y="537" width="137.6" height="14" rx="3" class="c-mask"/>

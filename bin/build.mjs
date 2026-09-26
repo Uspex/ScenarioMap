@@ -358,6 +358,24 @@ function build(flowId, force) {
   }
   const ALL = Object.keys(N);
 
+  /* ---- хребет: основной путь (первый сценарий или сам сценарий этой раскладки) — одна прямая
+     колонка под входом. Берём из пути только шаги вперёд по рангу, связанные переходом;
+     заглушки длинных рёбер хребта — тоже его часть. */
+  const SPINE = new Set();
+  {
+    const seq = [rootId];
+    for (const id of (opts.spine || FLOW.presets[0]?.path || []).filter((x) => inSet.has(x))) {
+      const last = seq.at(-1);
+      if (id !== last && rank[id] > rank[last] && outs(last).some((b) => b.to === id)) seq.push(id);
+    }
+    seq.forEach((id, i) => {
+      SPINE.add(id);
+      if (!i) return;
+      const e = EDGES.find((x) => x.kind === 'fwd' && x.from === seq[i - 1] && x.to === id);
+      if (e) e.chain.forEach((d) => SPINE.add(d));
+    });
+  }
+
   /* ---- раскладка в осях (u — вдоль потока, v — поперёк) ---- */
   function layout(vertical) {
     const along = (n) => (vertical ? n.h : n.w);
@@ -393,14 +411,48 @@ function build(flowId, force) {
     let u = U0;
     rows.forEach((row, r) => { const a = Math.max(0, ...row.map((id) => along(N[id]))); rowU[r] = u; rowA[r] = a; u += a + ROW_GAP; });
     const UMAX = u - ROW_GAP + 40;
-    /* координаты поперёк: к барицентру родителей, без наложений, ряд центрируется по своим родителям */
+    /* координаты поперёк: к барицентру родителей, без наложений, ряд центрируется по своим родителям.
+       В ряду с блоком хребта он стоит на оси (v = 0 по центру), остальные — слева и справа от него:
+       продолжение боковой ветки держится своей стороны, а ответвление прямо от хребта уходит на
+       сторону, где пока меньше блоков, — так дерево растёт в обе стороны, а не диагональю. */
     const center = (id) => N[id].v + across(N[id]) / 2;
+    const load = { l: 0, r: 0 };
     rows.forEach((row, r) => {
       const ideal = row.map((id) => {
         const parents = (up[id] || []).filter((p) => N[p].v !== undefined);
         if (!parents.length) return null;
         return parents.reduce((a, p) => a + center(p), 0) / parents.length - across(N[id]) / 2;
       });
+      const k = row.findIndex((id) => SPINE.has(id));
+      if (k !== -1) {
+        const sp = row[k];
+        N[sp].v = -across(N[sp]) / 2;
+        const left = [], right = [];
+        row.forEach((id, i) => {
+          if (i === k) return;
+          const c = ideal[i] === null ? null : ideal[i] + across(N[id]) / 2;
+          let side = c === null ? (i < k ? 'l' : 'r') : c < -1 ? 'l' : c > 1 ? 'r' : null;
+          if (!side) side = load.l < load.r ? 'l' : 'r';
+          load[side] += across(N[id]) + GAP;
+          (side === 'l' ? left : right).push(i);
+        });
+        let cur = N[sp].v - GAP;
+        left.sort((a, b) => a - b).reverse().forEach((i) => {
+          const id = row[i], w = across(N[id]);
+          N[id].v = Math.min(ideal[i] === null ? Infinity : ideal[i], cur - w);
+          cur = N[id].v - GAP;
+        });
+        cur = N[sp].v + across(N[sp]) + GAP;
+        right.sort((a, b) => a - b).forEach((i) => {
+          const id = row[i];
+          N[id].v = Math.max(ideal[i] === null ? -Infinity : ideal[i], cur);
+          cur = N[id].v + across(N[id]) + GAP;
+        });
+        /* порядок в ряду — по координате, чтобы дальше проверки «место свободно» видели соседей */
+        rows[r] = row.slice().sort((a, b) => N[a].v - N[b].v);
+        rows[r].forEach((id) => { N[id].u = rowU[r]; });
+        return;
+      }
       let cursor = -Infinity;
       row.forEach((id, i) => {
         const want = ideal[i] === null ? cursor + GAP : ideal[i];
@@ -418,7 +470,7 @@ function build(flowId, force) {
     const rowOf = (id) => rows[N[id].r];
     const fits = (id, v) => rowOf(id).every((o) => o === id || v + across(N[id]) + GAP <= N[o].v || N[o].v + across(N[o]) + GAP <= v);
     for (let pass = 0; pass < 2; pass += 1) {
-      for (const e of EDGES.filter((x) => x.kind === "fwd" && x.chain.length)) {
+      for (const e of EDGES.filter((x) => x.kind === "fwd" && x.chain.length && !SPINE.has(x.chain[0]))) {
         const src = N[e.from], dst = N[e.to];
         const target = (src.v + across(src) / 2 + dst.v + across(dst) / 2) / 2 - DUMMY_W / 2;
         const cand = [target, ...e.chain.map((d) => N[d].v)];
@@ -447,8 +499,18 @@ function build(flowId, force) {
       }
     }
     const UMAX2 = UMAX + Math.max(0, uMaxExtra);
-    const VMAX = Math.max(...ALL.map((id) => N[id].v + across(N[id]))) + 40;
-    const W = vertical ? VMAX : UMAX2, H = vertical ? UMAX2 : VMAX;
+    let VMAX = Math.max(...ALL.map((id) => N[id].v + across(N[id]))) + 40;
+    /* вход — посередине полотна: дополняем пустым полем узкую сторону. Справа за VMAX идёт
+       коридор обратных стрелок (по 10 на каждую) — он тоже часть ширины. */
+    let VPAD = 0;
+    if (N[rootId]) {
+      const c = N[rootId].v + across(N[rootId]) / 2;
+      const rightEdge = VMAX + EDGES.filter((x) => x.kind === 'back').length * 10;
+      const lw = c, rw = rightEdge - c;
+      if (lw < rw) { ALL.forEach((id) => { N[id].v += rw - lw; }); VMAX += rw - lw; }
+      else VPAD = lw - rw;
+    }
+    const W = vertical ? VMAX + VPAD : UMAX2, H = vertical ? UMAX2 : VMAX + VPAD;
     return { vertical, rows, rowU, rowA, W, H, VMAX, UMAX: UMAX2, U0, along, across };
   }
   let L = layout(true);
@@ -493,7 +555,7 @@ function build(flowId, force) {
   { const seen = new Set(); for (const e of EDGES) { if (e.kind !== 'side') continue; if (!seen.has(e.from)) { e.firstSide = true; seen.add(e.from); } } }
   const corridorV = L.VMAX - 26;
   let backSlots = 0;
-  for (const e of EDGES.filter((x) => x.kind === 'back')) { e.cv = corridorV + backSlots * 10; backSlots += 1; }
+  for (const e of EDGES.filter((x) => x.kind === 'back')) { e.cv = corridorV + backSlots * 10; e.backIdx = backSlots; backSlots += 1; }
   function route(e) {
     const a = N[e.from], b = N[e.to];
     let pts, label;
@@ -501,8 +563,15 @@ function build(flowId, force) {
       pts = [[uEnd(a) - 10, vEnd(a)], [uEnd(a) - 10, vEnd(a) + 16], [a.u - 12, vEnd(a) + 16], [a.u - 12, vEnd(a) - 28], [a.u, vEnd(a) - 28]];
       label = [a.u - 20, vEnd(a) + 16];
     } else if (e.kind === 'back') {
-      pts = [[uMid(a), vEnd(a)], [uMid(a), e.cv], [uMid(b), e.cv], [uMid(b), vEnd(b)]];
-      label = [uMid(b) - 10, (vEnd(b) + e.cv) / 2];
+      /* повтор: вниз из блока в промежуток под его рядом, по нему — в правый коридор, по коридору
+         вверх до промежутка над рядом цели и сверху в её правую часть. Стрелка идёт только по
+         промежуткам между рядами и не режет соседние блоки. */
+      const k = e.backIdx % 3;
+      const ug = Math.max(uEnd(a), L.rowU[a.r] + L.rowA[a.r]) + 12 + k * 5;
+      const ub = L.rowU[b.r] - 6 - k * 4;
+      const va = vEnd(a) - 12, vb = vEnd(b) - 12;
+      pts = [[uEnd(a), va], [ug, va], [ug, e.cv], [ub, e.cv], [ub, vb], [b.u, vb]];
+      label = [ub, (vb + e.cv) / 2];
     } else if (e.kind === 'side') {
       /* фоновая задача справа от блока: линия от правого края блока в зазор, вниз до уровня
          карточки задачи и к её левому краю; подпись «запускает» — у первой карточки */
@@ -536,16 +605,33 @@ function build(flowId, force) {
   out.push('        <!-- Phase headers -->');
   /* Этапы: если флоу сам объявил stages + stage у блоков, фазы считаются по ним,
      иначе берётся ручной список из CONFIG. */
+  /* Этап ряда — этап его блока на хребте, иначе этап большинства блоков ряда. Разделитель —
+     там, где этап ряда сменился; номер — по порядку первого появления этапа. Так этапы не
+     наезжают друг на друга, даже если отказ из раннего этапа стоит в ряду позднего. */
   const autoPhases = FLOW.stages
-    ? Object.entries(FLOW.stages).map(([key, label]) => {
-        const ids = IDS.filter((id) => S[id].stage === key && N[id]);
-        if (!ids.length) return null;
-        const sorted = ids.slice().sort((a, b) => N[a].r - N[b].r);
-        return { label, from: sorted[0], to: sorted[sorted.length - 1], variant: 'default' };
-      }).filter(Boolean)
+    ? (() => {
+        const stageOfRank = Array.from({ length: RANKS }, (_, r) => {
+          const real = IDS.filter((id) => N[id].r === r && S[id].stage && FLOW.stages[S[id].stage]);
+          const sp = real.find((id) => SPINE.has(id));
+          if (sp) return S[sp].stage;
+          /* на хребте в этом ряду только проходящая стрелка — ряд остаётся в текущем этапе */
+          if (IDS.every((id) => N[id].r !== r || !SPINE.has(id)) && Object.values(N).some((n) => !n.real && n.r === r && SPINE.has(n.id))) return null;
+          const cnt = {};
+          real.forEach((id) => { cnt[S[id].stage] = (cnt[S[id].stage] || 0) + 1; });
+          return Object.keys(cnt).sort((a, b) => cnt[b] - cnt[a])[0] || null;
+        });
+        const list = [], num = {};
+        stageOfRank.forEach((key, r) => {
+          if (!key) { if (list.length) list.at(-1).r2 = r; return; }
+          if (list.length && list.at(-1).key === key) { list.at(-1).r2 = r; return; }
+          if (!num[key]) num[key] = Object.keys(num).length + 1;
+          list.push({ key, label: FLOW.stages[key], r1: r, r2: r, n: num[key], variant: 'default' });
+        });
+        return list;
+      })()
     : null;
   for (const [pi, p] of (autoPhases || cfg.phases || []).entries()) {
-    const c1 = rank[p.from] ?? 0, c2 = p.to === null || rank[p.to] === undefined ? RANKS - 1 : rank[p.to];
+    const c1 = p.r1 ?? rank[p.from] ?? 0, c2 = p.r2 ?? (p.to === null || rank[p.to] === undefined ? RANKS - 1 : rank[p.to]);
     const uA = L.rowU[Math.min(c1, c2)] - 10, uB = L.rowU[Math.max(c1, c2)] + L.rowA[Math.max(c1, c2)] + 10;
     const [cls] = ARROW[p.variant] || ARROW.default; const accent = p.variant === 'emphasis' ? 't-backend' : p.variant === 'security' ? 't-security' : p.variant === 'dashed' ? 't-database' : 't-muted';
     const lw = unitsW(p.label, 8) + 14;
@@ -553,7 +639,7 @@ function build(flowId, force) {
       /* этап-разделитель, как в карте пути транзакции: номер в кружке, название и линия на всю ширину */
       const y = uA - 12, label = p.label.toUpperCase(), tw = unitsW(label, 9) + 6;
       out.push(`        <circle cx="34" cy="${y}" r="8" class="c-mask" stroke-width="1"/>`);
-      out.push(`        <text x="34" y="${y}" class="${accent}" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">${pi + 1}</text>`);
+      out.push(`        <text x="34" y="${y}" class="${accent}" font-size="8" font-weight="600" text-anchor="middle" dominant-baseline="central">${p.n ?? pi + 1}</text>`);
       out.push(`        <text x="48" y="${y}" class="${accent}" font-size="9" font-weight="600" letter-spacing="1.2" dominant-baseline="central">${esc(label)}</text>`);
       out.push(`        <line x1="${52 + tw}" y1="${y}" x2="${Math.ceil(L.W) - 24}" y2="${y}" class="a-dashed" stroke-width="1"/>`);
     } else if (vertical) {
@@ -650,7 +736,7 @@ function build(flowId, force) {
   };
   const graphs = [{ key: 'all', markup: fullGraph.markup, w: fullGraph.w, h: fullGraph.h }].concat(
     FLOW.presets.map((preset, i) => {
-      const g = renderGraph(scenarioIds(preset), { withDefs: true });
+      const g = renderGraph(scenarioIds(preset), { withDefs: true, spine: preset.path });
       /* У каждого графа свои id: иначе маркеры стрелок и градиенты ссылаются на defs
          первого (скрытого) SVG, и наконечники не рисуются вовсе. */
       const prefix = `s${i}-`;
